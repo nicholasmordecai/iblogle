@@ -1,0 +1,14 @@
+{
+    "ref": "master",
+    "path": "typings",
+    "compilerOptions": {
+      "module": "amd",
+      "target": "es5",
+      "declaration": true,
+      "sourceMap": true,
+      "outFile": "build/build.js"
+    },
+    "exclude": [
+      "build"
+    ]
+}

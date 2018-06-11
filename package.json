@@ -1,0 +1,37 @@
+{
+  "name": "nicholasmordecai",
+  "version": "1.0.0",
+  "description": "personal website",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run build && node bin/main.js",
+    "build": "gulp buildServer && gulp buildFrontend && gulp compileSASS && gulp bundleBrowserify",
+    "dev": "gulp start",
+    "production": "npm run build && node bin/main.js",
+    "pretest": "npm run build"
+  },
+  "author": "Nicholas Mordecai",
+  "license": "ISC",
+  "dependencies": {
+    "compression": "^1.7.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.3",
+    "express-hbs": "^1.0.4",
+    "fs": "0.0.1-security",
+    "gulp": "^3.9.1",
+    "gulp-browserify": "^0.5.1",
+    "gulp-nodemon": "^2.2.1",
+    "gulp-rename": "^1.2.3",
+    "gulp-sass": "^4.0.1",
+    "gulp-typescript": "^4.0.2",
+    "http": "0.0.0",
+    "raven": "^2.6.2",
+    "request": "^2.87.0",
+    "tslint": "^5.10.0",
+    "typescript": "^2.9.1"
+  },
+  "devDependencies": {
+    "@types/node": "^10.3.2",
+    "browser-sync": "^2.24.4"
+  }
+}
