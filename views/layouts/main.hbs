@@ -13,12 +13,11 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54624472-10"></script>
     <script>
         if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
-            document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.24.4'><\/script>".replace("HOST", location.hostname));
+            document.write("<script async src='http://HOST:3001/browser-sync/browser-sync-client.js?v=2.24.4'><\/script>".replace("HOST", location.hostname));
         } else {
             window.dataLayer = window.dataLayer || [];
             function gtag() { dataLayer.push(arguments); }
             gtag('js', new Date());
-
             gtag('config', 'UA-54624472-10');
         }
     </script>
@@ -82,6 +81,8 @@
     <script type="text/javascript" src="/revolution/js/jquery.themepunch.tools.min.js"></script>
     <script type="text/javascript" src="/revolution/js/jquery.themepunch.revolution.min.js"></script>
     <script type="text/javascript" src="/js/rev-slider.js"></script>
+    <script type="text/javascript" src="/js/masonry.min.js"></script>
+    
     <script type="text/javascript" src="/js/scripts.js"></script>
 
     <script type="text/javascript" src="/revolution/js/extensions/revolution.extension.video.min.js"></script>

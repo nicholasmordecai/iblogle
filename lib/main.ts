@@ -10,6 +10,8 @@ import * as cookieParser from 'cookie-parser';
 
 import MainRouter from './routes/router';
 import Error404 from './middleware/404';
+import Breadcrumb from './middleware/breadcrumb';
+
 
 var Raven = require('raven');
 Raven.config('https://4878089bb9314a34a92445e43a84f38a@sentry.io/1223324').install();
@@ -18,6 +20,7 @@ export default class Main {
 
     private _app: express.Express;
     private _router: express.Router;
+    private _hbs;
     private _http: http.Server;
 
     constructor() {
@@ -30,18 +33,6 @@ export default class Main {
 
         this._app.set('view engine', 'hbs');
 
-        this._app.engine('hbs', hbs.express4({
-            defaultLayout: 'bin/views/layouts/main.hbs',
-            partialsDir: 'bin/views/partials',
-            layoutsDir: 'bin/views/layouts'
-        }));
-
-        // this._app.enable('view cache');
-
-        this._app.use(compression());
-
-        this._app.use(cookieParser());
-
         // configure views path
         this._app.engine('hbs', hbs.express4({
             defaultLayout: __dirname + '/../views/layouts/main.hbs',
@@ -49,9 +40,15 @@ export default class Main {
             layoutsDir: __dirname + '/../views/layouts'
         }));
 
+        // this._app.enable('view cache');
+
+        this._app.use(compression());
+        this._app.use(cookieParser());
+
         // configure static path
         this._app.use(express.static('public'));
 
+        this._app.use(Breadcrumb);
         this._app.use('/', MainRouter());
 
         // use the 404 custom middleware

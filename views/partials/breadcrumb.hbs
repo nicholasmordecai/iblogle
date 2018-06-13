@@ -1,19 +1,21 @@
-<!-- Page Title -->
 <section class="page-title style-2">
     <div class="container relative clearfix">
         <div class="title-holder">
             <div class="title-text">
                 <h1>{{title}}</h1>
                 <ol class="breadcrumb">
-                    <li>
-                        <a href="/">Home</a>
+                    {{#each path}}
+                    <li {{#if this.last}} class="active" {{/if}}>
+                    {{#if this.last}}
+                        {{this.slug}}
+                    {{else}}
+                        <a href="{{this.href}}">{{this.slug}}</a>
+                    {{/if}}
+                        
                     </li>
-                    <li class="active">
-                        {{slug}}
-                    </li>
+                    {{/each}}
                 </ol>
             </div>
         </div>
     </div>
 </section>
-<!-- end page title -->
