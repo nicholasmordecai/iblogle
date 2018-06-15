@@ -21,7 +21,7 @@ export default (req, res, next) => {
     path[0].slug = 'home';
 
     for(let p of path) {
-        p.slug = Utils.capitalize(p.slug);
+        p.slug = Utils.stripSlugAndCapitalize(p.slug);
     }
 
     req.breadcrumbs = path;

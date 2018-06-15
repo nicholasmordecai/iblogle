@@ -1,0 +1,72 @@
+<style>
+    #owl-slider-one-img:hover .owl-next,
+    #owl-slider-small-img:hover .owl-next {
+        background: #f2f2f2;
+    }
+
+    #owl-slider-one-img:hover .owl-prev,
+    #owl-slider-small-img:hover .owl-prev {
+        background: #f2f2f2;
+    }
+</style>
+
+<section class="section-wrap-mp portfolio-single">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-8">
+                <div id="owl-slider-one-img" class="owl-carousel owl-theme oh" style="opacity: 1; display: block;">
+                    {{#each data.sliderURLs}}
+                    <div class="item">
+                        <img src="{{this}}" alt="">
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="portfolio-description">
+                    <h2>{{data.descriptionTitle}}</h2>
+                    <p>We further know that the subconscious has recorded every event that has ever happened to us. Every incident
+                        in our personal history is recorded within, along with the emotions and thoughts evoked by those
+                        incidents.
+                    </p>
+                    <ul>
+                        <li>
+                            <span>Date:</span> 15 May, 2015</li>
+                        <li>
+                            <span>Category:</span>
+                            <a href="#"> Mockups</a>
+                        </li>
+                        <li>
+                            <span>Client:</span>
+                            <a href="#"> Envat0</a>
+                        </li>
+                    </ul>
+                    <a href="#" class="btn btn-sm btn-dark">View Project</a>
+                    <div class="entry-share clearfix">
+                        <h6>Share:</h6>
+                        <div class="socials">
+                            <a href="#">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+                            <a href="#">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                            <a href="#">
+                                <i class="fa fa-google-plus"></i>
+                            </a>
+                            <a href="#">
+                                <i class="fa fa-pinterest-p"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end description -->
+
+        </div>
+    </div>
+</section>
+
+{{> portfolio/recent-works }}

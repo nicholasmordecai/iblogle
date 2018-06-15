@@ -10,7 +10,7 @@ import * as cookieParser from 'cookie-parser';
 
 import MainRouter from './routes/router';
 import Error404 from './middleware/404';
-import Breadcrumb from './middleware/breadcrumb';
+import BlogPostController from './controllers/blogPostController';
 
 
 var Raven = require('raven');
@@ -24,6 +24,9 @@ export default class Main {
     private _http: http.Server;
 
     constructor() {
+        BlogPostController.watchPostFolder();
+        BlogPostController.readJSONToCache();
+
         // create new instance of express
         this._app = express();
 
@@ -48,7 +51,6 @@ export default class Main {
         // configure static path
         this._app.use(express.static('public'));
 
-        this._app.use(Breadcrumb);
         this._app.use('/', MainRouter());
 
         // use the 404 custom middleware

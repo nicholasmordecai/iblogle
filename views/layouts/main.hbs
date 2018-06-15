@@ -13,7 +13,7 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54624472-10"></script>
     <script>
         if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
-            document.write("<script async src='http://HOST:3001/browser-sync/browser-sync-client.js?v=2.24.4'><\/script>".replace("HOST", location.hostname));
+            document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.24.4'><\/script>".replace("HOST", location.hostname));
         } else {
             window.dataLayer = window.dataLayer || [];
             function gtag() { dataLayer.push(arguments); }
@@ -37,6 +37,8 @@
     <link rel="stylesheet" href="/css/responsive.css" />
     <link rel="stylesheet" href="/css/spacings.css" />
     <link rel="stylesheet" href="/css/animate.css" />
+    {{!-- <link rel="stylesheet" href="/css/owl.carousel.min.css" />
+    <link rel="stylesheet" href="/css/owl.theme.default.min.css"> --}}
     <link rel="stylesheet" href="/css/custom.css" />
 
     <!-- Favicons -->
@@ -78,6 +80,7 @@
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/plugins.js"></script>
+    {{!-- <script type="text/javascript" src="/js/owl.carousel.min.js"></script> --}}
     <script type="text/javascript" src="/revolution/js/jquery.themepunch.tools.min.js"></script>
     <script type="text/javascript" src="/revolution/js/jquery.themepunch.revolution.min.js"></script>
     <script type="text/javascript" src="/js/rev-slider.js"></script>

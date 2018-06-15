@@ -31,22 +31,29 @@
 
               <ul class="nav navbar-nav local-scroll text-center">
 
-                <li {{#if home}}class="active" {{/if}} class="sliding-middle-out">
+                <li {{#if home}}class="active" {{/if}}>
                   <a href="/">Home</a>
                 </li>
-                <li {{#if about}}class="active" {{/if}} class="sliding-middle-out">
+                {{!-- <li {{#if about}}class="active" {{/if}}>
                   <a href="/about">About</a>
+                </li> --}}
+                <li class="dropdown {{#if about}}active {{/if}}">
+                  <a href="#" class="dropdown-toggle">About</a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a href="/about">About Me</a>
+                    </li>
+                  </ul>
                 </li>
-                <li {{#if portfolio}}class="active" {{/if}} class="sliding-middle-out">
+                <li {{#if portfolio}}class="active" {{/if}}>
                   <a href="/portfolio">Portfolio</a>
                 </li>
-                <li {{#if technologies}}class="active" {{/if}} class="sliding-middle-out">
+                <li {{#if technologies}}class="active" {{/if}}>
                   <a href="/technologies">Technologies</a>
                 </li>
-                <li {{#if contact}}class="active" {{/if}} class="sliding-middle-out">
+                <li {{#if contact}}class="active" {{/if}}>
                   <a href="/contact">Contact</a>
                 </li>
-
               </ul>
             </div>
           </div>
