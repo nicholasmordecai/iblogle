@@ -9,6 +9,7 @@ import * as compression from 'compression';
 import * as cookieParser from 'cookie-parser';
 
 import MainRouter from './routes/router';
+import APIRouter from './api/api';
 import Error404 from './middleware/404';
 import BlogPostController from './controllers/blogPostController';
 
@@ -52,6 +53,7 @@ export default class Main {
         this._app.use(express.static('public'));
 
         this._app.use('/', MainRouter());
+        this._app.use('/api', APIRouter());
 
         // use the 404 custom middleware
         this._app.use(Error404);

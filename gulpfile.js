@@ -73,9 +73,8 @@ gulp.task('frontendTS', function (cb) {
         });
 });
 
-gulp.task('reload', function (done) {
+gulp.task('reload', function () {
     browserSync.reload();
-    done();
 })
 
 gulp.task('inject', function () {
@@ -96,9 +95,8 @@ gulp.task('browserify', function () {
         .pipe(gulp.dest('./public/js', {
             overwrite: true
         }))
-        .on('end', function (done) {
+        .on('end', function () {
             browserSync.reload();
-            done();
         });
 });
 
