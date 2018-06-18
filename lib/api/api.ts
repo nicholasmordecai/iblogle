@@ -9,5 +9,9 @@ export default () => {
         res.status(200).json('ok');
     });
 
+    router.post('/test', (req, res, next) => {
+        res.status(200).json('test');
+    });
+
     return router;
 }

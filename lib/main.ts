@@ -68,4 +68,6 @@ export default class Main {
     }
 }
 
-new Main();
+var server = new Main();
+
+module.exports = server;

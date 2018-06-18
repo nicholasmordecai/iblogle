@@ -77,7 +77,7 @@ export default () => {
         });
     });
 
-    router.get('/about/travels', (req, res, next) => {
+    router.get('/about/travelling', (req, res, next) => {
         res.render('pages/travels', {
             travels: true,
             title: 'My Travels',
