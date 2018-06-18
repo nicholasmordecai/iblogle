@@ -1,23 +1,77 @@
 const request = require('supertest');
-const expect = require('expect.js');
+const expect = require('chai').expect
 var app = require('./../bin/main.js');
 
-
-describe('Testing The Pages', function(){
-  it ('Should Load Home Page', function(done){
+describe('Testing The Pages', function () {
+  it('Should Load Home Page', function (done) {
     request(app)
-      .get('/user')
-      .expect(200)
-      .end(function(err, res) {
-        if (err) throw err;
+      .get('/')
+      .end(function (err, res) {
+        expect(res.status).to.equal(200)
+        done();
       });
-   });
+  });
 
-  //  it ('Should Load Contact Page', function(done){
-  //   request.get(app).end(function(error, res){
-  //    expect(res).to.exist;
-  //    expect(res.status).to.equal(200);
-  //    done();
-  //   });
-  //  });
- });
+  it('Should Load About Page', function (done) {
+    request(app)
+      .get('/about')
+      .end(function (err, res) {
+        expect(res.status).to.equal(200)
+        done();
+      });
+  });
+
+  it('Should Load Portfolio Page', function (done) {
+    request(app)
+      .get('/portfolio')
+      .end(function (err, res) {
+        expect(res.status).to.equal(200)
+        done();
+      });
+  });
+
+  it('Should Load Blog Piece', function (done) {
+    request(app)
+      .get('/portfolio/ministry-of-furniture')
+      .end(function (err, res) {
+        expect(res.status).to.equal(200)
+        done();
+      });
+  });
+
+  it('Should Fail To Load Blog Piece', function (done) {
+    request(app)
+      .get('/portfolio/asdasd')
+      .end(function (err, res) {
+        expect(res.status).to.equal(404)
+        done();
+      });
+  });
+
+  it('Should Load Technologies Page', function (done) {
+    request(app)
+      .get('/technologies')
+      .end(function (err, res) {
+        expect(res.status).to.equal(200)
+        done();
+      });
+  });
+
+  it('Should Load Contact Page', function (done) {
+    request(app)
+      .get('/contact')
+      .end(function (err, res) {
+        expect(res.status).to.equal(200)
+        done();
+      });
+  });
+
+  it('Should Redirect To 404 Page', function (done) {
+    request(app)
+      .get('/asdasdasd')
+      .end(function (err, res) {
+        expect(res.status).to.equal(404)
+        done();
+      });
+  });
+});

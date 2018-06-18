@@ -8,7 +8,8 @@
     "build": "gulp buildServer && gulp buildFrontend && gulp compileSASS && gulp bundleBrowserify",
     "dev": "gulp start",
     "production": "npm run build && node bin/main.js",
-    "test": "NODE_ENV=test && mocha"
+    "test": "set NODE_ENV=test && mocha",
+    "test-coverage": "set NODE_ENV=test && nyc mocha --timeout=3000"
   },
   "author": "Nicholas Mordecai",
   "license": "ISC",
@@ -38,7 +39,9 @@
     "chai": "^4.1.2",
     "chai-http": "^4.0.0",
     "expect.js": "^0.3.1",
+    "istanbul": "^0.4.5",
     "mocha": "^5.2.0",
+    "nyc": "^12.0.2",
     "superagent": "^3.8.3",
     "supertest": "^3.1.0"
   }

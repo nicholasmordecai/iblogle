@@ -19,7 +19,7 @@ Raven.config('https://4878089bb9314a34a92445e43a84f38a@sentry.io/1223324').insta
 
 export default class Main {
 
-    private _app: express.Express;
+    public static _app: express.Express;
     private _router: express.Router;
     private _hbs;
     private _http: http.Server;
@@ -29,16 +29,16 @@ export default class Main {
         BlogPostController.readJSONToCache();
 
         // create new instance of express
-        this._app = express();
+        Main._app = express();
 
         // setup the json parser middleware
-        this._app.use(bodyParser.urlencoded({ extended: true }));
-        this._app.use(bodyParser.json());
+        Main._app.use(bodyParser.urlencoded({ extended: true }));
+        Main._app.use(bodyParser.json());
 
-        this._app.set('view engine', 'hbs');
+        Main._app.set('view engine', 'hbs');
 
         // configure views path
-        this._app.engine('hbs', hbs.express4({
+        Main._app.engine('hbs', hbs.express4({
             defaultLayout: __dirname + '/../views/layouts/main.hbs',
             partialsDir: __dirname + '/../views/partials',
             layoutsDir: __dirname + '/../views/layouts'
@@ -46,23 +46,23 @@ export default class Main {
 
         // this._app.enable('view cache');
 
-        this._app.use(compression());
-        this._app.use(cookieParser());
+        Main._app.use(compression());
+        Main._app.use(cookieParser());
 
         // configure static path
-        this._app.use(express.static('public'));
+        Main._app.use(express.static('public'));
 
-        this._app.use('/', MainRouter());
-        this._app.use('/api', APIRouter());
+        Main._app.use('/', MainRouter());
+        Main._app.use('/api', APIRouter());
 
         // use the 404 custom middleware
-        this._app.use(Error404);
+        Main._app.use(Error404);
 
         // set the port to listen on
-        this._app.set('port', 4200);
+        Main._app.set('port', 4200);
 
         // start the actual application
-        this._app.listen(this._app.get('port'), () => {
+        Main._app.listen(Main._app.get('port'), () => {
             console.log('listening on port 4200');
         });
     }
@@ -70,4 +70,4 @@ export default class Main {
 
 var server = new Main();
 
-module.exports = server;
+module.exports = Main._app;

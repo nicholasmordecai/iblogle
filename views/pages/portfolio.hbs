@@ -9,28 +9,26 @@
         </div>
 
         {{#each blogPost}}
-            <div class="grid-3-col grid-wide grid-gutter">
-                <div class="work-item web-design print">
-                    <div class="work-img">
-                        <img src="{{this.thumbnailURL}}" alt="">
-                        <div class="work-overlay">
-                            <div class="work-description">
-                                <h3>
-                                    <a href="/portfolio/{{this.slug}}">{{this.title}}</a>
-                                </h3>
-                                <span>
-                                    {{this.descriptionTitle}}
-                                </span>
-                            </div>
-                            <a href="/portfolio/{{this.slug}}" class="btn btn-lg btn-transparent" title="View More">More</a>
+        <div class="grid-3-col grid-wide grid-gutter">
+            <div class="work-item web-design print">
+                <div class="work-img">
+                    <img src="{{this.thumbnailURL}}" alt="">
+                    <div class="work-overlay">
+                        <div class="work-description">
+                            <h3>
+                                <a href="/portfolio/{{this.slug}}">{{this.title}}</a>
+                            </h3>
+                            <span>
+                                {{this.descriptionTitle}}
+                            </span>
                         </div>
+                        <a href="/portfolio/{{this.slug}}" class="btn btn-lg btn-transparent" title="View More">More</a>
                     </div>
                 </div>
             </div>
+        </div>
         {{/each}}
 
     </div>
 </section>
-{{> bottom-3 }}
-
-{{> bottom-2 }}
+{{> bottom-3 }} {{> bottom-2 }}
