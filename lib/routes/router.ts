@@ -19,7 +19,7 @@ export default () => {
     });
 
 
-    router.get('/about', (req, res, next) => {
+    router.get('/about-me', (req, res, next) => {
         res.render('pages/about', { about: true, title: 'About Me', path: req.breadcrumbs });
     });
 
