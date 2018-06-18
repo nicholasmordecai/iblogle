@@ -2,7 +2,7 @@
   "name": "nicholasmordecai",
   "version": "1.0.0",
   "description": "personal website",
-  "main": "index.js",
+  "main": "bin/main.js",
   "scripts": {
     "start": "npm run build && node bin/main.js",
     "build": "gulp buildServer && gulp buildFrontend && gulp compileSASS && gulp bundleBrowserify",
