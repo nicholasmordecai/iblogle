@@ -3,6 +3,13 @@ const expect = require('chai').expect
 var app = require('./../bin/main.js');
 
 describe('Testing The Pages', function () {
+
+  after(function(done){
+    done();
+    process.exit(0)
+  })
+
+
   it('Should Load Home Page', function (done) {
     request(app)
       .get('/')
