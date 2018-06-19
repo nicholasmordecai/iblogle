@@ -1,4 +1,3 @@
-// import Global from './controllers/globalController';
 import * as fs from 'fs';
 import * as express from 'express';
 import * as hbs from 'express-hbs';
@@ -12,10 +11,7 @@ import MainRouter from './routes/router';
 import APIRouter from './api/api';
 import Error404 from './middleware/404';
 import BlogPostController from './controllers/blogPostController';
-
-
-var Raven = require('raven');
-Raven.config('https://4878089bb9314a34a92445e43a84f38a@sentry.io/1223324').install();
+import ErrorController from './controllers/errorController';
 
 export default class Main {
 
@@ -25,6 +21,8 @@ export default class Main {
     private _http: http.Server;
 
     constructor() {
+        ErrorController.init();
+
         BlogPostController.watchPostFolder();
         BlogPostController.readJSONToCache();
 

@@ -18,8 +18,7 @@ export default () => {
         res.render('pages/test', {layout: 'test', home: true });
     });
 
-
-    router.get('/about-me', (req, res, next) => {
+    router.get('/about', (req, res, next) => {
         res.render('pages/about', { about: true, title: 'About Me', path: req.breadcrumbs });
     });
 
