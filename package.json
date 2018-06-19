@@ -8,8 +8,8 @@
     "build": "gulp buildServer && gulp buildFrontend && gulp compileSASS && gulp bundleBrowserify",
     "dev": "set NODE_ENV=development && gulp start",
     "production": "npm run build && node bin/main.js",
-    "pretest": "set NODE_ENV=test npm run build",
-    "test": "mocha ./test/top.js",
+    "pretest": "npm run build",
+    "test": "set NODE_ENV=test mocha ./test/top.js",
     "dev-test": "set NODE_ENV=test && mocha ./test/top.js",
     "test-coverage": "set NODE_ENV=test && nyc mocha --timeout=3000"
   },
