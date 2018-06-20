@@ -1,0 +1,107 @@
+<!-- Navigation -->
+<header class="nav-type-1" id="home">
+
+  <nav class="navbar {{#if home}} navbar-fixed-top {{else}} navbar-static-top {{/if}}">
+    <div class="{{#if home}} navigation-overlay {{else}} navigation {{/if}} ">
+      <div class="container-fluid relative">
+        <div class="row">
+
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            <!-- Logo -->
+            <div class="logo-container">
+              <div class="logo-wrap local-scroll">
+                <a href="/">
+                  <img class="logo" src="/img/logo_white.png" alt="logo">
+                </a>
+              </div>
+            </div>
+          </div>
+          <!-- end navbar-header -->
+
+
+          <div class="col-md-8 col-xs-12 nav-wrap">
+            <div class="collapse navbar-collapse text-center" id="navbar-collapse">
+
+              <ul class="nav navbar-nav local-scroll text-center">
+
+                <li {{#if home}}class="active" {{/if}}>
+                  <a href="/">Home</a>
+                </li>
+                <li class="dropdown {{#if about}}active {{/if}}">
+                  <a href="/about" class="dropdown-toggle">About</a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a href="/about">About Me</a>
+                    </li>
+                    <li>
+                      <a href="/programming">Programming</a>
+                    </li>
+                    <li>
+                      <a href="/music">Music</a>
+                    </li>
+                    <li>
+                      <a href="/photography">Photography</a>
+                    </li>
+                    <li>
+                      <a href="/travelling">Travelling</a>
+                    </li>
+                  </ul>
+                </li>
+                <li {{#if portfolio}}class="active" {{/if}}>
+                  <a href="/portfolio">Portfolio</a>
+                </li>
+                <li {{#if technologies}}class="active" {{/if}}>
+                  <a href="/technologies">Technologies</a>
+                </li>
+                <li {{#if contact}}class="active" {{/if}}>
+                  <a href="/contact">Contact</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- end col -->
+
+          <div class="menu-socials hidden-sm hidden-xs">
+            <ul>
+              <li>
+                <a href="https://www.linkedin.com/in/nicholas-mordecai-4a6655b2/">
+                  <i class="fa fa-linkedin"></i>
+                </a>
+              </li>
+
+              <li>
+                <a href="https://https://facebook.com/nmordecai1">
+                  <i class="fa fa-facebook"></i>
+                </a>
+              </li>
+
+              <li>
+                <a href="https://github.com/megmut" target="_blank">
+                  <i class="fa fa-github"></i>
+                </a>
+              </li>
+              <li>
+                <a href="/contact">
+                  <i class="fa fa-envelope"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- end row -->
+      </div>
+      <!-- end container -->
+    </div>
+    <!-- end navigation -->
+  </nav>
+  <!-- end navbar -->
+
+</header>
+<!-- end navigation -->

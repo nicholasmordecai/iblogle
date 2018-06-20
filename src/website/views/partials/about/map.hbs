@@ -1,0 +1,113 @@
+<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBunZlHLLDQ9l0_05_D71QVNsO5rxALU3o&sensor=false&extension=.js'></script>
+
+<script> 
+    // add grand canyon, egypt
+    google.maps.event.addDomListener(window, 'load', init);
+    var map;
+    function init() {
+        var mapOptions = {
+            center: new google.maps.LatLng(39.869958, -24.071618),
+            zoom: 3,
+            zoomControl: true,
+            zoomControlOptions: {
+                style: google.maps.ZoomControlStyle.DEFAULT,
+            },
+            disableDoubleClickZoom: true,
+            mapTypeControl: true,
+            mapTypeControlOptions: {
+                style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+            },
+            scaleControl: true,
+            scrollwheel: false,
+            panControl: true,
+            streetViewControl: true,
+            draggable: true,
+            overviewMapControl: true,
+            overviewMapControlOptions: {
+                opened: false,
+            },
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+        }
+        var mapElement = document.getElementById('map');
+        var map = new google.maps.Map(mapElement, mapOptions);
+
+        var locations = [
+            { lat: 52.1307, lng: -3.7837 }, // wales
+            { lat: 52.3555, lng: -1.1743 }, // england
+            { lat: 56.4907, lng: -4.2026 }, // scotland
+            { lat: 53.4129, lng: -8.2439 }, // ireland
+            { lat: 40.4637, lng: -3.7492 }, // spain
+            { lat: 39.5696, lng: 2.6502 }, // palma
+            { lat: 46.2276, lng: 2.2137 }, // france
+            { lat: 50.5039, lng: 4.4699 }, // belgium
+            { lat: 52.1326, lng: 5.2913 }, // netherlands
+            { lat: 60.1282, lng: 14.6435 }, // sweeden
+            { lat: 51.1657, lng: 10.4515 }, // germany
+            { lat: 46.8182, lng: 8.2275 }, // switzerland
+            { lat: 47.1625, lng: 19.5033 }, // hungary
+            { lat: 45.9432, lng: 24.9668 }, // romania
+            { lat: 35.1264, lng: 33.4299 }, // cyprus
+            { lat: 26.8206, lng: 30.8025 }, // egypt
+            { lat: 15.8700, lng: 100.9925 }, // thailand
+            { lat: 40.7128, lng: -74.0060 }, // nyc
+            { lat: 27.6648, lng: -81.5158 }, // florida
+            { lat: 18.9712, lng: -72.2852 }, // haiti
+            { lat: 18.2208, lng: -66.5901 }, // puerto rico
+            { lat: 36.7783, lng: -119.4179 }, // california
+            { lat: 34.0489, lng: -111.0937 }, // arizona
+            { lat: 38.8026, lng: -116.4194 }, // nevada
+            { lat: 43.8041, lng: -120.5542 }, // oregon
+            { lat: 47.7511, lng: -120.7401 }, // washington
+            { lat: 46.8797, lng: -110.3626 }, // montana
+            { lat: 44.0682, lng: -114.7420 }, // idaho
+            { lat: 43.0760, lng: -107.2903 }, // wyoming
+            { lat: 39.3210, lng: -111.5937 }, // utah
+            { lat: 49.2827, lng: -123.1207 }, // vancouver
+            { lat: 51.0486, lng: -114.0708 }, // calgary
+            { lat: 51.1784, lng: -115.5708 }, // banff
+        ];
+
+        for (var location of locations) {
+            var marker = new google.maps.Marker({
+                position: {lat: location.lat, lng: location.lng},
+                map: map,
+                title: ''
+            });
+        }
+
+
+    }
+</script>
+<style>
+    #map {
+        height: 35em;
+        width: 100%;
+    }
+
+    .gm-style-iw * {
+        display: block;
+        width: 100%;
+    }
+
+    .gm-style-iw h4,
+    .gm-style-iw p {
+        margin: 0;
+        padding: 0;
+    }
+
+    .gm-style-iw a {
+        color: #4272db;
+    }
+</style>
+
+<section class="section-wrap-mp">
+    <div class="container">
+        <div class="row mt-minus-30">
+            <div class="col-lg-12">
+                <div class="about-description mt-30">
+                    <div id='map'></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

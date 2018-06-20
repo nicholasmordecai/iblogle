@@ -1,0 +1,42 @@
+<!-- Portfolio -->
+<section class="section-wrap-mp pb-50">
+    <div class="container">
+
+        <!-- filter -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portfolio-filter">
+                    <a href="#" class="filter active" data-filter="*">All</a>
+                    <a href="#" class="filter" data-filter=".apis">API's</a>
+                    <a href="#" class="filter" data-filter=".libs">Libraries</a>
+                    <a href="#" class="filter" data-filter=".server-side">Server-Side</a>
+                    <a href="#" class="filter" data-filter=".dev-ops">Dev Ops</a>
+                </div>
+            </div>
+        </div>
+        <!-- end filter -->
+
+        <div class="row">
+
+            <div class="works-grid titles">
+
+                {{#each techs}}
+                <div class="col-md-2 col-sm-3 col-xs-6 work-item {{this.filters}}">
+                    <div class="work-container">
+                        <div class="work-img">
+                            <img src="{{this.imgSmall}}" alt="">
+                        </div>
+                        <div class="work-description">
+                            <h3>
+                                <a href="{{this.href}}">{{this.title}}</a>
+                            </h3>
+
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end portfolio-->

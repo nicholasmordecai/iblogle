@@ -1,5 +1,5 @@
 var common = require("./../common");
-var Breadcrumbs = require('./../../bin/middleware/breadcrumb');
+var Breadcrumbs = require('./../../build/server/middleware/breadcrumb');
 
 it('# Breadcrumbs', function (done) {
   let req = {

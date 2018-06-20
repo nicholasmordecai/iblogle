@@ -1,0 +1,21 @@
+{
+  "ref": "master",
+  "path": "typings",
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "outDir": "./../../build/server",
+    "lib": ["es5", "es6", "dom"]
+  },
+  "exclude": [
+    "node_modules",
+    "typings/global",
+    "typings/index.d.ts"
+  ],
+  "files": [
+    "./main.ts"
+  ]
+}

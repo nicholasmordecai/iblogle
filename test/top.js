@@ -30,6 +30,6 @@ describe("Beginning Tests", function () {
         // setTimeout and process exit are to ensure the test pipeline quits
         setTimeout(function () {
             process.exit(0);
-        }, 3000)
+        }, 500)
     });
 });

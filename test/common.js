@@ -1,7 +1,7 @@
 const request = require('supertest');
 const expect = require('chai').expect;
 const isHTML = require('is-html');
-var app = require('./../bin/main.js');
+var app = require('./../build/server/main.js');
 
 var options = {
     foo: "foo"
