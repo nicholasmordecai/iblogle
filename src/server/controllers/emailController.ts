@@ -1,9 +1,9 @@
 import * as nodemailer from 'nodemailer';
 
 export default class EmailController {
-    public static sendEmail(from: string, subject: string, body: string) {
+    public static sendEmail(from: string, subject: string, body: string, callback: Function) {
         let transporter = nodemailer.createTransport({
-            service: 'gmail',
+            service: 'Gmail',
             auth: {
                 user: process.env.emailUser,
                 pass: process.env.emailPassword
@@ -12,16 +12,11 @@ export default class EmailController {
 
         const mailOptions = {
             from: from,
-            to: 'to@email.com',
+            to: process.env.emailUser,
             subject: subject,
             html: body
         };
 
-        transporter.sendMail(mailOptions, function (err, info) {
-            if(err)
-              console.log(err)
-            else
-              console.log(info);
-        });
+        transporter.sendMail(mailOptions, callback);
     }
 }

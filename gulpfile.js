@@ -42,7 +42,7 @@ gulp.task('nodemon', function () {
         })
         .on('restart', function () {
             console.log('Express Restarting...')
-            browserSync.reload();
+            //browserSync.reload();
         })
         .on('crash', function () {
             console.error('Application has crashed!\n Restarting in 5 seconds...')

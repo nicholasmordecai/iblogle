@@ -25,7 +25,7 @@ export default class Main {
 
         BlogPostController.watchPostFolder();
         BlogPostController.readJSONToCache();
-
+        
         // create new instance of express
         Main._app = express();
 
@@ -63,13 +63,12 @@ export default class Main {
 
         // start the actual application
         Main._app.listen(Main._app.get('port'), () => {
-            if(process.env.NODE_ENV === 'development') {
-                console.log('listening on port 4200');
-            }
+            console.log('Express Started, listening on port 4200');
         });
     }
 }
 
 var server = new Main();
 
+// here so supertest can access easily
 module.exports = Main._app;
