@@ -39,7 +39,7 @@
 
       <div class="col-md-8">
         <form id="contact-form" action="/api/contact-form/" method="POST">
-
+          <input type="hidden" name="_csrf" value="{{csrfToken}}">
           <div class="row contact-row">
             <div class="col-md-6 contact-name">
               <input name="name" id="name" type="text" placeholder="Name*" required>

@@ -6,10 +6,12 @@ import * as path from 'path';
 import * as bodyParser from 'body-parser';
 import * as compression from 'compression';
 import * as cookieParser from 'cookie-parser';
+import * as helmet from 'helmet';
 
 import MainRouter from './routes/router';
 import APIRouter from './api/api';
 import Error404 from './middleware/404';
+import ErrorCSRF from './middleware/csrf';
 import BlogPostController from './controllers/blogPostController';
 import ErrorController from './controllers/errorController';
 
@@ -21,12 +23,13 @@ export default class Main {
     private _http: http.Server;
 
     constructor() {
-        ErrorController.init();
-        
-        BlogPostController.readJSONToCache();
-
         // create new instance of express
         Main._app = express();
+
+        Main._app.use(helmet());
+
+        ErrorController.init();
+        BlogPostController.readJSONToCache();
 
         // setup the json parser middleware
         Main._app.use(bodyParser.urlencoded({ extended: true }));
@@ -58,6 +61,7 @@ export default class Main {
 
         // use the 404 custom middleware
         Main._app.use(Error404);
+        Main._app.use(ErrorCSRF.handleError(Main._app));
 
         // set the port to listen on
         Main._app.set('port', 4200);

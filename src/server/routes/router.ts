@@ -1,8 +1,11 @@
 import { Router } from 'express';
+import * as csrf  from 'csurf';
+
 import Technologies from './../data/technologies';
 import BlogPostController from './../controllers/blogPostController';
 import Breadcrumb from './../middleware/breadcrumb';
 
+var csrfProtection = csrf({ cookie: true });
 let router;
 
 export default () => {
@@ -14,7 +17,7 @@ export default () => {
     });
 
     router.get('/test', (req, res, next) => {
-        res.render('pages/test', {layout: 'test', home: true });
+        res.render('pages/test', { layout: 'test', home: true });
     });
 
     router.get('/about', (req, res, next) => {
@@ -22,7 +25,7 @@ export default () => {
     });
 
     router.get('/portfolio', (req, res, next) => {
-        res.render('pages/portfolio', { 
+        res.render('pages/portfolio', {
             portfolio: true,
             title: 'My Work',
             path: req.breadcrumbs,
@@ -55,8 +58,13 @@ export default () => {
         });
     });
 
-    router.get('/contact', (req, res, next) => {
-        res.render('pages/contact', { contact: true, title: 'Contact Me', slug: 'Contact' });
+    router.get('/contact', csrfProtection, (req, res, next) => {
+        res.render('pages/contact', {
+            contact: true,
+            title: 'Contact Me',
+            slug: 'Contact',
+            csrfToken: req.csrfToken()
+        });
     });
 
     router.get('/about/music', (req, res, next) => {
