@@ -23,7 +23,7 @@ export default class Main {
     constructor() {
         ErrorController.init();
 
-        console.log(process.env.emailUser, process.env.emailPassword)
+        console.log(process.env.GMAILUSER, process.env.GMAILAPPPASSWORD)
 
         BlogPostController.watchPostFolder();
         BlogPostController.readJSONToCache();

@@ -5,14 +5,14 @@ export default class EmailController {
         let transporter = nodemailer.createTransport({
             service: 'Gmail',
             auth: {
-                user: process.env.emailUser,
-                pass: process.env.emailPassword
+                user: process.env.GMAILUSER,
+                pass: process.env.GMAILAPPPASSWORD
             }
         });
 
         const mailOptions = {
             from: from,
-            to: process.env.emailUser,
+            to: process.env.GMAILUSER,
             subject: subject,
             html: body
         };
