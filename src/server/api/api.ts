@@ -7,10 +7,8 @@ export default () => {
 
     router.post('/contact-form', (req, res, next) => {
         EmailController.sendEmail(req.body.mail, req.body.subject, req.body.comment, (error, info) => {
-            console.log(error, info)
+            res.status(200).json({error: error, info: info});
         });
-        console.log(req.body);
-        res.status(200).json('ok');
     });
 
     router.post('/test', (req, res, next) => {

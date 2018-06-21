@@ -23,9 +23,11 @@ export default class Main {
     constructor() {
         ErrorController.init();
 
+        console.log(process.env.emailUser, process.env.emailPassword)
+
         BlogPostController.watchPostFolder();
         BlogPostController.readJSONToCache();
-        
+
         // create new instance of express
         Main._app = express();
 
