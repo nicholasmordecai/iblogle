@@ -3,7 +3,6 @@ import Technologies from './../data/technologies';
 import BlogPostController from './../controllers/blogPostController';
 import Breadcrumb from './../middleware/breadcrumb';
 
-
 let router;
 
 export default () => {

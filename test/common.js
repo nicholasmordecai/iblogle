@@ -1,6 +1,7 @@
 const request = require('supertest');
 const expect = require('chai').expect;
 const isHTML = require('is-html');
+process.env.NODE_ENV = 'test';
 var app = require('./../build/server/main.js');
 
 var options = {

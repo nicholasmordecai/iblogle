@@ -8,11 +8,11 @@
     "build": "tsc --p src/server/tsconfig.json && tsc --p src/website/ts/tsconfig.json && gulp fullBuild",
     "dev": "set NODE_ENV=development && gulp start",
     "production": "npm run build && node bin/main.js",
-    "pretest": "set NODE_ENV=test && npm run build",
+    "pretest": "npm run build",
     "test": "mocha ./test/top.js",
     "posttest": "npm run test-coverage",
-    "dev-test": "set NODE_ENV=test && mocha ./test/top.js",
-    "test-coverage": "set NODE_ENV=test && nyc --report-dir build/website/public/coverage --reporter=lcov  mocha ./test/top.js "
+    "dev-test": "mocha ./test/top.js",
+    "test-coverage": "nyc --report-dir build/website/public/coverage --reporter=lcov  mocha ./test/top.js "
   },
   "author": "Nicholas Mordecai",
   "license": "ISC",
