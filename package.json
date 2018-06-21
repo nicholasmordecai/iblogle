@@ -10,7 +10,7 @@
     "production": "npm run build && node bin/main.js",
     "pretest": "npm run build",
     "test": "mocha ./test/top.js",
-    "deploy": "pm2 deploy ecosystem.config.js production",
+    "deploy": "pm2 deploy ecosystem.config.js production --only nicholasmordecai.co.uk ",
     "posttest": "npm run test-coverage",
     "dev-test": "mocha ./test/top.js",
     "test-coverage": "nyc --report-dir build/website/public/coverage --reporter=lcov  mocha ./test/top.js "
