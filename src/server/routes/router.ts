@@ -83,5 +83,13 @@ export default () => {
         });
     });
 
+    router.get('/about/programming', (req, res, next) => {
+        res.render('pages/travels', {
+            travels: true,
+            title: 'My Travels',
+            path: req.breadcrumbs
+        });
+    });
+
     return router;
 }
