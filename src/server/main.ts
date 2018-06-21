@@ -22,10 +22,7 @@ export default class Main {
 
     constructor() {
         ErrorController.init();
-
-        console.log(process.env.GMAILUSER, process.env.GMAILAPPPASSWORD)
-
-        BlogPostController.watchPostFolder();
+        
         BlogPostController.readJSONToCache();
 
         // create new instance of express
@@ -46,7 +43,9 @@ export default class Main {
             extname: '.hbs'
         }));
 
-        // this._app.enable('view cache');
+        if(process.env.NODE_ENV === 'production') {
+            Main._app.enable('view cache');
+        }
 
         Main._app.use(compression());
         Main._app.use(cookieParser());

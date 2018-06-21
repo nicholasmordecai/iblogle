@@ -26,6 +26,9 @@ export default class BlogPostController {
         });
     }
 
+    /**
+     * depreciated -> json will be updated on pm2 deploy so no need to watch files any more
+     */
     public static watchPostFolder() {
         const watcher = chokidar.watch(BlogPostController._postDirectory, {ignored: /^\./, persistent: true});
         watcher.on('add', () => BlogPostController.readJSONToCache());
