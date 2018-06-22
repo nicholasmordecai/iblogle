@@ -1,0 +1,13 @@
+{
+    "slug": "connect-4",
+    "thumbnailURL": "/img/portfolio/connect4/3.png",
+    "title": "Ministry Of Furniture",
+    "sliderURLs": [
+        "/img/portfolio/connect4/1.png",
+        "/img/portfolio/connect4/2.png",
+        "/img/portfolio/connect4/3.png",
+        "/img/portfolio/connect4/4.png"
+    ],
+    "descriptionTitle": "HTML5 Game",
+    "text": "blahj blah blah blahj blah blah blahj blah blah blahj blah blah blahj blah blah blahj blah blah"
+}

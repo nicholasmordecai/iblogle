@@ -9,11 +9,9 @@ export default () => {
     router = Router();
 
     router.post('/contact-form', csrfProtection, (req, res, next) => {
-        console.log(req.body)
-        res.json('ok');
-        // EmailController.sendEmail(req.body.mail, req.body.subject, req.body.comment, (error, info) => {
-        //     res.status(200).json({error: error, info: info});
-        // });
+        EmailController.sendEmail(req.body.mail, req.body.subject, req.body.comment, (error, info) => {
+            res.status(200).json({error: error, info: info});
+        });
     });
 
     router.post('/test', (req, res, next) => {
