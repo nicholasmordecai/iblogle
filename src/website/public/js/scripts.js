@@ -481,12 +481,22 @@
 
     $('form').on('submit', function (e) {
         e.preventDefault();
+        $('#submit-message').prop('disabled', true);
         $.ajax({
           type: 'post',
           url: '/api/contact-form',
           data: $('form').serialize(),
-          success: function () {
-            alert('form was submitted');
+          success: function (data) {
+            if(data.error) {
+                $('#msg').html(data.error);
+                $('#msg').show();
+                $('#submit-message').prop('disabled', false);
+            } else {
+                $('#contact-form').html('Thank you for getting in touch, I will reply as soon as I can =)');
+            }
+          },
+          error: function(error) {
+            $('#msg').html(error);
           }
         });
       });

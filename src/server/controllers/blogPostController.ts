@@ -14,7 +14,6 @@ export default class BlogPostController {
                 return;
             }
             filenames.forEach(function (filename) {
-                console.log(filename)
                 fs.readFile(BlogPostController._postDirectory + filename, 'utf-8', function (err, content) {
                     if (err) {
                         console.error(err);

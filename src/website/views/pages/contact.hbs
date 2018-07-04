@@ -41,6 +41,7 @@
         <form id="contact-form" action="/api/contact-form/" method="POST">
           <input type="hidden" name="_csrf" value="{{csrfToken}}">
           <div class="row contact-row">
+            <div id="msg" class="message text-danger" style="text-align: left; padding-left: 1rem; color: #a94442;"></div>
             <div class="col-md-6 contact-name">
               <input name="name" id="name" type="text" placeholder="Name*" required>
             </div>
@@ -49,10 +50,13 @@
             </div>
           </div>
 
-          <input name="subject" id="subject" type="text" placeholder="Subject">
-          <textarea name="comment" id="comment" placeholder="Message" required></textarea>
+          <input name="subject" id="subject" type="text" placeholder="Subject*" required>
+
+          <textarea name="comment" id="comment" placeholder="Message*" required></textarea>
+
+          <div class="g-recaptcha" data-sitekey="6LfQVGIUAAAAACaafq54JjkRBMZWnKi8s-zLrxml" style="padding-bottom: 2rem;"></div>
+
           <input type="submit" class="btn btn-lg btn-color btn-submit" value="Send Message" id="submit-message">
-          <div id="msg" class="message"></div>
         </form>
       </div>
       <!-- end col -->

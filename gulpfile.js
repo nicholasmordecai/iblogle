@@ -21,6 +21,7 @@ gulp.task('start', ['browser-sync'], function () {
     gulp.watch('src/website/views/**/*.hbs', ['copyViews', 'reload']);
     gulp.watch('src/data/**/*', ['copyDataFiles']);
     gulp.watch('src/website/public/img/**/*', ['copyImages']);
+    gulp.watch('src/website/public/js/**/*.js', ['copyJS']);
 });
 
 gulp.task('browser-sync', ['nodemon'], function () {
