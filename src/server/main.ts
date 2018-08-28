@@ -1,12 +1,12 @@
-import * as fs from 'fs';
 import * as express from 'express';
 import * as hbs from 'express-hbs';
 import * as http from 'http';
-import * as path from 'path';
 import * as bodyParser from 'body-parser';
 import * as compression from 'compression';
 import * as cookieParser from 'cookie-parser';
 import * as helmet from 'helmet';
+
+require('dotenv').config()
 
 import MainRouter from './routes/router';
 import APIRouter from './api/api';
@@ -14,13 +14,12 @@ import Error404 from './middleware/404';
 import ErrorCSRF from './middleware/csrf';
 import BlogPostController from './controllers/blogPostController';
 import ErrorController from './controllers/errorController';
+import SocketController from './controllers/socketController';
 
 export default class Main {
 
     public static _app: express.Express;
-    private _router: express.Router;
-    private _hbs;
-    private _http: http.Server;
+    public static _socketController: SocketController;
 
     constructor() {
         // create new instance of express
@@ -62,6 +61,8 @@ export default class Main {
         // use the 404 custom middleware
         Main._app.use(Error404);
         Main._app.use(ErrorCSRF.handleError(Main._app));
+
+        Main._socketController = new SocketController(Main._app)
 
         // set the port to listen on
         Main._app.set('port', 4200);

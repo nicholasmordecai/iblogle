@@ -1,6 +1,8 @@
 import * as Raven from 'raven';
 
-export default class ErrorController {
+import BaseController from './baseController';
+
+export default class ErrorController extends BaseController {
 
     public static init() {
         if (process.env.NODE_ENV === 'production') {

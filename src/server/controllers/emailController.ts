@@ -1,6 +1,8 @@
 import * as nodemailer from 'nodemailer';
 
-export default class EmailController {
+import BaseController from './baseController';
+
+export default class EmailController extends BaseController {
     public static sendEmail(from: string, subject: string, body: string, callback: Function) {
         let transporter = nodemailer.createTransport({
             service: 'Gmail',
