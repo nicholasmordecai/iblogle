@@ -1,5 +1,5 @@
 import * as WebSocket from 'ws';
-import SocketController from '../controllers/socketController';
+import { SocketController } from '../controllers/socketController';
 
 export default class Home {
     private _webSocket: WebSocket;

@@ -1,9 +1,9 @@
-import BaseController from './baseController';
-import Server from './../main';
+import { BaseController } from './baseController';
+import { Server } from './../main';
 import * as WebSocket from 'ws';
 import * as uuid from 'uuid';
 
-export default class SocketController extends BaseController {
+export class SocketController extends BaseController {
 
     private static _webSocketServer: WebSocket.Server;
     private static _clients: WebSocket[];

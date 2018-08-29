@@ -1,14 +1,13 @@
 import { Router } from 'express';
 import * as csrf from 'csurf';
 
-import Technologies from './../data/technologies';
-import BlogPostController from './../controllers/blogPostController';
+import { BlogPostController } from './../controllers/blogPostController';
 import Breadcrumb from './../middleware/breadcrumb';
 
 var csrfProtection = csrf({ cookie: true });
 let router;
 
-const themeRoute = 'themes/theme-one'
+const themeRoute = 'themes/theme-one';
 
 export default () => {
     router = Router();

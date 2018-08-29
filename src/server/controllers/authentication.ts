@@ -3,7 +3,7 @@ import * as jwt from 'jsonwebtoken';
 const secret: string = 'asdsdfdfgfdghghjjhkjkl';
 const rounds: number = 12;
 
-export default class Auth {
+export class Auth {
 
     public static createAccount(username: string, email: string, admin: number, clienID: number, callback: Function) {
         // User.userExists(email, (exists) => {

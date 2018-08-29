@@ -1,8 +1,8 @@
 import * as fs from 'fs';
 import * as chokidar from 'chokidar';
-import BaseController from './baseController';
+import { BaseController } from './baseController';
 
-export default class BlogPostController extends BaseController {
+export class BlogPostController extends BaseController {
 
     private static _posts: { [key: string]: JSON };
     private static _postDirectory: string = __dirname + '/../../data/blog-posts/';

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import Auth from './../../controllers/authentication';
+import { Auth } from './../../controllers/authentication';
 
 let router;
 
