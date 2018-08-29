@@ -21,11 +21,11 @@ export default () => {
      * Requires admin locking
      */
     router.get('/admin', (req, res, next) => {
-        res.render('pages/admin/dashboard', { layout: 'admin' });
+        res.render('admin/pages/dashboard', { layout: 'admin' });
     });
 
     router.get('/admin-login', (req, res, next) => {
-        res.render('pages/admin/login', { layout: 'admin' });
+        res.render('admin/pages/login', { layout: 'admin' });
     });
 
     // router.get('/portfolio', (req, res, next) => {

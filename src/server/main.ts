@@ -59,7 +59,7 @@ export class Server {
         Server._app.use('/api', APIRouter());
 
         // use the 404 custom middleware
-        Server._app.use(Error404);
+        // Server._app.use(Error404);
         Server._app.use(ErrorCSRF.handleError(Server._app));
 
         Server._socketController = new SocketController(Server._app)
