@@ -222,3 +222,21 @@ a.article, a.article:hover {
     }
 
 }
+
+/* ---------------- Bootstrap Overrides --------------*/
+.row {
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+
+
+/* ------------------- View Posts Page ------------------ */
+
+.post-view-single-entry {
+    padding: 1rem;
+}
+
+.post-view-single-entry:hover {
+    background-color: #f3f3f3;
+}

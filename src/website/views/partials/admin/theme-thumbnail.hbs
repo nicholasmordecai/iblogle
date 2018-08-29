@@ -1,0 +1,19 @@
+<div class="col-sm-12 col-md-6 col-lg-4">
+    <div class="card">
+        <img class="card-img-top img-fluid" src="https://picsum.photos/500/300" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">{{this.name}}</h5>
+            <p class="card-text">{{this.description}}</p>
+            {{#if this.active}}
+                <a href="#" class="btn btn-primary disabled">Active</a>
+            {{else}}
+                <a href="#" class="btn btn-primary">Activate</a>
+            {{/if}}
+            
+        </div>
+        <div class="card-footer">
+            <p class="small">Version: {{this.version}}</p>
+            <p class="small">Created By: {{this.author}}</p>
+        </div>
+    </div>
+</div>

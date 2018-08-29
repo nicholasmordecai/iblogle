@@ -15,6 +15,7 @@ import ErrorCSRF from './middleware/csrf';
 import { BlogPostController } from './controllers/blogPostController';
 import { ErrorController } from './controllers/errorController';
 import { SocketController } from './controllers/socketController';
+import { MysqlController } from './controllers/mysqlController';
 
 export class Server {
 
@@ -48,6 +49,14 @@ export class Server {
         if(process.env.NODE_ENV === 'production') {
             Server._app.enable('view cache');
         }
+
+        MysqlController.getPool((error, pool) => {
+            if(error) {
+                console.log(error);
+            } else {
+                console.log('Database Connected');
+            }
+        })
 
         Server._app.use(compression());
         Server._app.use(cookieParser());

@@ -1,10 +1,13 @@
 import { Router } from 'express';
 import * as csrf from 'csurf';
 
-import { BlogPostController } from './../controllers/blogPostController';
+// import { BlogPostController } from './../controllers/blogPostController';
+import admin from './admin/dashboard';
 import Breadcrumb from './../middleware/breadcrumb';
 
-var csrfProtection = csrf({ cookie: true });
+import { PageModel } from './../models/mysql/pages';
+
+// var csrfProtection = csrf({ cookie: true });
 let router;
 
 const themeRoute = 'themes/theme-one';
@@ -14,19 +17,34 @@ export default () => {
     router.use('/', Breadcrumb);
 
     router.get('/', (req, res, next) => {
-        res.render(`${themeRoute}/pages/index`, { home: true });
+        res.render(`${themeRoute}/pages/index`, {});
     });
 
-    /**
-     * Requires admin locking
-     */
-    router.get('/admin', (req, res, next) => {
-        res.render('admin/pages/dashboard', { layout: 'admin' });
-    });
+    PageModel.getPages()
+        .then((pages) => {
+            for(let i = 0, len = pages.length; i < len; i++) {
+                let page = pages[i];
+                router.get(page.url, (req, res, next) => {
+                    res.render(`${themeRoute}/pages/${page.template}`, {
+                        layout: page.layout
+                    });
+                })
+            }
+        })
+        .catch((error) => {});
 
-    router.get('/admin-login', (req, res, next) => {
-        res.render('admin/pages/login', { layout: 'admin' });
-    });
+    // router.get('/shop', (req, res, next) => {
+    //     PageModel.getPage(1)
+    //         .then((data) => {
+    //             res.render(`${themeRoute}/pages/index`, {});
+    //         })
+    //         .catch((error) => {
+    //             console.log(error);
+    //         });
+    // });
+
+
+    router.use('/admin', admin());
 
     // router.get('/portfolio', (req, res, next) => {
     //     res.render('pages/portfolio', {
