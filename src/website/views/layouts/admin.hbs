@@ -44,14 +44,7 @@
         crossorigin="anonymous"></script> {{#if editorRequired }}
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script> {{/if}}
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
-                $(this).toggleClass('active');
-            });
-        });
-    </script>
+    <script src="/js/bundle.js"></script>
 </body>
 
 </html>

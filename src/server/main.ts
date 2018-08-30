@@ -12,7 +12,7 @@ import MainRouter from './routes/router';
 import APIRouter from './api/api';
 import Error404 from './middleware/404';
 import ErrorCSRF from './middleware/csrf';
-import { BlogPostController } from './controllers/blogPostController';
+// import { BlogPostController } from './controllers/blogPostController';
 import { ErrorController } from './controllers/errorController';
 import { SocketController } from './controllers/socketController';
 import { MysqlController } from './controllers/mysqlController';
@@ -29,7 +29,7 @@ export class Server {
         Server._app.use(helmet());
 
         ErrorController.init();
-        BlogPostController.readJSONToCache();
+        // BlogPostController.readJSONToCache();
 
         // setup the json parser middleware
         Server._app.use(bodyParser.urlencoded({ extended: true }));

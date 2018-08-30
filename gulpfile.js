@@ -6,6 +6,7 @@ const ts = require('gulp-typescript');
 const sass = require('gulp-sass');
 var browserSync = require('browser-sync');
 var path = require('path');
+var sourcemaps = require('gulp-sourcemaps');
 
 var backendStream;
 var tsServer = ts.createProject('src/server/tsconfig.json');
@@ -34,10 +35,10 @@ gulp.task('nodemon', function () {
     var started = false;
 
     backendStream = nodemon({
-            script: 'build/server/main.js',
-            open: true,
-            watch: false,
-        })
+        script: 'build/server/main.js',
+        open: true,
+        watch: false,
+    })
         .on('start', function () {
             if (!started) {
                 started = true;
@@ -74,7 +75,7 @@ gulp.task('compileServer', function () {
 gulp.task('compileWebsite', function (cb) {
     return gulp.src('src/website/ts/**/*')
         .pipe(tsWebsite()).js
-        .pipe(gulp.dest('build/website/public/js'))
+        .pipe(gulp.dest('website/public/js'))
         .on('end', function () {
             gulp.start('browserify');
         });
@@ -89,7 +90,7 @@ gulp.task('browserify', function () {
             insertGlobals: true
         }))
         .pipe(rename('bundle.js'))
-        .pipe(gulp.dest('build/website/public/js/bundle.js', {
+        .pipe(gulp.dest('build/website/public/js', {
             overwrite: true
         }))
         .on('end', function () {
@@ -113,12 +114,14 @@ gulp.task('compileSASS', function () {
 gulp.task('bundleBrowserify', function () {
     return gulp.src('build/website/public/js/build.js')
         .pipe(browserify({
-            insertGlobals: true
+            insertGlobals: true,
+            debug: !gulp.env.production
         }))
         .pipe(rename('bundle.js'))
-        .pipe(gulp.dest('build/website/public/js/', {
-            overwrite: true
-        }))
+        .pipe(gulp.dest('./build/website/public/js'))
+        .on('end', function () {
+            browserSync.reload();
+        });
 });
 
 gulp.task('copyDataFiles', function () {

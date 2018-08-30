@@ -16,6 +16,11 @@ export default () => {
         res.render('admin/pages/login', { layout: 'admin' });
     });
 
+    router.get('/settings/general', (req, res) => {
+        res.render('admin/pages/settings/general', { layout: 'admin' });
+    });
+
+
     router.get('/content/view-posts', (req, res) => {
         res.render('admin/pages/view-posts', { layout: 'admin' });
     });

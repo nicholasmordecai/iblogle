@@ -1,14 +1,15 @@
 {
-    "ref": "master",
-    "path": "typings",
-    "compilerOptions": {
-      "module": "amd",
-      "target": "es5",
-      "declaration": true,
-      "sourceMap": true,
-      "outFile": "./../../../build/website/public/js/build.js"
-    },
-    "exclude": [
-      "build"
-    ]
+  "ref": "master",
+  "path": "typings",
+  "compilerOptions": {
+    "module": "amd",
+    "target": "es5",
+    "declaration": true,
+    "sourceMap": true,
+    "outFile": "./../../../build/website/public/js/build.js"
+  },
+  "exclude": [
+    "build",
+    "src/website/ts/tsconfig.json"
+  ]
 }
