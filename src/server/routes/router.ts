@@ -10,23 +10,21 @@ import { PageModel } from './../models/mysql/pages';
 // var csrfProtection = csrf({ cookie: true });
 let router;
 
-const themeRoute = 'themes/theme-one';
+const themeRoot = 'themes/theme-one';
 
 export default () => {
     router = Router();
     router.use('/', Breadcrumb);
 
-    router.get('/', (req, res, next) => {
-        res.render(`${themeRoute}/pages/index`, {});
-    });
-
     PageModel.getPages()
         .then((pages) => {
+            // console.log(pages)
             for(let i = 0, len = pages.length; i < len; i++) {
                 let page = pages[i];
                 router.get(page.url, (req, res, next) => {
-                    res.render(`${themeRoute}/pages/${page.template}`, {
-                        layout: page.layout
+                    
+                    res.render(`${themeRoot}/templates/${page.template}`, {
+                        layout: `../layouts/${page.layout}`
                     });
                 })
             }

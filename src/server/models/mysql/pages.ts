@@ -6,7 +6,7 @@ export class PageModel {
             let query = `
                 SELECT id, name, description, content, url, created_at, last_edited, layout, template
                 FROM pages
-                WHERE id = published = 1`;
+                WHERE published = 1`;
 
             MysqlController.executeQuery(query, [], resolve, reject)
         });

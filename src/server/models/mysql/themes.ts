@@ -1,6 +1,17 @@
 import { MysqlController } from './../../controllers/mysqlController';
 
 export class ThemeModel {
+    public static getThemeByID(id: number): Promise<Array<any>> {
+        return new Promise((resolve, reject) => {
+            let query = `
+                SELECT id, name, description, author, version, active
+                FROM themes
+                WHERe id = ?`;
+
+            MysqlController.executeQuery(query, [id], resolve, reject)
+        });
+    }
+
     public static getThemes(): Promise<Array<any>> {
         return new Promise((resolve, reject) => {
             let query = `

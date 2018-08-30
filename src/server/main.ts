@@ -38,10 +38,15 @@ export class Server {
         Server._app.set('view engine', 'hbs');
         Server._app.set('views', __dirname + '/../views/');
 
+        let activeThemeDirectory: string = '/../views/themes/theme-one';
+
         // configure views path
         Server._app.engine('hbs', hbs.express4({
             defaultLayout: __dirname + '/../views/layouts/main.hbs',
-            partialsDir: __dirname + '/../views/partials',
+            partialsDir: [
+                __dirname + '/../views/partials',
+                __dirname + activeThemeDirectory + '/partials',
+            ],
             layoutsDir: __dirname + '/../views/layouts',
             extname: '.hbs'
         }));
@@ -49,14 +54,6 @@ export class Server {
         if(process.env.NODE_ENV === 'production') {
             Server._app.enable('view cache');
         }
-
-        MysqlController.getPool((error, pool) => {
-            if(error) {
-                console.log(error);
-            } else {
-                console.log('Database Connected');
-            }
-        })
 
         Server._app.use(compression());
         Server._app.use(cookieParser());

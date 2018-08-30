@@ -1,4 +1,4 @@
-import Utils from './../utils/utils';
+import { Utils } from './../utils/utils';
 
 export default (req, res, next) => {
     let tPath = req.path.split('/');

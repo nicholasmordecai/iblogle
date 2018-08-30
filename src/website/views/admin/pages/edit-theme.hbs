@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-3">
+        <nav class="nav flex-column">
+
+            <a class="nav-link" data-toggle="collapse" data-target="#baseTemplate" href="#">
+                <i class="far fa-folder"></i> Templates
+            </a>
+            <div class="collapse" id="baseTemplate">
+                {{{this.structure.templates}}}
+            </div>
+
+            {{!-- <a class="nav-link tree-depth-1" data-toggle="collapse" data-target="#partials-1" href="#"><i class="far fa-folder"></i>
+                Layouts</a>
+            <div class="collapse tree-depth-1" id="partials-1">
+
+            </div>
+
+            <a class="nav-link tree-depth-1" href="#"><i class="far fa-folder"></i> Templates</a>
+            <a class="nav-link tree-depth-1" data-toggle="collapse" data-target="#collapseExample" href="#"><i class="far fa-folder"></i>
+                Partials</a>
+            <div class="collapse tree-depth-1" id="collapseExample">
+                <a class="nav-link tree-depth-2" data-toggle="collapse" data-target="#collapseExample2" href="#"><i class="far fa-folder"></i>
+                    Home</a>
+                <div class="collapse" id="collapseExample2">
+                    <a class="nav-link tree-depth-3" href="#"><i class="far fa-file"></i> header</a>
+                </div>
+            </div> --}}
+        </nav>
+    </div>
+    <div class="col-9">
+        <div id="toolbar"></div>
+        <div id="editor">
+            <p>Hello World!</p>
+            <p>Some initial <strong>bold</strong> text</p>
+            <p><br></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function (event) {
+        var quill = new Quill('#editor', {
+            modules: {
+                toolbar: true
+            },
+            theme: 'snow'
+        });
+    });
+</script>

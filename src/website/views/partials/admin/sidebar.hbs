@@ -8,12 +8,23 @@
         <p>Dummy Heading</p> --}}
 
         <li>
-            <a href="#">Dashboard</a>
+            <a href="/admin">Dashboard</a>
         </li>
 
         <li>
             <a href="#contentSubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Content</a>
             <ul class="collapse list-unstyled" id="contentSubMenu">
+                <li>
+                    <a href="#mediaSubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Media</a>
+                    <ul class="collapse list-unstyled" id="mediaSubMenu">
+                        <li>
+                            <a href="#">Upload Media</a>
+                        </li>
+                        <li>
+                            <a href="/admin/content/view-posts">View Media</a>
+                        </li>
+                    </ul>
+                </li>
                 <li>
                     <a href="#postsSubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Posts</a>
                     <ul class="collapse list-unstyled" id="postsSubMenu">
@@ -43,7 +54,10 @@
             <a href="#themesSubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Themes</a>
             <ul class="collapse list-unstyled" id="themesSubMenu">
                 <li>
-                    <a href="#">View</a>
+                    <a href="/admin/themes/all">Installed Themes</a>
+                </li>
+                <li>
+                    <a href="#">New Theme</a>
                 </li>
                 <li>
                     <a href="#">Theme Editor</a>
