@@ -1,38 +1,43 @@
 <div class="row">
     <div class="col-3">
         <nav class="nav flex-column">
+            <!-- folder tree for layouts -->
+            <a class="nav-link" data-toggle="collapse" data-target="#baseLayout" href="#">
+                <i class="far fa-folder"></i> Layouts <i class="fas fa-caret-down"></i>
+            </a>
+            <div class="collapse" id="baseLayout">
+                {{{this.structure.layouts}}}
+            </div>
 
+            <!-- folder tree for templates -->
             <a class="nav-link" data-toggle="collapse" data-target="#baseTemplate" href="#">
-                <i class="far fa-folder"></i> Templates
+                <i class="far fa-folder"></i> Templates <i class="fas fa-caret-down"></i>
             </a>
             <div class="collapse" id="baseTemplate">
                 {{{this.structure.templates}}}
             </div>
 
-            {{!-- <a class="nav-link tree-depth-1" data-toggle="collapse" data-target="#partials-1" href="#"><i class="far fa-folder"></i>
-                Layouts</a>
-            <div class="collapse tree-depth-1" id="partials-1">
-
+            <!-- folder tree for partials -->
+            <a class="nav-link" data-toggle="collapse" data-target="#basePartials" href="#">
+                <i class="far fa-folder"></i> Partials <i class="fas fa-caret-down"></i>
+            </a>
+            <div class="collapse" id="basePartials">
+                {{{this.structure.partials}}}
             </div>
 
-            <a class="nav-link tree-depth-1" href="#"><i class="far fa-folder"></i> Templates</a>
-            <a class="nav-link tree-depth-1" data-toggle="collapse" data-target="#collapseExample" href="#"><i class="far fa-folder"></i>
-                Partials</a>
-            <div class="collapse tree-depth-1" id="collapseExample">
-                <a class="nav-link tree-depth-2" data-toggle="collapse" data-target="#collapseExample2" href="#"><i class="far fa-folder"></i>
-                    Home</a>
-                <div class="collapse" id="collapseExample2">
-                    <a class="nav-link tree-depth-3" href="#"><i class="far fa-file"></i> header</a>
-                </div>
-            </div> --}}
+            <!-- folder tree for sass -->
+            <a class="nav-link" data-toggle="collapse" data-target="#baseSass" href="#">
+                <i class="far fa-folder"></i> SASS <i class="fas fa-caret-down"></i>
+            </a>
+            <div class="collapse" id="baseSass">
+                {{{this.structure.sass}}}
+            </div>
         </nav>
     </div>
     <div class="col-9">
         <div id="toolbar"></div>
         <div id="editor">
-            <p>Hello World!</p>
-            <p>Some initial <strong>bold</strong> text</p>
-            <p><br></p>
+            
         </div>
     </div>
 </div>
@@ -44,6 +49,14 @@
                 toolbar: true
             },
             theme: 'snow'
+        });
+
+        $('.file-item').click((e) => {
+            let element = e.target;
+            let path = $(element).data('path');
+            $.get('/api/read-file?file=' + path, (fileContents) => {
+                quill.setText(fileContents);
+            });
         });
     });
 </script>

@@ -1,6 +1,8 @@
 import { doesNotReject } from "assert";
 
 var dir = require('node-dir');
+const dirTree = require('directory-tree');
+const ext: string = '.hbs';
 
 export class Utils {
     public static capitalize(string): string {
@@ -21,81 +23,39 @@ export class Utils {
     }
 
     public static readFilesInDirectory(directory: string, callback: Function) {
-        dir.files(directory, 'all', (error, result) => {
-            let allPaths = result.files.concat(result.dirs);
-            let dd = {
-                _root: []
-            };
-            for (let path of allPaths) {
-                let chunks = path.split('\\');
-                chunks.splice(0, 6);
-
-                switch (chunks.length) {
-                    case 1:
-                        if (chunks[0].includes('.hbs')) {
-                            dd._root.push(chunks[0]);
-                        }
-                        break;
-                    case 2:
-                        if (!dd[chunks[0]]) dd[chunks[0]] = [];
-                        if (chunks[1].includes('.hbs')) {
-                            dd[chunks[0]].push(chunks[1])
-                        }
-                        break;
-                    case 3:
-                        if (!dd[chunks[0]]) dd[chunks[0]] = [];
-                        if (!dd[chunks[0]][chunks[1]]) dd[chunks[0]][chunks[1]] = [];
-                        if (chunks[2].includes('.hbs')) {
-                            dd[chunks[0]][chunks[1]].push(chunks[2])
-                        }
-                        break;
-                    case 4:
-                        if (!dd[chunks[0]]) dd[chunks[0]] = [];
-                        if (!dd[chunks[0]][chunks[1]]) dd[chunks[0]][chunks[1]] = [];
-                        if (!dd[chunks[0]][chunks[1]][chunks[2]]) dd[chunks[0]][chunks[1]][chunks[2]] = [];
-                        if (chunks[3].includes('.hbs')) {
-                            dd[chunks[0]][chunks[1]][chunks[2]].push(chunks[3])
-                        }
-                        break;
-                }
-            }
-
-            this.constructHTMLFileStructure(dd, callback);
-        });
-    }
-
-    public static constructHTMLFileStructure(dataDictionary, callback) {
-
-        let html = '';
-
-        // console.log(dataDictionary)
-
-        // html += this.buildSubFolder('_root', dataDictionary['_root']);
-        for (let i in dataDictionary) {
-            let array = dataDictionary[i];
-            let folder = this.buildSubFolder(i, array);
-            html += folder;
-        }
-
+        let tree = dirTree(directory);
+        let html = this.constructHTMLFileStructure(tree);
         callback(html);
     }
 
-    public static buildSubFolder(root, elements) {
-        let html = `
-            <a class="nav-link tree" data-toggle="collapse" data-target="#template-${root}" href="#">
-                <i class="far fa-folder"></i> ${root}
-            </a>
-            <div class="collapse tree" id="template-${root}">`;
-        for (let element of elements) {
-            if(root === 'home') {
-            }
-            if (element.includes('.hbs')) {
-                html += `<a class="nav-link tree" href="#"><i class="far fa-file"></i> ${element}</a>`
+    public static constructHTMLFileStructure(tree) {
+        let html = this.buildSubFolder(tree);
+        return html;
+    }
+
+    public static buildSubFolder(tree) {
+        let html = ''
+        for (let path of tree.children) {
+            if (path.type === 'file') {
+                html += `<a class="nav-link tree file-item" data-path=${path.path} href="#"><i class="far fa-file"></i> ${path.name}</a>`
             } else {
-                console.log('its a sub directory! o.O');
+                html += `
+                <a class="nav-link tree" data-toggle="collapse" data-target="#template-${path.name}" href="#">
+                    <i class="far fa-folder"></i> ${path.name} <i class="fas fa-caret-down"></i>
+                </a>
+                <div class="collapse tree" id="template-${path.name}">`;
+                html += Utils.buildSubFolder(path);
+                html += `</div>`;
             }
         }
-        html += `</div>`;
         return html;
+    }
+
+    public static addToDD(dd, prop) {
+        let path = prop.split('.');
+    }
+
+    public static leaf(obj, path) {
+        return path.split('.').reduce((value, el) => value[el], obj);
     }
 }

@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { EmailController } from './../controllers/emailController';
 import * as request from 'request';
 import * as csrf from 'csurf';
+import * as fs from 'fs';
 
 var csrfProtection = csrf({ cookie: true });
 let router;
@@ -25,6 +26,16 @@ export default () => {
 
     router.post('/test', (req, res, next) => {
         res.status(200).json('abcdefg');
+    });
+
+    router.get('/read-file', (req, res, next) => {
+        fs.readFile(req.query.file, 'utf-8', (error, data) => {
+            if(error) {
+                res.status(500).json(error);
+            } else {
+                res.status(200).json(data);
+            }
+        });
     });
 
     return router;

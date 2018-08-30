@@ -9,9 +9,19 @@ export class ThemeController extends BaseController {
                 .then((theme) => {
                     let name = theme[0].name
                     Utils.walkDirectory(`./src/website/views/themes/${name}/templates`, (templates) => {
-                        resolve({
-                            templates: templates
-                        })
+                        Utils.walkDirectory(`./src/website/views/themes/${name}/layouts`, (layouts) => {
+                            Utils.walkDirectory(`./src/website/views/themes/${name}/partials`, (partials) => {
+                                Utils.walkDirectory(`./src/website/views/themes/${name}/sass`, (sass) => {
+                                    resolve({
+                                        templates: templates,
+                                        layouts: layouts,
+                                        partials: partials,
+                                        sass: sass
+                                    });
+                                });
+                            });
+                            
+                        });
                     })
                 })
                 .catch((error) => {
