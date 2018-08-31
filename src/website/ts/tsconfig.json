@@ -8,8 +8,11 @@
     "sourceMap": true,
     "outFile": "./../../../build/website/public/js/build.js"
   },
+    "include": [
+        "./**/*"
+    ],
   "exclude": [
     "build",
-    "src/website/ts/tsconfig.json"
+    "**/*.json"
   ]
 }

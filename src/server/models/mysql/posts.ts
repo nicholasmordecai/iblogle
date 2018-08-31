@@ -11,7 +11,7 @@ export class PostModel {
         });
     }
 
-    public static getPost(id) {
+    public static getPost(id): Promise<Array<any>> {
         return new Promise((resolve, reject) => {
             let query = `
                 SELECT id, content, title, description, user_id, date_created, last_updated

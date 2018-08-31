@@ -15,9 +15,9 @@ export class PostController extends BaseController {
         })
     }
 
-    public static getSinglePost() {
+    public static getSinglePost(id: number): Promise<any[]> {
         return new Promise((resolve, reject) => {
-            PostModel.getAllPosts()
+            PostModel.getPost(id)
                 .then((posts) => {
                     resolve(posts);
                 })

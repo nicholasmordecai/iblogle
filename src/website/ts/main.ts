@@ -12,7 +12,7 @@ namespace Website {
 }
 
 // make the Locsci namespace available in the global
-window['bundle-script'] = Website;
+window['wbc'] = Website;
 
 // create a new instance of the Main class
 new Website.Main();

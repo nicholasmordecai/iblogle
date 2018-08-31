@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col-12 text-right" id="post-actions">
+        <button type="submit" class="btn btn-primary mb-2">Save</button>
+        <button type="submit" class="btn btn-warning mb-2">Archive</button>
+        <button type="submit" class="btn btn-danger mb-2">Delete</button>
+    </div>
+    <div class="col-12 mb-3">
+        <form class="form-inline">
+            <div class="form-group row">
+                <!-- Post Title -->
+                <div class="input-group col-md-4">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Title</div>
+                    </div>
+                    <input type="text" class="form-control" id="post-title" placeholder="Post Title" value="{{this.post.title}}">
+                </div>
+
+                <!-- Post Title -->
+                <div class="input-group col-md-8">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Description</div>
+                    </div>
+                    <input type="text" class="form-control" id="post-description" placeholder="Post Description" value="{{this.post.description}}">
+                </div>
+
+                {{!--
+                <div class="form-check mb-2 mr-sm-2">
+                    <input class="form-check-input" type="checkbox" id="inlineFormCheck">
+                    <label class="form-check-label" for="inlineFormCheck">
+                        Remember me
+                    </label>
+                </div> --}}
+            </div>
+        </form>
+    </div>
+    <div class="col-12">
+        <div id="toolbar"></div>
+        <div id="editor">
+            {{this.post.content}}
+        </div>
+    </div>
+</div>

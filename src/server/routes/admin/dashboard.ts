@@ -34,7 +34,17 @@ export default () => {
     });
 
     router.get('/content/edit-post', (req, res) => {
-        res.render('admin/pages/edit-post', { layout: 'admin', editorRequired: true });
+        PostController.getSinglePost(req.query.post_id)
+            .then((post) => {
+                if(post.length < 1) {
+                    res.render('admin/pages/edit-post', { layout: 'admin', editorRequired: true, noPost: true });
+                } else {
+                    res.render('admin/pages/edit-post', { layout: 'admin', editorRequired: true, post: post[0] });
+                }
+            })
+            .catch((error) => {
+                res.status(500).json(error);
+            });
     });
 
     router.get('/themes/all', (req, res) => {
@@ -48,7 +58,6 @@ export default () => {
         let themeID = req.params.themeID;
         ThemeController.generateFileStructure(themeID)
             .then((structure) => {
-                // console.log(structure)
                 res.render('admin/pages/edit-theme', { layout: 'admin',  editorRequired: true, structure: structure });
             })
     });
