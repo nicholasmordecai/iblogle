@@ -3,8 +3,15 @@ import { doesNotReject } from "assert";
 var dir = require('node-dir');
 const dirTree = require('directory-tree');
 const ext: string = '.hbs';
+const uuidv4 = require('uuid/v4');
+
+import { FileController } from './../controllers/fileController';
 
 export class Utils {
+
+    public static generateUniquestring() {
+        return uuidv4();
+    }
     public static capitalize(string): string {
         return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
     }
@@ -37,7 +44,9 @@ export class Utils {
         let html = ''
         for (let path of tree.children) {
             if (path.type === 'file') {
-                html += `<a class="nav-link tree file-item" data-path=${path.path} href="#"><i class="far fa-file"></i> ${path.name}</a>`
+                let id = Utils.generateUniquestring();
+                FileController.cachePath(path.path, id);
+                html += `<a class="nav-link tree file-item" data-id=${id} href="#"><i class="far fa-file"></i> ${path.name}</a>`
             } else {
                 html += `
                 <a class="nav-link tree" data-toggle="collapse" data-target="#template-${path.name}" href="#">

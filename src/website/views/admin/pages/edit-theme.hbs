@@ -1,4 +1,10 @@
 <div class="row">
+    <div class="col-12 text-right" id="post-actions">
+        <button type="submit" class="btn btn-success mb-2 float-left" id="btn-delete" disabled>New File</button>
+        <button type="submit" class="btn btn-primary mb-2" id="btn-save">Save</button>
+        <button type="submit" class="btn btn-danger mb-2" id="btn-delete">Delete</button>
+        <hr>
+    </div>
     <div class="col-sm-12 col-md-3">
         <nav class="nav flex-column">
             <!-- folder tree for layouts -->
@@ -37,26 +43,13 @@
     <div class="col-sm-12 col-md-9">
         <div id="toolbar"></div>
         <div id="editor">
-            
+
         </div>
     </div>
 </div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function (event) {
-        var quill = new Quill('#editor', {
-            modules: {
-                toolbar: true
-            },
-            theme: 'snow'
-        });
-
-        $('.file-item').click((e) => {
-            let element = e.target;
-            let path = $(element).data('path');
-            $.get('/api/read-file?file=' + path, (fileContents) => {
-                quill.setText(fileContents);
-            });
-        });
+        new window.wbc.ThemeEditor();
     });
 </script>

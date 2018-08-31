@@ -43,10 +43,17 @@ In order to make your own routes, sockets, models (database calls) and controlle
 
 Here is an example of the .env file, loaded by dotenv.
 ```
-  NODE_ENV=development
-  MYSQL_ADDRESS=localhost
-  MYSQL_PORT=3306
-  MYSQL_NAME=test_blog
-  MYSQL_USERNAME=root
-  MYSQL_PASSWORD=adminpassword
+
+    NODE_ENV=development
+    MYSQL_ADDRESS=localhost
+    MYSQL_PORT=3306
+    MYSQL_NAME=test_blog
+    MYSQL_USERNAME=root
+    MYSQL_PASSWORD=adminpassword
 ```
+
+## File Path Caching
+
+When reading, saving, deleting or creating new files, the path is cached on the backend to ensure that no paths are sent to any client. This takes place in the FileController class, found in  src/server/controller/fileController.ts.
+
+When any requests to do with a file on disk is required, a new unique id (uuidv4) is generated, and the file is stored in a hash map against that ID. That ID is then returned to the client and sent back with subsequent requests, where the server can lookup the hash map to retrieve the path. This stops the client or any malicious web requests from ever getting access to a path without the correct ID.

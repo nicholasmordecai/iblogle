@@ -17,6 +17,8 @@ import { ErrorController } from './controllers/errorController';
 import { SocketController } from './controllers/socketController';
 import { MysqlController } from './controllers/mysqlController';
 
+import { FileController } from './controllers/fileController';
+
 export class Server {
 
     public static _app: express.Express;
@@ -63,6 +65,8 @@ export class Server {
 
         Server._app.use('/', MainRouter());
         Server._app.use('/api', APIRouter());
+
+        new FileController();
 
         // use the 404 custom middleware
         // Server._app.use(Error404);

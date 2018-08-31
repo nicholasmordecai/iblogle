@@ -2,13 +2,19 @@ import { Router } from 'express';
 import { EmailController } from './../controllers/emailController';
 import * as request from 'request';
 import * as csrf from 'csurf';
-import * as fs from 'fs';
+
+// import other routes
+import Post from './post';
+import Theme from './theme';
 
 var csrfProtection = csrf({ cookie: true });
 let router;
 
 export default () => {
     router = Router();
+
+    router.use('/post', Post());
+    router.use('/theme', Theme());
 
     router.post('/contact-form', csrfProtection, (req, res, next) => {
         let captureResponse = req.body['g-recaptcha-response'];
@@ -26,16 +32,6 @@ export default () => {
 
     router.post('/test', (req, res, next) => {
         res.status(200).json('abcdefg');
-    });
-
-    router.get('/read-file', (req, res, next) => {
-        fs.readFile(req.query.file, 'utf-8', (error, data) => {
-            if(error) {
-                res.status(500).json(error);
-            } else {
-                res.status(200).json(data);
-            }
-        });
     });
 
     return router;

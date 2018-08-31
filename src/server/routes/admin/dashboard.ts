@@ -54,8 +54,8 @@ export default () => {
             });
     });
 
-    router.get('/themes/edit/:themeID', (req, res) => {
-        let themeID = req.params.themeID;
+    router.get('/themes/edit', (req, res) => {
+        let themeID = req.query.theme_id;
         ThemeController.generateFileStructure(themeID)
             .then((structure) => {
                 res.render('admin/pages/edit-theme', { layout: 'admin',  editorRequired: true, structure: structure });
