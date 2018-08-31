@@ -12,4 +12,8 @@
 
 </div>
 
-<hr> {{> admin/post-view-single}} {{> admin/post-view-single}} {{> admin/post-view-single}}
+<hr> 
+
+{{#each this.posts}}
+    {{> admin/post-view-single}}
+{{/each}}

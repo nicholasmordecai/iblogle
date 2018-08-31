@@ -1,6 +1,8 @@
 import { Router } from 'express';
 import { ThemeModel } from './../../models/mysql/themes';
 import { ThemeController } from './../../controllers/themeController';
+
+import { PostController } from './../../controllers/postController';
 import { Auth } from './../../controllers/authentication';
 
 let router;
@@ -15,17 +17,23 @@ export default () => {
     router.get('/admin-login', (req, res, next) => {
         res.render('admin/pages/login', { layout: 'admin' });
     });
-
+    
     router.get('/settings/general', (req, res) => {
         res.render('admin/pages/settings/general', { layout: 'admin' });
     });
 
 
     router.get('/content/view-posts', (req, res) => {
-        res.render('admin/pages/view-posts', { layout: 'admin' });
+        PostController.getListOfPosts()
+            .then((posts) => {
+                res.render('admin/pages/view-posts', { layout: 'admin', posts: posts });
+            })
+            .catch((error) => {
+                res.status(500).json(error);
+            });
     });
 
-    router.get('/content/edit-post/:postID', (req, res) => {
+    router.get('/content/edit-post', (req, res) => {
         res.render('admin/pages/edit-post', { layout: 'admin', editorRequired: true });
     });
 

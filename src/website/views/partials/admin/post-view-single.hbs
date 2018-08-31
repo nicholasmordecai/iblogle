@@ -1,13 +1,16 @@
 <div class="row post-view-single-entry">
     <div class="col-sm-12 col-md-7">
-        This awesome new post
-        <p class="small">This is some awesome description...</p>
+        {{this.title}}
+        <p class="small">{{this.description}}</p>
     </div>
     <div class="col-sm-12 col-md-5">
         <div class="d-flex justify-content-end">
-            <button class="btn btn-sm mr-2">
-                <i class="far fa-edit"></i> Edit
-            </button>
+            <a href="/admin/content/edit-post?post-id={{this.id}}">
+                <button class="btn btn-sm mr-2">
+                    <i class="far fa-edit"></i> Edit
+                </button>
+            </a>
+
             <button class="btn btn-sm mr-2">
                 <i class="far fa-eye"></i> View
             </button>
