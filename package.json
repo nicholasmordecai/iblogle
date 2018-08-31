@@ -1,7 +1,7 @@
 {
-  "name": "nicholasmordecai",
-  "version": "1.0.0",
-  "description": "personal website",
+  "name": "blog-platform",
+  "version": "0.0.1",
+  "description": "NodeJS, Handlebars, MongoDB/MySQL/Postgres powered light weight fast blog / website engine",
   "main": "bin/main.js",
   "scripts": {
     "start": "set NODE_ENV=production && npm run build && node build/server/main.js",
@@ -34,8 +34,10 @@
     "gulp-sass": "^4.0.1",
     "gulp-typescript": "^4.0.2",
     "helmet": "^3.12.1",
+    "hoek": "^4.2.1",
     "http": "0.0.0",
     "jsonwebtoken": "^8.3.0",
+    "lodash": "^4.17.5",
     "mysql": "^2.16.0",
     "node-dir": "^0.1.17",
     "nodemailer": "^4.6.7",

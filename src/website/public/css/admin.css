@@ -229,6 +229,20 @@ a.article, a.article:hover {
     margin-left: 0px;
 }
 
+.btn-primary {
+    background: #7386D5;
+    border: none;
+}
+
+.btn-primary:hover {
+    background: #ffffff;
+    color: #7386D5;
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+    background: #7386D5;
+}
+
 
 
 /* ------------------- View Posts Page ------------------ */
