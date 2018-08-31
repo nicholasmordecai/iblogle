@@ -34,7 +34,6 @@ namespace Website {
         }
 
         private save(e) {
-            console.log(this._fileID)
             Network.put(`/api/theme/save?file_id=${this._fileID}`, {
                 title: $('#post-title').val(),
                 description: $('#post-description').val(),

@@ -2,15 +2,18 @@ namespace Website {
     export class Network {
         
         public static post(url: string, data, successCallback?: Function, errorCallback?: Function) {
+            Animations.showLoading();
             $.ajax({
                 url: url,
                 type: 'POST',
                 data: data,
                 dataType: 'JSON',
                 success: function (data) {
+                    Animations.hideLoading();
                     if (successCallback) successCallback(data)
                 },
                 error: function (error) {
+                    Animations.hideLoading();
                     if (errorCallback) errorCallback(error);
                 }
             });
@@ -44,28 +47,34 @@ namespace Website {
         }
 
         public static get(url: string, successCallback?: Function, errorCallback?: Function) {
+            Animations.showLoading();
             $.ajax({
                 url: url,
                 type: 'GET',
                 success: function (data) {
+                    Animations.hideLoading();
                     if (successCallback) successCallback(data)
                 },
                 error: function (error) {
+                    Animations.hideLoading();
                     if (errorCallback) errorCallback(error);
                 }
             });
         }
 
         public static put(url: string, data, successCallback?: Function, errorCallback?: Function) {
+            Animations.showLoading();
             $.ajax({
                 url: url,
                 type: 'PUT',
                 data: data,
                 dataType: 'JSON',
                 success: function (data) {
+                    Animations.hideLoading();
                     if (successCallback) successCallback(data)
                 },
                 error: function (error) {
+                    Animations.hideLoading();
                     if (errorCallback) errorCallback(error);
                 }
             });

@@ -19,6 +19,8 @@
 
 <body>
 
+    {{> admin/loading-spinner}}
+
     <div class="wrapper">
 
         {{> admin/sidebar}}
@@ -27,6 +29,8 @@
 
             {{> admin/header }} {{{ body }}}
         </div>
+
+        {{> admin/alert}}
     </div>
 
     <!-- Font Awesome JS -->

@@ -6,6 +6,10 @@ namespace Website {
                     $('#sidebar').toggleClass('active');
                     $(this).toggleClass('active');
                 });
+
+                setTimeout(() => {
+                    Animations.showAlert('hello world', 'success');
+                }, 2000)
             });
         }
     }
