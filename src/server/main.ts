@@ -15,7 +15,6 @@ import ErrorCSRF from './middleware/csrf';
 // import { BlogPostController } from './controllers/blogPostController';
 import { ErrorController } from './controllers/errorController';
 import { SocketController } from './controllers/socketController';
-import { MysqlController } from './controllers/mysqlController';
 
 import { FileController } from './controllers/fileController';
 

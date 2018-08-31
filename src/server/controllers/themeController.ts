@@ -41,17 +41,23 @@ export class ThemeController extends BaseController {
                 if (error) {
                     reject(error);
                 } else {
-                    let id = Utils.generateUniquestring();
-                    FileController.cachePath(req.query.file, id);
-                    resolve({file: data, id: id});
+                    resolve({file: data, id: req.query.file_id});
                 }
             });
         });
     }
 
-    private static saveFile(req) {
+    public static saveFile(req) {
         return new Promise((resolve, reject) => {
-
+            let path = FileController.getPathFromID(req.query.file_id);
+            let contents = req.body.content;
+            fs.writeFile(path, contents, 'utf-8', (error) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve('File Saved');
+                }
+            });
         });
     }
 }
