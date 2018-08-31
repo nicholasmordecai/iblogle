@@ -1,3 +1,4 @@
+
 # Website Blog Thing
 
 A feature rich, very lightweight and scalable alternative to wordpress, joomla and drupel. This software is **not** really intended for users with zero web dev experience, but is heading in that direction.
@@ -39,3 +40,13 @@ In order to make your own routes, sockets, models (database calls) and controlle
 3.  Create a .env file in the root directory for all of your environment variables (notably 'NODE_ENV=development)'
 4. ``` npm run build ```
 5. ``` npm run dev ```
+
+Here is an example of the .env file, loaded by dotenv.
+```
+  NODE_ENV=development
+  MYSQL_ADDRESS=localhost
+  MYSQL_PORT=3306
+  MYSQL_NAME=test_blog
+  MYSQL_USERNAME=root
+  MYSQL_PASSWORD=adminpassword
+```
