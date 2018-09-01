@@ -4,6 +4,7 @@ import { BaseController } from './baseController';
 import { ThemeModel } from './../models/mysql/themes';
 import { FileController } from './fileController';
 import { Utils } from './../utils/utils';
+import { PreviewController } from './previewController';
 
 export class ThemeController extends BaseController {
 
@@ -11,6 +12,10 @@ export class ThemeController extends BaseController {
         return new Promise((resolve, reject) => {
             ThemeModel.getThemeByID(id)
                 .then((theme) => {
+                    if (theme.length < 1) {
+                        reject('No theme found, please try again.');
+                        return;
+                    }
                     let name = theme[0].name;
                     Utils.walkDirectory(`./src/website/views/themes/${name}/templates`, (templates) => {
                         Utils.walkDirectory(`./src/website/views/themes/${name}/layouts`, (layouts) => {
@@ -94,6 +99,27 @@ export class ThemeController extends BaseController {
                         });
                 }
             });
+        });
+    }
+
+    public static previewTheme(themeID) {
+        return new Promise((resolve, reject) => {
+            let id = Utils.generateUniquestring();
+            let themePath = 'themes/theme-two/';
+            PreviewController.generatePreviewInstance('theme-two', id, themePath);
+            resolve(id);
+        });
+    }
+
+    public static getThemeByID(id: number) {
+        return new Promise((resolve, reject) => {
+            ThemeModel.getThemeByID(id)
+                .then((theme) => {
+                    resolve(theme);
+                })
+                .catch((error) => {
+                    reject(error);
+                })
         });
     }
 }

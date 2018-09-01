@@ -38,5 +38,16 @@ export default () => {
         })
     });
 
+    
+    router.get('/preview', (req, res, next) => {
+        ThemeController.previewTheme(req.query.theme_id)
+        .then((data) => {
+            res.status(200).json(data);
+        })
+        .catch((error) => {
+            res.status(500).json(error);
+        })
+    });
+
     return router;
 }

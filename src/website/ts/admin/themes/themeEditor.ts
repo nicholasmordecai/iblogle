@@ -19,6 +19,7 @@ namespace Website {
         }
 
         private addEventListeners() {
+            $('#btn-preview').click((e) => this.preview(e));
             $('#btn-save').click((e) => this.save(e));
             $('#btn-delete').click((e) => this.delete(e));
             $('.file-item').click((e) => this.getFileContents(e));
@@ -63,6 +64,13 @@ namespace Website {
             $('#basePartials').html(html.partials);
             $('#baseSass').html(html.sass);
             $('.file-item').click((e) => this.getFileContents(e));
+        }
+
+        private preview(e) {
+            Network.get(`/api/theme/preview?theme_id=${this._id}`, (response) => {
+                let win = window.open(`/?preview_id=${response}`, '_blank');
+                win.focus();
+            });
         }
     }
 }

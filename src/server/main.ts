@@ -6,7 +6,10 @@ import * as compression from 'compression';
 import * as cookieParser from 'cookie-parser';
 import * as helmet from 'helmet';
 
-require('dotenv').config()
+// var morgan = require('morgan');
+
+require('dotenv').config();
+import * as path from 'path';
 
 import MainRouter from './routes/router';
 import APIRouter from './api/api';
@@ -16,15 +19,16 @@ import { ErrorController } from './controllers/errorController';
 import { SocketController } from './controllers/socketController';
 
 import { FileController } from './controllers/fileController';
+import { PreviewController } from './controllers/previewController';
 
 export class Server {
 
     public static _app: express.Express;
     public static _socketController: SocketController;
 
-    public static devInstance;
-
     constructor() {
+        global['appRoot'] = path.resolve(__dirname);
+
         // create new instance of express
         Server._app = express();
 
@@ -54,18 +58,15 @@ export class Server {
 
         if (process.env.NODE_ENV === 'production') {
             Server._app.enable('view cache');
+        } else {
+
         }
+
+        Server._app.enable('view cache');
+
 
         Server._app.use(compression());
         Server._app.use(cookieParser());
-
-        Server.devInstance = hbs.create().express3({
-            viewsDir: __dirname + '/../views/',
-            partialsDir: __dirname + '/../views/partials/',
-            layoutDir: __dirname + '/../views/layouts/',
-            defaultLayout: __dirname + '/../views/layouts/admin.hbs',
-            extName: '.hbs'
-        });
 
         // configure static path
         Server._app.use(express.static(__dirname + '/../website/public'));
@@ -74,6 +75,7 @@ export class Server {
         Server._app.use('/api', APIRouter());
 
         new FileController();
+        new PreviewController();
 
         // use the 404 custom middleware
         // Server._app.use(Error404);

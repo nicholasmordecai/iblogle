@@ -1,7 +1,7 @@
 import { Utils } from './../../../utils/utils';
 import { BasePlugin } from '../../basePlugin';
 
-export class BreadcrumbGenerator extends BasePlugin{
+export class BreadcrumbGenerator extends BasePlugin {
     constructor() {
         super();
     }

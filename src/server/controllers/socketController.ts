@@ -45,10 +45,7 @@ export class SocketController extends BaseController {
     }
 
     public sendToAllClients(data) {
-        console.log(SocketController._clients.length)
         for (let i = 0, len = SocketController._clients.length; i < len; i++) {
-            console.log('Sending to client: ', SocketController._clients[i]['data'].id)
-            // SocketController._clients[i].send('Number of clients connected: ' + SocketController._clients.length);
             SocketController._clients[i].send(data);
         }
     }

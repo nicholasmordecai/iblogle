@@ -11,6 +11,7 @@ export class FileController extends BaseController {
     public static getPathFromID(id: string) {
         for(let i in this._cachedFilePaths) {
             if(i === id) {
+                console.log(this._cachedFilePaths[i])
                 return this._cachedFilePaths[i];
             }
         }
