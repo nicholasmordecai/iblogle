@@ -15,11 +15,21 @@ export default () => {
         })
         .catch((error) => {
             res.status(500).json(error);
-        })
+        });
     });
 
     router.get('/load-file', (req, res, next) => {
         ThemeController.readFile(req)
+        .then((data) => {
+            res.status(200).json(data);
+        })
+        .catch((error) => {
+            res.status(500).json(error);
+        })
+    });
+
+    router.delete('/delete-file', (req, res, next) => {
+        ThemeController.deleteFile(req)
         .then((data) => {
             res.status(200).json(data);
         })

@@ -5,6 +5,8 @@ import { ThemeController } from './../../controllers/themeController';
 import { PostController } from './../../controllers/postController';
 import { Auth } from './../../controllers/authentication';
 
+import { Server } from './../../main';
+
 let router;
 
 export default () => {
@@ -50,7 +52,19 @@ export default () => {
     router.get('/themes/all', (req, res) => {
         ThemeModel.getThemes()
             .then((themes) => {
-                res.render('admin/pages/view-themes', { layout: 'admin', themes: themes });
+                let preview = req.query.preview_id;
+                if(preview) {
+                    // get instance from preview ID, and use it to render
+                    Server.devInstance(__dirname + '/../../../views/admin/pages/login.hbs', {
+                        settings: {},
+                        layout: 'layouts/' + 'admin',
+                        data: {}
+                    }, (error, html) => {
+                        res.send(html)
+                    });
+                } else {
+                    res.render('admin/pages/view-themes', { layout: 'admin', themes: themes });
+                }
             });
     });
 

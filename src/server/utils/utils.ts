@@ -54,6 +54,7 @@ export class Utils {
                 </a>
                 <div class="collapse tree" id="template-${path.name}">`;
                 html += Utils.buildSubFolder(path);
+                html += `<a class="nav-link tree file-item" href="#"><i class="fas fa-plus"></i> Add File</a>`
                 html += `</div>`;
             }
         }

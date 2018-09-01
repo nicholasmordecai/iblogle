@@ -11,7 +11,7 @@ export class ThemeController extends BaseController {
         return new Promise((resolve, reject) => {
             ThemeModel.getThemeByID(id)
                 .then((theme) => {
-                    let name = theme[0].name
+                    let name = theme[0].name;
                     Utils.walkDirectory(`./src/website/views/themes/${name}/templates`, (templates) => {
                         Utils.walkDirectory(`./src/website/views/themes/${name}/layouts`, (layouts) => {
                             Utils.walkDirectory(`./src/website/views/themes/${name}/partials`, (partials) => {
@@ -26,7 +26,7 @@ export class ThemeController extends BaseController {
                             });
 
                         });
-                    })
+                    });
                 })
                 .catch((error) => {
                     reject(error);
@@ -37,11 +37,15 @@ export class ThemeController extends BaseController {
     public static readFile(req) {
         return new Promise((resolve, reject) => {
             let path = FileController.getPathFromID(req.query.file_id);
+            if (!path) {
+                reject('File not found. Please refresh and try again.');
+                return;
+            }
             fs.readFile(path, 'utf-8', (error, data) => {
                 if (error) {
                     reject(error);
                 } else {
-                    resolve({file: data, id: req.query.file_id});
+                    resolve({ file: data, id: req.query.file_id });
                 }
             });
         });
@@ -50,12 +54,44 @@ export class ThemeController extends BaseController {
     public static saveFile(req) {
         return new Promise((resolve, reject) => {
             let path = FileController.getPathFromID(req.query.file_id);
+            if (!path) {
+                reject('File not found. Please refresh and try again.');
+                return;
+            }
             let contents = req.body.content;
             fs.writeFile(path, contents, 'utf-8', (error) => {
                 if (error) {
                     reject(error);
                 } else {
-                    resolve('File Saved');
+                    return resolve('File Saved');
+                }
+            });
+        })
+    }
+
+    public static deleteFile(req) {
+        return new Promise((resolve, reject) => {
+            let path = FileController.getPathFromID(req.query.file_id);
+            if (!path) {
+                reject('File not found. Please refresh and try again.');
+                return;
+            }
+            let themeID = req.query.theme_id;
+            if (!themeID) {
+                reject('Theme ID does not match. Please refresh and try again.');
+                return;
+            }
+            fs.unlink(path, (error) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    ThemeController.generateFileStructure(themeID)
+                        .then((tree) => {
+                            resolve({ message: 'File Deleted', tree: tree });
+                        })
+                        .catch((error) => {
+                            reject(error);
+                        });
                 }
             });
         });

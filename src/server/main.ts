@@ -12,7 +12,6 @@ import MainRouter from './routes/router';
 import APIRouter from './api/api';
 import Error404 from './middleware/404';
 import ErrorCSRF from './middleware/csrf';
-// import { BlogPostController } from './controllers/blogPostController';
 import { ErrorController } from './controllers/errorController';
 import { SocketController } from './controllers/socketController';
 
@@ -23,6 +22,8 @@ export class Server {
     public static _app: express.Express;
     public static _socketController: SocketController;
 
+    public static devInstance;
+
     constructor() {
         // create new instance of express
         Server._app = express();
@@ -30,7 +31,6 @@ export class Server {
         Server._app.use(helmet());
 
         ErrorController.init();
-        // BlogPostController.readJSONToCache();
 
         // setup the json parser middleware
         Server._app.use(bodyParser.urlencoded({ extended: true }));
@@ -52,12 +52,20 @@ export class Server {
             extname: '.hbs'
         }));
 
-        if(process.env.NODE_ENV === 'production') {
+        if (process.env.NODE_ENV === 'production') {
             Server._app.enable('view cache');
         }
 
         Server._app.use(compression());
         Server._app.use(cookieParser());
+
+        Server.devInstance = hbs.create().express3({
+            viewsDir: __dirname + '/../views/',
+            partialsDir: __dirname + '/../views/partials/',
+            layoutDir: __dirname + '/../views/layouts/',
+            defaultLayout: __dirname + '/../views/layouts/admin.hbs',
+            extName: '.hbs'
+        });
 
         // configure static path
         Server._app.use(express.static(__dirname + '/../website/public'));

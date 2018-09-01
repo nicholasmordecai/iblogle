@@ -2,20 +2,21 @@ namespace Website {
     export class Animations {
 
         public static showLoading() {
-            $(".se-pre-con").fadeIn(150);
+            $(".se-pre-con").fadeIn(300);
         }
 
         public static hideLoading() {
             $(".se-pre-con").fadeOut(150);
         }
 
-        public static showAlert(message: string, severity: 'success' | 'warning' | 'danger' | 'info', closeDelay: number = 3000) {
+        public static showAlert(message: string, severity: 'bg-success' | 'bg-warning' | 'bg-danger' | 'bg-info', closeDelay: number = 3000) {
             let alertBox = new AlertBox({
-                closeTime: 5000,
+                closeTime: closeDelay,
                 persistent: false,
-                hideCloseButton: false
+                hideCloseButton: false,
+                severity: severity
             });
-            alertBox.show('hello world');
+            alertBox.show(message);
         }
 
         public static hideAlert() {
@@ -40,6 +41,7 @@ const AlertBox = function (option) {
             alertClose.classList.add('alert-close');
             alertClose.setAttribute('href', '#');
             alertBox.classList.add('alert-box');
+            alertBox.classList.add(option.severity);
             alertBox.appendChild(alertContent);
             if (!option.hideCloseButton || typeof option.hideCloseButton === 'undefined') {
                 alertBox.appendChild(alertClose);

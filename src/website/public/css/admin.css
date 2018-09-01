@@ -306,7 +306,6 @@ a.article, a.article:hover {
 .alert-box {
     font-size: 16px;
     color: white;
-    background: rgba(0, 0, 0, 0.9);
     line-height: 1.3em;
     padding: 10px 15px;
     margin: 5px 10px;
