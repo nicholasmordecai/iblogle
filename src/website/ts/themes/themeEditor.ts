@@ -23,6 +23,21 @@ namespace Website {
             $('#btn-save').click((e) => this.save(e));
             $('#btn-delete').click((e) => this.delete(e));
             $('.file-item').click((e) => this.getFileContents(e));
+
+            $(window).bind('keydown', (event) => {
+                if (event.ctrlKey || event.metaKey) {
+                    switch (String.fromCharCode(event.which).toLowerCase()) {
+                        case 's':
+                            this.save(null)
+                            event.preventDefault();
+                            break;
+                        case 'f':
+                            event.preventDefault();
+                            alert('ctrl-f');
+                            break;
+                    }
+                }
+            });
         }
 
         private getFileContents(e) {

@@ -43,11 +43,11 @@ export class Server {
         Server._app.set('view engine', 'hbs');
         Server._app.set('views', __dirname + '/../views/');
 
-        let activeThemeDirectory: string = '/../views/themes/theme-one';
+        let activeThemeDirectory: string = '/../../views/themes/theme-one';
 
         // configure views path
         Server._app.engine('hbs', hbs.express4({
-            defaultLayout: __dirname + '/../views/layouts/main.hbs',
+            defaultLayout: __dirname + '/../views/layouts/admin.hbs',
             partialsDir: [
                 __dirname + '/../views/partials',
                 __dirname + activeThemeDirectory + '/partials',
@@ -62,7 +62,7 @@ export class Server {
 
         }
 
-        Server._app.enable('view cache');
+        // Server._app.enable('view cache');
 
 
         Server._app.use(compression());

@@ -13,22 +13,22 @@ export default () => {
     router = Router();
 
     router.get('/', (req, res, next) => {
-        res.render('admin/pages/dashboard', { layout: 'admin' });
+        res.render('pages/dashboard', { layout: 'admin' });
     });
 
     router.get('/admin-login', (req, res, next) => {
-        res.render('admin/pages/login', { layout: 'admin' });
+        res.render('pages/login', { layout: 'admin' });
     });
 
     router.get('/settings/general', (req, res) => {
-        res.render('admin/pages/settings/general', { layout: 'admin' });
+        res.render('pages/settings/general', { layout: 'admin' });
     });
 
 
     router.get('/content/view-posts', (req, res) => {
         PostController.getListOfPosts()
             .then((posts) => {
-                res.render('admin/pages/view-posts', { layout: 'admin', posts: posts });
+                res.render('pages/view-posts', { layout: 'admin', posts: posts });
             })
             .catch((error) => {
                 res.status(500).json(error);
@@ -39,9 +39,9 @@ export default () => {
         PostController.getSinglePost(req.query.post_id)
             .then((post) => {
                 if (post.length < 1) {
-                    res.render('admin/pages/edit-post', { layout: 'admin', editorRequired: true, noPost: true });
+                    res.render('pages/edit-post', { layout: 'admin', editorRequired: true, noPost: true });
                 } else {
-                    res.render('admin/pages/edit-post', { layout: 'admin', editorRequired: true, post: post[0] });
+                    res.render('pages/edit-post', { layout: 'admin', editorRequired: true, post: post[0] });
                 }
             })
             .catch((error) => {
@@ -52,7 +52,7 @@ export default () => {
     router.get('/themes/all', (req, res) => {
         ThemeModel.getThemes()
             .then((themes) => {
-                res.render('admin/pages/view-themes', { layout: 'admin', themes: themes });
+                res.render('pages/view-themes', { layout: 'admin', themes: themes });
             });
     });
 
@@ -60,7 +60,7 @@ export default () => {
         let themeID = req.query.theme_id;
         ThemeController.generateFileStructure(themeID)
             .then((structure) => {
-                res.render('admin/pages/edit-theme', { layout: 'admin', editorRequired: true, structure: structure });
+                res.render('pages/edit-theme', { layout: 'admin', editorRequired: true, structure: structure });
             })
     });
 
