@@ -12,6 +12,7 @@ require('dotenv').config();
 import * as path from 'path';
 
 import MainRouter from './routes/router';
+import AdminRouter from './routes/adminRouter';
 import APIRouter from './api/api';
 import Error404 from './middleware/404';
 import ErrorCSRF from './middleware/csrf';
@@ -72,6 +73,7 @@ export class Server {
         Server._app.use(express.static(__dirname + '/../website/public'));
 
         Server._app.use('/', MainRouter());
+        Server._app.use('/admin', AdminRouter());
         Server._app.use('/api', APIRouter());
 
         new FileController();

@@ -46,8 +46,5 @@ export default () => {
         })
         .catch((error) => { });
 
-
-    router.use('/admin', admin());
-
     return router;
 }

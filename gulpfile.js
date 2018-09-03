@@ -19,7 +19,7 @@ gulp.task('start', ['browser-sync'], function () {
     gulp.watch('src/server/**/*', ['compileServer']);
     gulp.watch('src/website/ts/**/*', ['compileWebsite']);
     gulp.watch('src/website/public/css/**/*.css', ['copyCSS', 'inject']);
-    gulp.watch('src/website/views/**/*.hbs', ['copyViews', 'reload']);
+    gulp.watch('src/views/**/*.hbs', ['copyViews', 'reload']);
     gulp.watch('src/data/**/*', ['copyDataFiles']);
     gulp.watch('src/website/public/img/**/*', ['copyImages']);
     gulp.watch('src/website/public/js/**/*.js', ['copyJS']);
@@ -145,7 +145,7 @@ gulp.task('copyJS', function () {
 });
 
 gulp.task('copyViews', function () {
-    return gulp.src(['src/website/views/**/*'])
+    return gulp.src(['src/views/**/*'])
         .pipe(gulp.dest('build/views'));
 });
 

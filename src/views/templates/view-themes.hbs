@@ -3,7 +3,7 @@
         <button type="button" class="btn btn-primary mr-2">Create New Theme</button>
         <button type="button" class="btn btn-primary">Install Theme From Zip</button>
     </div>
-    {{#each themes}}
-        {{> admin/theme-thumbnail}}
+    {{#each data.themes}}
+        {{> theme-thumbnail}}
     {{/each}}
 </div>
