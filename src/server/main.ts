@@ -42,23 +42,20 @@ export class Server {
         Server._app.use(bodyParser.json());
 
         Server._app.set('view engine', 'hbs');
-        Server._app.set('views', __dirname + '/../views/');
+        Server._app.set('views', path.join(global['appRoot'], '/../../themes/theme-one'));
 
-        let activeThemeDirectory: string = '/../../views/themes/theme-one';
+        // let activeThemeDirectory: string = path.join(global['appRoot'], '/../../themes/');
 
         // configure views path
         Server._app.engine('hbs', hbs.express4({
-            defaultLayout: __dirname + '/../views/layouts/admin.hbs',
-            partialsDir: [
-                __dirname + '/../views/partials',
-                __dirname + activeThemeDirectory + '/partials',
-            ],
-            layoutsDir: __dirname + '/../views/layouts',
+            defaultLayout: 'themes/theme-one/layouts/main.hbs',
+            partialsDir: 'themes/theme-one/partials',
+            layoutsDir: 'themes/theme-one/layouts',
             extname: '.hbs'
         }));
 
         if (process.env.NODE_ENV === 'production') {
-            Server._app.enable('view cache');
+            // Server._app.enable('view cache');
         } else {
 
         }

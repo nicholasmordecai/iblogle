@@ -27,7 +27,7 @@ export default () => {
                         let instance = PreviewController.getInstance(req.query.preview_id);
                         // if the instance is returned, then use that handlebars instance to render the html, otherwise default to the active (cached) instance
                         if (instance) {
-                            instance.instance(`${global['appRoot']}/../views/${instance.themeLocation}templates/${page.template}.hbs`, {
+                            instance.instance(`${global['appRoot']}/${instance.themeLocation}templates/${page.template}.hbs`, {
                                 settings: {},
                                 data: {}
                             }, (error, html) => {
@@ -37,8 +37,8 @@ export default () => {
                             res.status(404).send('Theme preview ID did not match');
                         }
                     } else {
-                        res.render(`${themeRoot}/templates/${page.template}`, {
-                            layout: `../layouts/${page.layout}`
+                        res.render(`templates/${page.template}`, {
+                            layout: `${page.layout}`
                         });
                     }
                 })
