@@ -26,5 +26,17 @@ export class PostController extends BaseController {
                 });
         })
     }
+
+    public static getSinglePostBySlug(slug: string): Promise<any[]> {
+        return new Promise((resolve, reject) => {
+            PostModel.getPostBySlug(slug)
+                .then((posts) => {
+                    resolve(posts);
+                })
+                .catch((error) => {
+                    reject(error);
+                });
+        })
+    }
     
 }

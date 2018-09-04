@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 import * as express from 'express';
 import * as hbs from 'express-hbs';
 import * as http from 'http';
@@ -5,10 +7,7 @@ import * as bodyParser from 'body-parser';
 import * as compression from 'compression';
 import * as cookieParser from 'cookie-parser';
 import * as helmet from 'helmet';
-
-// var morgan = require('morgan');
-
-require('dotenv').config();
+import * as morgan from 'morgan';
 import * as path from 'path';
 
 import MainRouter from './routes/router';
@@ -44,8 +43,6 @@ export class Server {
         Server._app.set('view engine', 'hbs');
         Server._app.set('views', path.join(global['appRoot'], '/../../themes/theme-one'));
 
-        // let activeThemeDirectory: string = path.join(global['appRoot'], '/../../themes/');
-
         // configure views path
         Server._app.engine('hbs', hbs.express4({
             defaultLayout: 'themes/theme-one/layouts/main.hbs',
@@ -57,17 +54,16 @@ export class Server {
         if (process.env.NODE_ENV === 'production') {
             // Server._app.enable('view cache');
         } else {
-
+            Server._app.use(morgan('combined'));
         }
-
-        // Server._app.enable('view cache');
-
 
         Server._app.use(compression());
         Server._app.use(cookieParser());
 
         // configure static path
         Server._app.use(express.static(__dirname + '/../website/public'));
+        Server._app.use("/public/css", express.static(global['appRoot'] + "/../../themes/theme-one/css"));
+        Server._app.use("/public/js", express.static(global['appRoot'] + "/../../themes/theme-one/js"));
 
         Server._app.use('/', MainRouter());
         Server._app.use('/admin', AdminRouter());

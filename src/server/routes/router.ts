@@ -1,12 +1,7 @@
 import { Router } from 'express';
-import * as csrf from 'csurf';
-
-// import { BlogPostController } from './../controllers/blogPostController';
-import admin from './admin/dashboard';
-import Breadcrumb from './../middleware/breadcrumb';
-
 import { PageModel } from './../models/mysql/pages';
 import { PreviewController } from './../controllers/previewController';
+import { PostController } from './../controllers/postController';
 
 // var csrfProtection = csrf({ cookie: true });
 let router;
@@ -45,6 +40,31 @@ export default () => {
             }
         })
         .catch((error) => { });
+
+        router.get('/blog/:blogID', (req, res, next) => {
+            let slug = req.params.blogID;
+            if(!slug) {
+                // hande if no blog id is found
+                return;
+            }
+
+            PostController.getSinglePostBySlug(slug)
+            .then((postData) => {
+                if(postData.length < 1) {
+                    // handle no blog post found (404)
+                } else {
+                    let page = postData[0];
+                    console.log(page)
+                    res.render(`templates/${page.template}`, {
+                        layout: `${page.layout}`,
+                        data: page[0]
+                    });
+                }
+            })
+            .catch((error) => {
+                // handle error here
+            })
+        })
 
     return router;
 }

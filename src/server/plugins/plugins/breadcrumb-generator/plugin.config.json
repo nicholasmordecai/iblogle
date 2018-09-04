@@ -1,4 +1,0 @@
-{
-    "name": "Breadcrumb Generator",
-    "description": "Generates a breadcrumb trail based on the path found in the request"
-}

@@ -17,10 +17,10 @@ export class ThemeController extends BaseController {
                         return;
                     }
                     let name = theme[0].name;
-                    Utils.walkDirectory(`./src/website/views/themes/${name}/templates`, (templates) => {
-                        Utils.walkDirectory(`./src/website/views/themes/${name}/layouts`, (layouts) => {
-                            Utils.walkDirectory(`./src/website/views/themes/${name}/partials`, (partials) => {
-                                Utils.walkDirectory(`./src/website/views/themes/${name}/sass`, (sass) => {
+                    Utils.walkDirectory(`./themes/${name}/templates`, (templates) => {
+                        Utils.walkDirectory(`./themes/${name}/layouts`, (layouts) => {
+                            Utils.walkDirectory(`./themes/${name}/partials`, (partials) => {
+                                Utils.walkDirectory(`./themes/${name}/css`, (sass) => {
                                     resolve({
                                         templates: templates,
                                         layouts: layouts,
