@@ -2,7 +2,6 @@ require('dotenv').config();
 
 import * as express from 'express';
 import * as hbs from 'express-hbs';
-import * as http from 'http';
 import * as bodyParser from 'body-parser';
 import * as compression from 'compression';
 import * as cookieParser from 'cookie-parser';

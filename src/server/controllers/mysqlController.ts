@@ -2,7 +2,7 @@ import mysql = require('mysql');
 
 let pool;
 
-export class MysqlController {
+export class MySQLController {
 
     public static getPool(cb: Function) {
         if (pool) {
@@ -32,7 +32,7 @@ export class MysqlController {
     }
 
     public static executeQuery(query, params, resolve, reject) {
-        MysqlController.getPool((err, con) => {
+        MySQLController.getPool((err, con) => {
             con.query(query, params, (err, results) => {
                 if (err) {
                     reject(err);

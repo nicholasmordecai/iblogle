@@ -75,7 +75,7 @@ export class Auth {
     public static generateToken(username: string, admin: number): string {
         let data = {
             sub: username,
-            iss: 'https://dashboard.location-sciences.ai',
+            iss: 'https://your-domain.com',
             admin: admin,
         }
         let token: string = null;
@@ -92,7 +92,7 @@ export class Auth {
     public static generateResetToken(email: string): string {
         let data = {
             sub: email,
-            iss: 'https://dashboard.location-sciences.ai'
+            iss: 'https://your-domain.com'
         }
         let token: string = null;
         try {

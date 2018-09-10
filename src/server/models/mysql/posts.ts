@@ -1,17 +1,31 @@
-import { MysqlController } from './../../controllers/mysqlController';
+import { MySQLController } from './../../controllers/mysqlController';
+
+declare interface IPost {
+    id: string;
+    content: string;
+    title: string;
+    description: string;
+    user_id: number;
+    date_created: number;
+    last_updated: number;
+    published: number;
+    slug: string;
+    template: string;
+    layout: string;
+}
 
 export class PostModel {
-    public static getAllPosts(): Promise<Array<any>> {
+    public static getAllPosts(): Promise <Array<IPost>>{
         return new Promise((resolve, reject) => {
             let query = `
                 SELECT id, content, title, description, user_id, date_created, last_updated
                 FROM posts`;
 
-            MysqlController.executeQuery(query, [], resolve, reject)
+                MySQLController.executeQuery(query, [], resolve, reject)
         });
     }
 
-    public static getPost(id): Promise<Array<any>> {
+    public static getPost(id): Promise <Array<IPost>>{
         return new Promise((resolve, reject) => {
             let query = `
                 SELECT id, content, title, description, user_id, date_created, last_updated
@@ -20,7 +34,7 @@ export class PostModel {
 
             let params = [id];
 
-            MysqlController.executeQuery(query, params, resolve, reject)
+            MySQLController.executeQuery(query, params, resolve, reject)
         });
     }
 
