@@ -47,7 +47,7 @@ export class PostModel {
 
             let params = [slug];
 
-            MysqlController.executeQuery(query, params, resolve, reject)
+            MySQLController.executeQuery(query, params, resolve, reject)
         });
     }
 }
