@@ -5,7 +5,7 @@ const dirTree = require('directory-tree');
 const ext: string = '.hbs';
 const uuidv4 = require('uuid/v4');
 
-import { FileController } from './../controllers/fileController';
+import { FileController } from './../controllers/core/fileController';
 
 export class Utils {
 

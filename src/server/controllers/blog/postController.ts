@@ -1,6 +1,6 @@
-import { BaseController } from './baseController';
+import { BaseController } from '../baseController';
 
-import { PostModel } from './../models/mysql/posts';
+import { PostModel } from '../../models/mysql/posts';
 
 export class PostController extends BaseController {
     public static getListOfPosts() {

@@ -1,5 +1,5 @@
-import { BaseController } from './baseController';
-import { Server } from './../main';
+import { BaseController } from './../baseController';
+import { Server } from './../../main';
 import * as WebSocket from 'ws';
 import * as uuid from 'uuid';
 

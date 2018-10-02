@@ -1,6 +1,6 @@
 import * as Raven from 'raven';
 
-import { BaseController } from './baseController';
+import { BaseController } from '../baseController';
 
 export class ErrorController extends BaseController {
 

@@ -14,11 +14,11 @@ import AdminRouter from './routes/adminRouter';
 import APIRouter from './api/api';
 import Error404 from './middleware/404';
 import ErrorCSRF from './middleware/csrf';
-import { ErrorController } from './controllers/errorController';
-import { SocketController } from './controllers/socketController';
+import { ErrorController } from './controllers/core/errorController';
+import { SocketController } from './controllers/core/socketController';
 
-import { FileController } from './controllers/fileController';
-import { PreviewController } from './controllers/previewController';
+import { FileController } from './controllers/core/fileController';
+import { PreviewController } from './controllers/theme/previewController';
 
 export class Server {
 

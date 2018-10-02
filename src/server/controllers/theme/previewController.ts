@@ -1,7 +1,7 @@
 import * as hbs from 'express-hbs';
 
 // import controllers
-import { BaseController } from './baseController';
+import { BaseController } from '../baseController';
 
 interface IPreview {
     themeName: string;

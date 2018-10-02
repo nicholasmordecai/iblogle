@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 // import controllers
-import { ThemeController } from './../controllers/themeController';
+import { ThemeController } from './../controllers/theme/themeController';
 
 let router;
 

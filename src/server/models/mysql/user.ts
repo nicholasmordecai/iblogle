@@ -1,4 +1,4 @@
-import { MySQLController } from './../../controllers/mysqlController';
+import { MySQLController } from './../../controllers/database/mysqlController';
 
 export class UserModel{
 

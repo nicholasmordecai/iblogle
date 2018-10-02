@@ -1,12 +1,10 @@
 import { Router } from 'express';
 import { PageModel } from './../models/mysql/pages';
-import { PreviewController } from './../controllers/previewController';
-import { PostController } from './../controllers/postController';
+import { PreviewController } from './../controllers/theme/previewController';
+import { PostController } from './../controllers/blog/postController';
 
 // var csrfProtection = csrf({ cookie: true });
 let router;
-
-const themeRoot = 'themes/theme-one';
 
 export default () => {
     router = Router();
@@ -39,7 +37,9 @@ export default () => {
                 })
             }
         })
-        .catch((error) => { });
+        .catch((error) => { 
+            // no pages found, maybe display a useful error here?
+        });
 
         router.get('/blog/:blogID', (req, res, next) => {
             let slug = req.params.blogID;
@@ -63,8 +63,8 @@ export default () => {
             })
             .catch((error) => {
                 // handle error here
-            })
-        })
+            });
+        });
 
     return router;
 }

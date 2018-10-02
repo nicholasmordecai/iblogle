@@ -1,9 +1,9 @@
 import * as fs from 'fs';
 
-import { BaseController } from './baseController';
-import { ThemeModel } from './../models/mysql/themes';
-import { FileController } from './fileController';
-import { Utils } from './../utils/utils';
+import { BaseController } from '../baseController';
+import { ThemeModel } from '../../models/mysql/themes';
+import { FileController } from '../core/fileController';
+import { Utils } from '../../utils/utils';
 import { PreviewController } from './previewController';
 
 export class ThemeController extends BaseController {

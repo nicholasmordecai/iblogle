@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { AdminRenderer } from './../../controllers/adminRenderer';
-import { ThemeController } from './../../controllers/themeController';
+import { AdminRenderer } from './../../controllers/admin/adminRenderer';
+import { ThemeController } from './../../controllers/theme/themeController';
 import { ThemeModel } from './../../models/mysql/themes';
 
 let router;

@@ -1,6 +1,6 @@
 import * as nodemailer from 'nodemailer';
 
-import { BaseController } from './baseController';
+import { BaseController } from '../baseController';
 
 export class EmailController extends BaseController {
     public static sendEmail(from: string, subject: string, body: string, callback: Function) {

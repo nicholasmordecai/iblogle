@@ -1,4 +1,4 @@
-import { BaseController } from './baseController';
+import { BaseController } from '../baseController';
 
 declare interface IMenu {
 

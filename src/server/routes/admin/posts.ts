@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
-import { AdminRenderer } from './../../controllers/adminRenderer';
-import { PostController } from './../../controllers/postController';
+import { AdminRenderer } from './../../controllers/admin/adminRenderer';
+import { PostController } from './../../controllers/blog/postController';
 
 let router;
 
