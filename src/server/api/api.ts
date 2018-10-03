@@ -16,6 +16,9 @@ export default () => {
     router.use('/post', Post());
     router.use('/theme', Theme());
 
+    /**
+     * TODO make the secret a database field
+     */
     router.post('/contact-form', csrfProtection, (req, res, next) => {
         let captureResponse = req.body['g-recaptcha-response'];
         request.post({ url: 'https://www.google.com/recaptcha/api/siteverify', form: { secret: '6LfQVGIUAAAAAA4v1jHux6hXF9PNx25CNqMcBXJX', response: captureResponse } }, (err, httpResponse, body) => {

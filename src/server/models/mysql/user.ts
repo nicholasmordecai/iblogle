@@ -1,8 +1,20 @@
 import { MySQLController } from './../../controllers/database/mysqlController';
 
+declare interface IUser {
+    id: number;
+    email_address: string;
+    name: string;
+    first_name: string;
+    surname: string;
+    role: number;
+    permissions: number;
+    password: string;
+    reset_hash: string;
+}
+
 export class UserModel{
 
-    public static getUsers() {
+    public static getUsers(): Promise<Array<IUser>> {
         return new Promise((resolve, reject) => {
             let query = `
                 SELECT 
@@ -13,7 +25,7 @@ export class UserModel{
         });
     }
 
-    public static getUserByEmail(emailAddress: string) {
+    public static getUserByEmail(emailAddress: string): Promise<Array<IUser>> {
         return new Promise((resolve, reject) => {
             let query = `
                 SELECT 
@@ -26,7 +38,7 @@ export class UserModel{
         });
     }
 
-    public static getUserByID(id: number) {
+    public static getUserByID(id: number): Promise<Array<IUser>> {
         return new Promise((resolve, reject) => {
             let query = `
                 SELECT 
