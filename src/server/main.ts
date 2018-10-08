@@ -14,6 +14,7 @@ import AdminRouter from './routes/adminRouter';
 import APIRouter from './api/api';
 import Error404 from './middleware/404';
 import ErrorCSRF from './middleware/csrf';
+import { CacheController } from './controllers/core/cacheController';
 import { ErrorController } from './controllers/core/errorController';
 import { SocketController } from './controllers/core/socketController';
 
@@ -32,6 +33,8 @@ export class Server {
         Server._app = express();
 
         Server._app.use(helmet());
+
+        new CacheController();
 
         ErrorController.init();
 
@@ -53,7 +56,7 @@ export class Server {
         if (process.env.NODE_ENV === 'production') {
             // Server._app.enable('view cache');
         } else {
-            Server._app.use(morgan('combined'));
+            // Server._app.use(morgan('combined'));
         }
 
         Server._app.use(compression());

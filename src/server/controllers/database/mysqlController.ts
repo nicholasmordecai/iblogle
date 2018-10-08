@@ -1,5 +1,7 @@
 import mysql = require('mysql');
 
+import { CacheController } from '../../controllers/core/cacheController';
+
 let pool;
 
 export class MySQLController {
@@ -31,19 +33,30 @@ export class MySQLController {
         }
     }
 
-    public static executeQuery(query, params, resolve, reject) {
+    public static executeQuery(query, params, resolve, reject, queryKey: string = null) {
+        if (queryKey) {
+            let results = CacheController.findInCache(queryKey, params);
+
+            if (results) {
+                resolve(results);
+                return;
+            }
+        }
+
+
         MySQLController.getPool((err, con) => {
             con.query(query, params, (err, results) => {
                 if (err) {
                     reject(err);
                     con.release();
                 } else {
+                    if(queryKey) {
+                        CacheController.createCache(queryKey, params, results);
+                    }
                     resolve(results);
                     con.release();
                 }
             });
         });
     }
-
-    // public static execute
 }

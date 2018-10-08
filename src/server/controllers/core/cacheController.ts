@@ -1,12 +1,6 @@
-import { BaseController } from "../baseController";
+import * as SHA1 from 'crypto';
 
-/**
- * TODO
- * 
- * I think I can improve speed by reducing the cached item depth by 1.
- * Also possible, is to not use the queryKey in the hash creation as it's already been looked up once
- * These are minor though, and will not drastically improve performance. it's more for readability
- */
+import { BaseController } from "../baseController";
 
 declare interface ICacheItem {
     hash: string;
@@ -17,7 +11,7 @@ declare interface ICache {
     cachedQueries: Array<ICacheItem>;
 }
 
-export class CacheController extends BaseController{
+export class CacheController extends BaseController {
     private static _cache: { [queryKey: string]: ICache };
 
     constructor() {
@@ -25,7 +19,7 @@ export class CacheController extends BaseController{
         CacheController._cache = {};
     }
 
-    public static findInCache(parameters: string[], queryKey: string): Array<any> {
+    public static findInCache(queryKey: string, parameters: string[]): Array<any> {
         // check that there is a base instance of a query cache from the query key
         if(CacheController._cache[queryKey]) {
             // store a locally scoped cachedQueries array for faster lookup
@@ -67,7 +61,7 @@ export class CacheController extends BaseController{
         CacheController._cache[queryKey].cachedQueries.push(cacheItem);
     }
 
-    public static removeFromCache(queryKey: string | string[]) {
+    public static removeFromCache(queryKey: string | string[]): void {
         if(typeof(queryKey) === 'string') {
             CacheController._cache[queryKey] = null;
         } else {
@@ -77,12 +71,11 @@ export class CacheController extends BaseController{
         }
     }
 
-    public static nukeCache() {
-
+    public static nukeCache(): void {
+        CacheController._cache = {};
     }
 
     private static generateHash(queryKey: string, parameters: string[]): string {
-        let pString = parameters.join('&');
-        return `${queryKey}&${pString}`;
+        return SHA1.createHash('sha1').update(queryKey + ',' + parameters.concat(',')).digest('base64');
     }
 }

@@ -17,18 +17,19 @@ export class ThemeModel {
                 FROM themes
                 WHERe id = ?`;
 
-                MySQLController.executeQuery(query, [id], resolve, reject)
+            MySQLController.executeQuery(query, [id], resolve, reject)
         });
     }
 
     public static getThemes(): Promise<Array<ITheme>> {
         return new Promise((resolve, reject) => {
+            let queryID = 'abcde';
             let query = `
                 SELECT id, name, description, author, version, active
                 FROM themes
                 ORDER BY active DESC`;
 
-                MySQLController.executeQuery(query, [], resolve, reject)
+            MySQLController.executeQuery(query, [], resolve, reject, 'abcde')
         });
     }
 
@@ -39,7 +40,7 @@ export class ThemeModel {
                 FROM themes
                 WHERE active = 1`;
 
-                MySQLController.executeQuery(query, [], resolve, reject)
+            MySQLController.executeQuery(query, [], resolve, reject)
         });
     }
 }
