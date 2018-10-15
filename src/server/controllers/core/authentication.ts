@@ -1,30 +1,114 @@
 import * as jwt from 'jsonwebtoken';
+import * as bcrypt from 'bcryptjs';
 
 const secret: string = 'asdsdfdfgfdghghjjhkjkl';
 const rounds: number = 12;
 
 export class Authentication {
 
-    public static createAccount(username: string, email: string, admin: number, clienID: number, callback: Function) {
-        // User.userExists(email, (exists) => {
-        //     if (exists) {
-        //         callback('Email already exists', null);
-        //     } else {
-        //         User.createUser(username, email, admin, clienID, (err, result) => {
-        //             if (err) {
-        //                 callback(err, null);
-        //             } else {
-        //                 let token = Auth.generateToken(email, admin);
-        //                 callback(err, token);
-        //             }
-        //         })
+    /**
+     * Login From Route
+     * 
+     * @param {string} email 
+     * @param {string} password 
+     * @param {Function} callback 
+     * 
+     * @description when a user logs in via the website, the data is to the backend, and this function is called to process the login
+     */
+    public static loginFromRoute(email: string, password: string, callback: Function) {
+
+        // // check if the correct parameters have been send
+        // if(!email || !password || typeof(email) !== "string" || typeof(password) !== "string") {
+        //     callback('no password or email received', null);
+        //     return;
+        // }
+
+        // // call the User.login function to fetch the users data by the email address
+        // User.login(email, (err, results) => {
+
+        //     // if more than 1 user was found, there's a problem. There should never be more than one user with the same email
+        //     if(results.length > 1) {
+        //         callback('More than 1 account', null);
+        //         return;
         //     }
+        
+        //     // if no accounts were found, then an invalid email address was entered
+        //     if(results.length < 1) {
+        //         callback('No account was found', null);
+        //         return;
+        //     }
+            
+        //     // assuming then, that 1 and only 1 account was returned, compare the two passwords and if it's a match, then generate a token.
+        //     bcrypt.compare(password, results[0].password, (err, match) => {
+        //         if(match) {
+        //             let token = Auth.generateToken(results[0].id, email, results[0].admin);
+        //             callback(null, token);
+        //         } else {
+        //             callback(err, null);
+        //         }
+        //     });
         // });
     }
 
+    /**
+     * Create Account
+     * 
+     * @param {string} username 
+     * @param {string} email 
+     * @param {string} password 
+     * @param {Function} callback 
+     * 
+     * @description creates a new account
+     * 
+     * @todo validate the email is unique before inserting into the database
+     */
+    public static createAccount(username: string, email: string, password: string, callback: Function) {
+
+        // hash the password with the constant number of rounds declared above
+        bcrypt.hash(password, rounds, (err, hash) => {
+            // call the User.createUser model, which inserts a new record in the database
+            // User.createUser(username, email, hash, (err, result) => {
+            //     if(err) {
+            //         callback(true, null);
+            //     } else {
+            //         callback(err, true);
+            //     }
+            // })
+        });
+    }
+
+    /**
+     * Hash New Password
+     * @param {string} password 
+     * @param {Function} callback 
+     * 
+     * @description accepts a password, and uses bcrypt to hash the password
+     * 
+     * @todo validate a password has been passed before attempting to hash it
+     */
+    public static hashNewPassword(password, callback: Function) {
+        bcrypt.hash(password, rounds, (err, hash) => {
+            console.log(hash)
+            if(err) {
+                callback(err, null);
+            } else {
+                callback(null, hash);
+            }
+        });
+    }
+
+    /**
+     * Is Logged In
+     * @param {string} token 
+     * @param {Function} callback 
+     * 
+     * @description accepts a JWT token (that is generated in the login method) and validates checks it's validity using the expire time, token secret, iis and the base 64 integrity
+     * 
+     * @todo parameter verification 
+     */
     public static isLoggedIn(token: string, callback: Function) {
-        jwt.verify(token, secret, { algorithms: ['HS256'] }, (err, decoded) => {
-            if (err) {
+        jwt.verify(token, secret, (err, decoded) => {
+            if(err) {
                 callback(err, false);
             } else {
                 callback(err, true);
@@ -32,90 +116,70 @@ export class Authentication {
         });
     }
 
+    /**
+     * Is Administrator Middleware Function
+     * @param req 
+     * @param res 
+     * @param next 
+     * 
+     * @description uses the req.decoded field (generated once the loggedIn method is called) and stores a convenient property to access for handlebars use
+     * If the user is not an administrator, then redirect the user to the homepage
+     */
     public static isAdmin(req, res, next) {
-        if (!req.decoded || req.decoded.admin) {
-            req.isAdmin = false;
+        if(!req.decoded) {
+            res.redirect('/');
         } else {
-            if (req.decoded.admin === 1) {
-                req.isAdmin = true;
-            } else {
-                req.isAdmin = false;
-            }
-        }
-
-        next();
-    }
-
-    public static adminRequired(req, res, next) {
-        Authentication.isAdmin(req, res, () => {
-            if (req.isAdmin) {
+            if(req.decoded.permissions === 1) {
                 next();
             } else {
-                res.redirect('/admin/login');
+                res.redirect('/'); 
             }
-        });
+        }
     }
 
+    /**
+     * Is Logged In Middleware Function
+     * @param req 
+     * @param res 
+     * @param next 
+     * 
+     * @description uses the authorization cookie passed in the request header, and validates that the user is logged in. If they are not, then redirect them to the login page
+     */
     public static loggedIn(req, res, next) {
         jwt.verify(req.cookies.authorization, secret, (err, decoded) => {
-            if (err) {
+            if(err) {
                 res.redirect('/login');
             } else {
                 req.decoded = decoded;
-                for (var key in decoded.cs) {
-                    if (key == "org") {
-                        req.clientID = decoded.cs[key];
-                    }
-                }
                 next();
             }
         });
     }
 
-    public static generateToken(username: string, admin: number): string {
+    /**
+     * Generate Token
+     * 
+     * @param {string} id 
+     * @param {string} username 
+     * @param {number} permissions 
+     * 
+     * @description a helper function for making it simpler to generate a new JWT token
+     */
+    private static generateToken(id: string, username:string, permissions: number):string {
         let data = {
-            sub: username,
-            iss: 'https://your-domain.com',
-            admin: admin,
+            cid: id,
+            sub: username, 
+            iss: 'http://mws-mla.com',
+            permissions: permissions,
         }
-        let token: string = null;
+        let token:string = null;
         try {
             token = jwt.sign(data, secret, {
                 expiresIn: '7d'
             });
-        } catch (err) {
+        } catch(err) {
             console.log(err);
         }
         return token;
-    }
-
-    public static generateResetToken(email: string): string {
-        let data = {
-            sub: email,
-            iss: 'https://your-domain.com'
-        }
-        let token: string = null;
-        try {
-            token = jwt.sign(data, secret, {
-                expiresIn: '1d'
-            });
-        } catch (err) {
-            console.log(err);
-        }
-        return token;
-    }
-
-    public static validResetToken(email: string, token: string, callback: Function) {
-        jwt.verify(token, secret, (err, decoded) => {
-            if (err) {
-                callback(false);
-            } else {
-                if (decoded.sub === email) {
-                    callback(true);
-                } else {
-                    callback(false);
-                }
-            }
-        });
     }
 }

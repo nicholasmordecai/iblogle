@@ -41,6 +41,10 @@ export default () => {
             res.status(401);
         }
 
+        Authentication.hashNewPassword(password, () => {
+            res.status(200).json('ok');
+        });
+
         // Auth.loginFromRoute(email, password, (error, token) => {
         //     console.log(token);
         //     if(error) {
