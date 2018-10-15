@@ -3,7 +3,7 @@ import * as jwt from 'jsonwebtoken';
 const secret: string = 'asdsdfdfgfdghghjjhkjkl';
 const rounds: number = 12;
 
-export class Auth {
+export class Authentication {
 
     public static createAccount(username: string, email: string, admin: number, clienID: number, callback: Function) {
         // User.userExists(email, (exists) => {
@@ -23,7 +23,7 @@ export class Auth {
     }
 
     public static isLoggedIn(token: string, callback: Function) {
-        jwt.verify(token, secret, {algorithms: ['HS256']},  (err, decoded) => {
+        jwt.verify(token, secret, { algorithms: ['HS256'] }, (err, decoded) => {
             if (err) {
                 callback(err, false);
             } else {
@@ -33,27 +33,27 @@ export class Auth {
     }
 
     public static isAdmin(req, res, next) {
-        let token = req.decoded;
-        if(req.decoded.cs !== undefined && req.decoded.cs.auth !== undefined) {
-            if (req.decoded.cs.auth === 'admin') {
+        if (!req.decoded || req.decoded.admin) {
+            req.isAdmin = false;
+        } else {
+            if (req.decoded.admin === 1) {
                 req.isAdmin = true;
             } else {
                 req.isAdmin = false;
             }
-        } else {
-            req.isAdmin = false;
         }
+
         next();
     }
 
     public static adminRequired(req, res, next) {
-        Auth.isAdmin(req, res, () => {
-            if(req.isAdmin) {
+        Authentication.isAdmin(req, res, () => {
+            if (req.isAdmin) {
                 next();
             } else {
-                res.redirect('/login');
+                res.redirect('/admin/login');
             }
-        })
+        });
     }
 
     public static loggedIn(req, res, next) {
@@ -110,7 +110,7 @@ export class Auth {
             if (err) {
                 callback(false);
             } else {
-                if(decoded.sub === email) {
+                if (decoded.sub === email) {
                     callback(true);
                 } else {
                     callback(false);

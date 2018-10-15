@@ -1,5 +1,5 @@
 import * as Express from 'express';
-import { Auth } from './../controllers/core/authentication';
+import { Authentication } from './../controllers/core/authentication';
 
 let router;
 

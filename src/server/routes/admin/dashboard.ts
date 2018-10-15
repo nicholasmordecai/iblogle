@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { AdminRenderer } from './../../controllers/admin/adminRenderer';
+import { Authentication } from './../../controllers/core/authentication';
 
 let router;
 

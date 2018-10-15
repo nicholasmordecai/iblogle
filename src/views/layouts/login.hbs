@@ -6,33 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Collapsible sidebar using Bootstrap 4</title>
+    <title>iBlogle Login</title>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
         crossorigin="anonymous">
     <!-- Our Custom CSS -->
-    {{!-- <link rel="stylesheet" href="/css/admin.css"> {{#if data.editorRequired }} --}}
-    {{!-- <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet"> {{/if}} --}}
+    <link rel="stylesheet" href="/css/login.css">
 
 </head>
 
 <body>
 
-    {{> loading-spinner}}
-
-    <div class="wrapper">
-
-        {{!-- {{> sidebar}} --}}
-
-        <div id="content">
-
-            {{!-- {{> header }}  --}}
-            {{{ body }}}
-        </div>
-
-        {{!-- {{> alert}} --}}
-    </div>
+    {{{ body }}}
 
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js" integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
@@ -46,7 +32,10 @@
         crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
-        crossorigin="anonymous"></script> 
+        crossorigin="anonymous"></script>
+
+    <script src="/js/login.js"></script>
+
 </body>
 
 </html>
