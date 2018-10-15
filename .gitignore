@@ -2,3 +2,4 @@ node_modules
 build
 ecosystem.config.js
 .env
+notes.txt

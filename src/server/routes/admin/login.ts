@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { AdminRenderer } from './../../controllers/admin/adminRenderer';
 
 let router;
 
@@ -7,7 +8,12 @@ export default () => {
 
     
     router.get('/', (req, res, next) => {
-        res.render('pages/login', { layout: 'admin' });
+        AdminRenderer.render({
+            template: 'login',
+            layout: 'login'
+        }, (html) => {
+            res.status(200).send(html);
+        });
     });
 
     return router

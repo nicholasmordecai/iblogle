@@ -1,4 +1,5 @@
 import * as hbs from 'express-hbs';
+import adminRouter from '../../routes/adminRouter';
 
 declare interface IRenderOptions {
     template: string;
@@ -31,6 +32,7 @@ export class AdminRenderer {
     public static render(options: IRenderOptions, callback: Function) {
         let renderer = AdminRenderer.getRenderer();
         renderer(`${global['appRoot']}/../views/templates/${options.template}.hbs`, {
+            layout: `${global['appRoot']}/../views/layouts/${options.layout || 'admin'}.hbs`,
             settings: {},
             data: options.data
         }, (error, html) => {
