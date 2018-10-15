@@ -35,6 +35,8 @@ export default () => {
         let email: string = req.body.email;
         let password: string = req.body.password;
 
+        console.log(email, password);
+
         if(!email || ! password || typeof(email) !== 'string' || typeof(password) !== 'string') {
             res.status(401);
         }

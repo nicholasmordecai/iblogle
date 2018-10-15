@@ -28,33 +28,20 @@ Each theme is comprised of three parts. The templates, SASS and Typescript. (Typ
 The themes are structured as follows:
 
 ```
-
 .
-
+..
 ├── layouts
-
 │ ├── main.hbs
-
 │ └── store.hbs
-
 ├── templates
-
 │ ├── home-1.hbs
-
 │ ├── blog-1-no-sidebar.hbs
-
 │ └── blog-2-left-sidebar.hbs
-
 ├── partials
-
 │ ├── header-1.hbs
-
 │ ├── footer-1.hbs
-
 │ ├── blog-thumbnail-1.hbs
-
 │ └── blog-thumbnail-2.hbs
-
 └── theme-config.json
 
 ```
