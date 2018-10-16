@@ -1,6 +1,8 @@
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
 
+import { UserModel } from './../../models/mysql/user';
+
 const secret: string = 'asdsdfdfgfdghghjjhkjkl';
 const rounds: number = 12;
 
@@ -15,39 +17,42 @@ export class Authentication {
      * 
      * @description when a user logs in via the website, the data is to the backend, and this function is called to process the login
      */
-    public static loginFromRoute(email: string, password: string, callback: Function) {
+    public static login(email: string, password: string, remember: boolean, callback: Function) {
 
-        // // check if the correct parameters have been send
-        // if(!email || !password || typeof(email) !== "string" || typeof(password) !== "string") {
-        //     callback('no password or email received', null);
-        //     return;
-        // }
+        // check if the correct parameters have been send
+        if (!email || !password || typeof (email) !== "string" || typeof (password) !== "string") {
+            callback('no password or email received', null);
+            return;
+        }
 
-        // // call the User.login function to fetch the users data by the email address
-        // User.login(email, (err, results) => {
+        // call the User.login function to fetch the users data by the email address
+        UserModel.getUserByEmail(email)
+            .then((user) => {
+                // if more than 1 user was found, there's a problem. There should never be more than one user with the same email
+                if (user.length > 1) {
+                    callback('More than 1 account', null);
+                    return;
+                }
 
-        //     // if more than 1 user was found, there's a problem. There should never be more than one user with the same email
-        //     if(results.length > 1) {
-        //         callback('More than 1 account', null);
-        //         return;
-        //     }
-        
-        //     // if no accounts were found, then an invalid email address was entered
-        //     if(results.length < 1) {
-        //         callback('No account was found', null);
-        //         return;
-        //     }
-            
-        //     // assuming then, that 1 and only 1 account was returned, compare the two passwords and if it's a match, then generate a token.
-        //     bcrypt.compare(password, results[0].password, (err, match) => {
-        //         if(match) {
-        //             let token = Auth.generateToken(results[0].id, email, results[0].admin);
-        //             callback(null, token);
-        //         } else {
-        //             callback(err, null);
-        //         }
-        //     });
-        // });
+                // if no accounts were found, then an invalid email address was entered
+                if (user.length < 1) {
+                    callback('No account was found', null);
+                    return;
+                }
+
+                // assuming then, that 1 and only 1 account was returned, compare the two passwords and if it's a match, then generate a token.
+                bcrypt.compare(password, user[0].password, (err, match) => {
+                    if (match) {
+                        let token = Authentication.generateToken(user[0].id, email, remember);
+                        callback(null, token);
+                    } else {
+
+                    }
+                });
+            })
+            .catch((error) => {
+                callback(error, null);
+            })
     }
 
     /**
@@ -89,7 +94,7 @@ export class Authentication {
     public static hashNewPassword(password, callback: Function) {
         bcrypt.hash(password, rounds, (err, hash) => {
             console.log(hash)
-            if(err) {
+            if (err) {
                 callback(err, null);
             } else {
                 callback(null, hash);
@@ -108,7 +113,7 @@ export class Authentication {
      */
     public static isLoggedIn(token: string, callback: Function) {
         jwt.verify(token, secret, (err, decoded) => {
-            if(err) {
+            if (err) {
                 callback(err, false);
             } else {
                 callback(err, true);
@@ -126,13 +131,13 @@ export class Authentication {
      * If the user is not an administrator, then redirect the user to the homepage
      */
     public static isAdmin(req, res, next) {
-        if(!req.decoded) {
+        if (!req.decoded) {
             res.redirect('/');
         } else {
-            if(req.decoded.permissions === 1) {
+            if (req.decoded.permissions === 1) {
                 next();
             } else {
-                res.redirect('/'); 
+                res.redirect('/');
             }
         }
     }
@@ -147,7 +152,7 @@ export class Authentication {
      */
     public static loggedIn(req, res, next) {
         jwt.verify(req.cookies.authorization, secret, (err, decoded) => {
-            if(err) {
+            if (err) {
                 res.redirect('/login');
             } else {
                 req.decoded = decoded;
@@ -164,20 +169,21 @@ export class Authentication {
      * @param {number} permissions 
      * 
      * @description a helper function for making it simpler to generate a new JWT token
+     * 
+     * @todo create a global variable for the iss
      */
-    private static generateToken(id: string, username:string, permissions: number):string {
+    private static generateToken(id: number, username: string, remember: boolean): string {
         let data = {
             cid: id,
-            sub: username, 
+            sub: username,
             iss: 'http://mws-mla.com',
-            permissions: permissions,
         }
-        let token:string = null;
+        let token: string = null;
         try {
             token = jwt.sign(data, secret, {
-                expiresIn: '7d'
+                expiresIn: (remember) ? '14d' : '1d'
             });
-        } catch(err) {
+        } catch (err) {
             console.log(err);
         }
         return token;

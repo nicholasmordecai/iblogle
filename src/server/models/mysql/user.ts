@@ -12,14 +12,14 @@ declare interface IUser {
     reset_hash: string;
 }
 
-export class UserModel{
+export class UserModel {
 
     public static getUsers(): Promise<Array<IUser>> {
         return new Promise((resolve, reject) => {
             let query = `
                 SELECT 
-                    id, name, first_name, last_name, email_address, role
-                FROM user;`;
+                    id, name, first_name, surname, email_address, role
+                FROM users;`;
 
                 MySQLController.executeQuery(query, [], resolve, reject)
         });
@@ -29,9 +29,9 @@ export class UserModel{
         return new Promise((resolve, reject) => {
             let query = `
                 SELECT 
-                    id, name, first_name, last_name, email_address, role
-                FROM user;
-                WHERE
+                    id, name, first_name, surname, email_address, password
+                FROM users
+                WHERE 
                     email_address = ?;`;
 
                 MySQLController.executeQuery(query, [emailAddress], resolve, reject)
@@ -42,8 +42,8 @@ export class UserModel{
         return new Promise((resolve, reject) => {
             let query = `
                 SELECT 
-                    id, name, first_name, last_name, email_address, role
-                FROM user;
+                    id, name, first_name, surname, email_address, role
+                FROM users;
                 WHERE
                 id = ?;`;
 
@@ -63,7 +63,7 @@ export class UserModel{
         return new Promise((resolve, reject) => {
             let query = `
             UPDATE 
-                user
+                users
             SET 
                 archived = ?
             WHERE id = ?;`;
@@ -75,7 +75,7 @@ export class UserModel{
     public static insertResetKey(key: string, id: number) {
         return new Promise((resolve, reject) => {
             let query = `
-            UPDATE user
+            UPDATE users
             SET 
                 reset_key = ?,
                 reset_key_created = DateNow()

@@ -34,26 +34,20 @@ export default () => {
     router.post('/', (req: Express.Request, res: Express.Response) => {
         let email: string = req.body.email;
         let password: string = req.body.password;
-
-        console.log(email, password);
+        let rememberMe: boolean = req.body.rememberMe || false;
 
         if(!email || ! password || typeof(email) !== 'string' || typeof(password) !== 'string') {
             res.status(401);
         }
 
-        Authentication.hashNewPassword(password, () => {
-            res.status(200).json('ok');
+        Authentication.login(email, password, rememberMe, (error, token) => {
+            if(error) {
+                res.status(401).json({error: error});
+            } else {
+                res.cookie('authorization', token);
+                res.status(200).json({login: 'ok', token: token});
+            }
         });
-
-        // Auth.loginFromRoute(email, password, (error, token) => {
-        //     console.log(token);
-        //     if(error) {
-        //         res.status(401).json({error: error});
-        //     } else {
-        //         res.cookie('authorization', token);
-        //         res.status(200).json({login: 'ok', token: token});
-        //     }
-        // });
     });
 
     /**
