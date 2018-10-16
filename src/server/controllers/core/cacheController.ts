@@ -78,4 +78,8 @@ export class CacheController extends BaseController {
     private static generateHash(queryKey: string, parameters: string[]): string {
         return SHA1.createHash('sha1').update(queryKey + ',' + parameters.concat(',')).digest('base64');
     }
+
+    public static get cachedItems() {
+        return Object.keys(CacheController._cache).length;
+    }
 }

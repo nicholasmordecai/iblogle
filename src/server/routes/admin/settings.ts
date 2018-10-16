@@ -2,6 +2,9 @@ import { Router } from 'express';
 import { AdminRenderer } from './../../controllers/admin/adminRenderer';
 import { Authentication } from './../../controllers/core/authentication';
 
+// import stats
+import { Stats } from './../../controllers/core/stats';
+
 let router;
 
 export default () => {
@@ -26,6 +29,10 @@ export default () => {
     router.get('/stats', Authentication.isAdmin, (req, res, next) => {
         AdminRenderer.render({
             template: 'settings/stats',
+            data: {
+                cachedQueries: Stats.cachedQueries,
+                memory: Stats.memoryStats
+            }
         }, (html) => {
             res.status(200).send(html);
         });

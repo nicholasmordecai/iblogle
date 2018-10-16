@@ -29,7 +29,7 @@ export class UserModel {
         return new Promise((resolve, reject) => {
             let query = `
                 SELECT 
-                    id, name, first_name, surname, email_address, password
+                    id, name, first_name, surname, role, permissions, email_address, password
                 FROM users
                 WHERE 
                     email_address = ?;`;

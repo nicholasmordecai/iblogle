@@ -43,16 +43,26 @@ export class Authentication {
                 // assuming then, that 1 and only 1 account was returned, compare the two passwords and if it's a match, then generate a token.
                 bcrypt.compare(password, user[0].password, (err, match) => {
                     if (match) {
-                        let token = Authentication.generateToken(user[0].id, email, remember);
+                        let userPayload = {
+                            cid: user[0].id,
+                            email: user[0].email_address,
+                            name: user[0].name,
+                            firstName: user[0].first_name,
+                            surname: user[0].surname,
+                            role: user[0].role,
+                            permissions: user[0].permissions
+                        }
+                        console.log(userPayload)
+                        let token = Authentication.generateToken(userPayload, remember);
                         callback(null, token);
                     } else {
-
+                        callback('Passwords did not match', null);
                     }
                 });
             })
             .catch((error) => {
                 callback(error, null);
-            })
+            });
     }
 
     /**
@@ -93,7 +103,6 @@ export class Authentication {
      */
     public static hashNewPassword(password, callback: Function) {
         bcrypt.hash(password, rounds, (err, hash) => {
-            console.log(hash)
             if (err) {
                 callback(err, null);
             } else {
@@ -111,7 +120,7 @@ export class Authentication {
      * 
      * @todo parameter verification 
      */
-    public static isLoggedIn(token: string, callback: Function) {
+    public static validToken(token: string, callback: Function) {
         jwt.verify(token, secret, (err, decoded) => {
             if (err) {
                 callback(err, false);
@@ -131,14 +140,19 @@ export class Authentication {
      * If the user is not an administrator, then redirect the user to the homepage
      */
     public static isAdmin(req, res, next) {
-        Authentication.loggedIn(req, res, () => {
-            if (!req.decoded) {
-                res.redirect('/');
+        jwt.verify(req.cookies.authorization, secret, (err, decoded) => {
+            if (err) {
+                res.redirect('/admin-login');
             } else {
-                if (req.decoded.permissions === 1) {
-                    next();
+                req.decoded = decoded;
+                if (!req.decoded) {
+                    res.redirect('/admin-login');
                 } else {
-                    res.redirect('/');
+                    if (req.decoded.role === 1) {
+                        next();
+                    } else {
+                        res.redirect('/admin-login');
+                    }
                 }
             }
         });
@@ -174,15 +188,10 @@ export class Authentication {
      * 
      * @todo create a global variable for the iss
      */
-    private static generateToken(id: number, username: string, remember: boolean): string {
-        let data = {
-            cid: id,
-            sub: username,
-            iss: 'http://mws-mla.com',
-        }
+    private static generateToken(payload: Object, remember: boolean): string {
         let token: string = null;
         try {
-            token = jwt.sign(data, secret, {
+            token = jwt.sign(payload, secret, {
                 expiresIn: (remember) ? '14d' : '1d'
             });
         } catch (err) {
