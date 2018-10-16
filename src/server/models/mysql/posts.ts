@@ -15,17 +15,19 @@ declare interface IPost {
 }
 
 export class PostModel {
-    public static getAllPosts(): Promise <Array<IPost>>{
+    public static getAllPosts(): Promise<Array<IPost>> {
         return new Promise((resolve, reject) => {
             let query = `
-                SELECT id, content, title, description, user_id, date_created, last_updated
-                FROM posts`;
+            SELECT p.id, p.content, p.title, p.description, p.date_created, p.last_updated, u.first_name
+            FROM posts as p
+            LEFT JOIN users AS u ON p.user_id = u.id
+            `;
 
-                MySQLController.executeQuery(query, [], resolve, reject)
+            MySQLController.executeQuery(query, [], resolve, reject)
         });
     }
 
-    public static getPost(id): Promise <Array<IPost>>{
+    public static getPost(id): Promise<Array<IPost>> {
         return new Promise((resolve, reject) => {
             let query = `
                 SELECT id, content, title, description, user_id, date_created, last_updated
