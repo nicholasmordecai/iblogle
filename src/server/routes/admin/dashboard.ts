@@ -7,7 +7,7 @@ let router;
 export default () => {
     router = Router();
 
-    router.get('/', (req, res, next) => {
+    router.get('/', Authentication.isAdmin, (req, res, next) => {
         AdminRenderer.render({
             template: 'dashboard',
         }, (html) => {

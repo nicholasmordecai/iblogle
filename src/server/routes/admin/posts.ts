@@ -2,13 +2,14 @@ import { Router } from 'express';
 
 import { AdminRenderer } from './../../controllers/admin/adminRenderer';
 import { PostController } from './../../controllers/blog/postController';
+import { Authentication } from '../../controllers/core/authentication';
 
 let router;
 
 export default () => {
     router = Router();
 
-    router.get('/view-posts', (req, res) => {
+    router.get('/view-posts', Authentication.isAdmin, (req, res) => {
         PostController.getListOfPosts()
             .then((posts) => {
                 AdminRenderer.render({
@@ -23,7 +24,7 @@ export default () => {
             });
     });
 
-    router.get('/edit-post', (req, res) => {
+    router.get('/edit-post', Authentication.isAdmin, (req, res) => {
         PostController.getSinglePost(req.query.post_id)
             .then((post) => {
                 if (post.length < 1) {

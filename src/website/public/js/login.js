@@ -9,7 +9,10 @@ $('#login').submit(function(e) {
             rememberMe: $('#remember-me').is(':checked')
         },
         success: function(data) {
-            console.log(data);
+            window.location.href = '/admin';
+        },
+        error: function(error) { 
+            console.log(error);
         }
     });
     return false;

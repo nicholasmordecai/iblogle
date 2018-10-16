@@ -131,15 +131,17 @@ export class Authentication {
      * If the user is not an administrator, then redirect the user to the homepage
      */
     public static isAdmin(req, res, next) {
-        if (!req.decoded) {
-            res.redirect('/');
-        } else {
-            if (req.decoded.permissions === 1) {
-                next();
-            } else {
+        Authentication.loggedIn(req, res, () => {
+            if (!req.decoded) {
                 res.redirect('/');
+            } else {
+                if (req.decoded.permissions === 1) {
+                    next();
+                } else {
+                    res.redirect('/');
+                }
             }
-        }
+        });
     }
 
     /**

@@ -7,7 +7,7 @@ let router;
 export default () => {
     router = Router();
 
-    router.get('/general', (req, res, next) => {
+    router.get('/general', Authentication.isAdmin, (req, res, next) => {
         AdminRenderer.render({
             template: 'settings/general',
         }, (html) => {
@@ -15,7 +15,7 @@ export default () => {
         });
     });
 
-    router.get('/logs', (req, res, next) => {
+    router.get('/logs', Authentication.isAdmin, (req, res, next) => {
         AdminRenderer.render({
             template: 'settings/logs',
         }, (html) => {
@@ -23,7 +23,7 @@ export default () => {
         });
     });
 
-    router.get('/stats', (req, res, next) => {
+    router.get('/stats', Authentication.isAdmin, (req, res, next) => {
         AdminRenderer.render({
             template: 'settings/stats',
         }, (html) => {
