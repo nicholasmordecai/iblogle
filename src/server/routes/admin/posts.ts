@@ -9,7 +9,7 @@ let router;
 export default () => {
     router = Router();
 
-    router.get('/view-posts', Authentication.isAdmin, (req, res) => {
+    router.get('/', Authentication.isAdmin, (req, res) => {
         PostController.getListOfPosts()
             .then((posts) => {
                 AdminRenderer.render({
@@ -24,8 +24,8 @@ export default () => {
             });
     });
 
-    router.get('/edit-post', Authentication.isAdmin, (req, res) => {
-        PostController.getSinglePost(req.query.post_id)
+    router.get('/:postID', Authentication.isAdmin, (req, res) => {
+        PostController.getSinglePost(req.params.postID)
             .then((post) => {
                 if (post.length < 1) {
                     AdminRenderer.render({
@@ -34,10 +34,10 @@ export default () => {
                     }, (html) => {
                         res.status(200).send(html);
                     });
-                    res.render('pages/edit-post', { layout: 'admin', editorRequired: true, noPost: true });
+                    res.render('edit-post', { layout: 'admin', editorRequired: true, noPost: true });
                 } else {
                     AdminRenderer.render({
-                        template: 'edit-posts',
+                        template: 'edit-post',
                         data: { editorRequired: true, post: post[0]}
                     }, (html) => {
                         res.status(200).send(html);

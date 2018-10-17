@@ -1,6 +1,7 @@
 import mysql = require('mysql');
 
 import { CacheController } from '../../controllers/core/cacheController';
+import { Stats } from './../core/stats';
 
 let pool;
 
@@ -57,6 +58,7 @@ export class MySQLController {
                     con.release();
                 }
             });
+            Stats.queryRun(1);
         });
     }
 }

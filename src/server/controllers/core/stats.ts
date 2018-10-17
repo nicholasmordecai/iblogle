@@ -1,6 +1,7 @@
 import { CacheController } from './cacheController';
 
 export class Stats {
+    private static _queriesRun: number = 0;
 
     public static get cachedQueries() {
         return CacheController.cachedItems;
@@ -13,5 +14,14 @@ export class Stats {
             humanReadable[key] = Math.round(used[key] / 1024 / 1024 * 100) / 100;
         }
         return humanReadable;
+    }
+
+    public static queryRun(incrementer: number) {
+        console.log(incrementer);
+        Stats._queriesRun += incrementer;
+    }
+
+    public static get queriesRun(): number {
+        return Stats._queriesRun;
     }
 }

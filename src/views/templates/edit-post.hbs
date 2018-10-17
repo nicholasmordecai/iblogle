@@ -1,4 +1,4 @@
- {{#if this.noPost}} {{> admin/posts/no-post}} {{else}} {{> admin/posts/post-editor}} {{/if}} {{#if this.noPost}} {{else}}
+ {{#if this.noPost}} {{> posts/no-post}} {{else}} {{> posts/post-editor}} {{/if}} {{#if this.noPost}} {{else}}
 <script>
     document.addEventListener("DOMContentLoaded", function (event) {
         new window.wbc.PostEditor();

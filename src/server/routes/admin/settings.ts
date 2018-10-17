@@ -31,6 +31,7 @@ export default () => {
             template: 'settings/stats',
             data: {
                 cachedQueries: Stats.cachedQueries,
+                queriesRun: Stats.queriesRun,
                 memory: Stats.memoryStats
             }
         }, (html) => {
