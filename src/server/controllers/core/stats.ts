@@ -17,7 +17,6 @@ export class Stats {
     }
 
     public static queryRun(incrementer: number) {
-        console.log(incrementer);
         Stats._queriesRun += incrementer;
     }
 

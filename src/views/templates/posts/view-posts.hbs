@@ -5,15 +5,18 @@
     <div class="col-sm-12 col-md-6 d-flex justify-content-end pr-5">
         <p class="mr-4">Posts: 41</p>
         <p class="mr-4">Published: 7</p>
-        <button class="btn btn-md">
-            <i class="far fa-plus-square"></i> New
-        </button>
+        <a href="/admin/content/posts/new">
+            <button class="btn btn-md">
+                <i class="far fa-plus-square"></i> New
+            </button>
+        </a>
+
     </div>
 
 </div>
 
-<hr> 
+<hr>
 
 {{#each data.posts}}
-    {{> posts/post-view-single}}
+{{> posts/post-view-single}}
 {{/each}}

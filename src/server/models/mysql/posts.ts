@@ -52,4 +52,27 @@ export class PostModel {
             MySQLController.executeQuery(query, params, resolve, reject)
         });
     }
+
+    public static createPost(id: string, content: string, title: string, description: string, userID: string, published: number, slug: string, template: string, layout: string): Promise<Array<any>> {
+        return new Promise((resolve, reject) => {
+            let query = `
+                INSERT INTO 
+                posts (
+                    id, 
+                    content, 
+                    title, 
+                    description, 
+                    user_id, 
+                    last_updated, 
+                    published, 
+                    slug, 
+                    template, 
+                    layout)
+                VALUES (?, ?, ?, ?, ?, NOW(), ?, ?, ?, ?);`;
+
+            let params = [id, content, title, description, userID, published, slug, template, layout];
+
+            MySQLController.executeQuery(query, params, resolve, reject)
+        });
+    }
 }

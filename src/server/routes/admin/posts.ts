@@ -3,6 +3,7 @@ import { Router } from 'express';
 import { AdminRenderer } from './../../controllers/admin/adminRenderer';
 import { PostController } from './../../controllers/blog/postController';
 import { Authentication } from '../../controllers/core/authentication';
+import { Utils } from '../../utils/utils';
 
 let router;
 
@@ -24,20 +25,39 @@ export default () => {
             });
     });
 
+    router.get('/new', Authentication.isAdmin, (req, res) => {
+        let newPostID = Utils.generateUniquestring();
+        res.redirect(`/admin/content/posts/${newPostID}?new=true`);
+    });
+
     router.get('/:postID', Authentication.isAdmin, (req, res) => {
+        // if the edit post url contains the query 'new' as it's set to true, just render an empty post editor page
+        if(req.query.new) {
+            AdminRenderer.render({
+                template: 'edit-post',
+                data: { editorRequired: true }
+            }, (html) => {
+                res.status(200).send(html);
+            });
+            return;
+        }
+
+        // if it's not a new post, run the query to see if it exists in the database
         PostController.getSinglePost(req.params.postID)
             .then((post) => {
+                // if there aren't any results, render a no-post page
                 if (post.length < 1) {
                     AdminRenderer.render({
-                        template: 'posts/edit-posts',
-                        data: { editorRequired: true, noPost: true }
+                        template: 'no-post-found',
+                        data: { editorRequired: false, noPost: true }
                     }, (html) => {
                         res.status(200).send(html);
                     });
                 } else {
+                    // otherwise, render the post editor page
                     AdminRenderer.render({
                         template: 'edit-post',
-                        data: { editorRequired: true, post: post[0]}
+                        data: { editorRequired: true, post: post[0] }
                     }, (html) => {
                         res.status(200).send(html);
                     });

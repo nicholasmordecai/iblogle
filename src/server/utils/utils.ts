@@ -12,6 +12,7 @@ export class Utils {
     public static generateUniquestring() {
         return uuidv4();
     }
+    
     public static capitalize(string): string {
         return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
     }
