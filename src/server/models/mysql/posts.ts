@@ -18,7 +18,7 @@ export class PostModel {
     public static getAllPosts(): Promise<Array<IPost>> {
         return new Promise((resolve, reject) => {
             let query = `
-            SELECT p.id, p.content, p.title, p.description, p.date_created, p.last_updated, u.first_name
+            SELECT p.id, p.content, p.title, p.description, p.date_created, p.last_updated, p.slug, u.first_name
             FROM posts as p
             LEFT JOIN users AS u ON p.user_id = u.id
             `;

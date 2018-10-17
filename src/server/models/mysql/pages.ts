@@ -38,4 +38,17 @@ export class PageModel {
             MySQLController.executeQuery(query, params, resolve, reject)
         });
     }
+
+    public static getPageByUrl(url: string): Promise <Object[] | Error> {
+        return new Promise((resolve, reject) => {
+            let query = `
+                SELECT id, name, description, content, url, created_at, last_edited
+                FROM pages
+                WHERE url = ?`;
+
+            let params = [url];
+
+            MySQLController.executeQuery(query, params, resolve, reject)
+        });
+    }
 }

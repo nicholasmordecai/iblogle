@@ -9,6 +9,7 @@ import Posts from './admin/posts';
 import Themes from './admin/themes';
 import Menus from './admin/menus';
 import Users from './admin/users';
+import Pages from './admin/pages';
 
 let router;
 
@@ -21,6 +22,7 @@ export default () => {
     router.use('/users', Users());
     router.use('/content/posts', Posts());
     router.use('/content/menus', Menus());
+    router.use('/content/pages', Pages());
     
 
     return router;

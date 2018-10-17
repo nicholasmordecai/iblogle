@@ -13,7 +13,7 @@ export default () => {
         PostController.getListOfPosts()
             .then((posts) => {
                 AdminRenderer.render({
-                    template: 'view-posts',
+                    template: 'posts/view-posts',
                     data: { posts: posts }
                 }, (html) => {
                     res.status(200).send(html);
@@ -29,12 +29,11 @@ export default () => {
             .then((post) => {
                 if (post.length < 1) {
                     AdminRenderer.render({
-                        template: 'edit-posts',
+                        template: 'posts/edit-posts',
                         data: { editorRequired: true, noPost: true }
                     }, (html) => {
                         res.status(200).send(html);
                     });
-                    res.render('edit-post', { layout: 'admin', editorRequired: true, noPost: true });
                 } else {
                     AdminRenderer.render({
                         template: 'edit-post',
