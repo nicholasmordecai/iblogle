@@ -30,7 +30,7 @@ export class PostModel {
     public static getPost(id): Promise<Array<IPost>> {
         return new Promise((resolve, reject) => {
             let query = `
-                SELECT id, content, title, description, user_id, date_created, last_updated, slug
+                SELECT id, content, title, description, user_id, date_created, last_updated, slug, template, layout
                 FROM posts
                 WHERE id = ?`;
 
@@ -40,11 +40,24 @@ export class PostModel {
         });
     }
 
-    public static getPostBySlug(slug: string): Promise<Array<any>> {
+    public static getPostBySlug(slug: string): Promise<Array<IPost>> {
         return new Promise((resolve, reject) => {
             let query = `
-                SELECT id, content, title, description, user_id, date_created, last_updated, slug, template, layout
-                FROM posts
+                SELECT 
+                    p.id,
+                    p.content,
+                    p.title,
+                    p.description,
+                    DATE_FORMAT(p.date_created, "%W %M %e %Y") as date_created,
+                    p.last_updated,
+                    p.slug,
+                    p.template,
+                    p.layout,
+                    u.id AS user_id,
+                    u.name AS user_name
+                FROM posts AS p
+                LEFT JOIN users AS u
+                    ON p.user_id = u.id
                 WHERE slug = ?`;
 
             let params = [slug];

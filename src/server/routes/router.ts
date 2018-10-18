@@ -52,12 +52,12 @@ export default () => {
             .then((postData) => {
                 if(postData.length < 1) {
                     // handle no blog post found (404)
+                    res.redirect('/404');
                 } else {
-                    let page = postData[0];
-                    console.log(page)
-                    res.render(`templates/${page.template}`, {
-                        layout: `${page.layout}`,
-                        data: page[0]
+                    let post = postData[0];
+                    res.render(`templates/${post.template}`, {
+                        layout: `${post.layout}`,
+                        post: post
                     });
                 }
             })

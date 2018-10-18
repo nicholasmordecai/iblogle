@@ -32,6 +32,7 @@ export class PostController extends BaseController {
         return new Promise((resolve, reject) => {
             PostModel.getPostBySlug(slug)
                 .then((posts) => {
+                    console.log(posts)
                     resolve(posts);
                 })
                 .catch((error) => {
