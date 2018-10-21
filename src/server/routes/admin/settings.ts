@@ -39,5 +39,14 @@ export default () => {
         });
     });
 
+    router.get('/redirects', Authentication.isAdmin, (req, res, next) => {
+        AdminRenderer.render({
+            template: 'settings/redirects',
+            data: {}
+        }, (html) => {
+            res.status(200).send(html);
+        });
+    });
+
     return router
 }
