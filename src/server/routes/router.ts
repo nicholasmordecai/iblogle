@@ -2,8 +2,8 @@ import { Router } from 'express';
 import { PageModel } from './../models/mysql/pages';
 import { PreviewController } from './../controllers/theme/previewController';
 import { PostController } from './../controllers/blog/postController';
+import { TopicController } from './../controllers/blog/topicController'
 
-// var csrfProtection = csrf({ cookie: true });
 let router;
 
 export default () => {
@@ -75,22 +75,15 @@ export default () => {
             return;
         }
 
-        PostController.getSinglePostBySlug(slug)
-            .then((postData) => {
-                let posts = postData[0];
-                if (posts.length < 1) {
-                    // handle no blog post found (404)
-                    res.redirect('/404');
-                } else {
-                    let post = posts[0];
-                    res.render(`templates/${post.template}`, {
-                        layout: `${post.layout}`,
-                        post: post,
-                        topics: postData[1]
-                    });
-                }
+        PostController.getPostsByTopic(slug)
+            .then((posts) => {
+                res.render(`templates/topic-list`, {
+                    layout: `main`,
+                    posts: posts
+                });
             })
             .catch((error) => {
+                res.redirect('/500');
                 // handle error here
             });
     });

@@ -44,7 +44,6 @@ export class MySQLController {
             }
         }
 
-
         MySQLController.getPool((err, con) => {
             con.query(query, params, (err, results) => {
                 if (err) {

@@ -111,11 +111,10 @@ export class PostModel {
             let params = [content, title, description, published, slug, template, layout, id];
 
             MySQLController.executeQuery(query, params, resolve, reject)
-        })
+        });
     }
 
     public static archivePost(id: string): Promise<Array<any>> {
-        console.log(id);
         return new Promise((resolve, reject) => {
             let query = `
                 UPDATE 
@@ -127,6 +126,20 @@ export class PostModel {
             let params = [id];
 
             MySQLController.executeQuery(query, params, resolve, reject)
-        })
+        });
+    }
+
+    public static getPostsByTopic(topic: string, limit: number = 0, iterationCount: number = 10): Promise<IPost[]> {
+        return new Promise((resolve, reject) => {
+            let query = `
+                SELECT * FROM posts WHERE id IN (
+                    SELECT post_id FROM post_topic
+                    LEFT JOIN topic ON post_topic.topic_id = topic.id
+                    WHERE topic.slug=?
+                ) LIMIT ?, ?;`;
+            let params = [topic, limit, iterationCount];
+
+            MySQLController.executeQuery(query, params, resolve, reject, 'getPostByTopic')
+        });
     }
 }

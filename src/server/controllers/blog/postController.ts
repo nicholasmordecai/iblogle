@@ -79,4 +79,16 @@ export class PostController extends BaseController {
                 })
         });
     }
+
+    public static getPostsByTopic(topic: string): Promise<any[]> {
+        return new Promise((resolve, reject) => {
+            PostModel.getPostsByTopic(topic)
+                .then((posts) => {
+                    resolve(posts);
+                })
+                .catch((error) => {
+                    reject(error);
+                })
+        })
+    }
 }
