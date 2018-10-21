@@ -1,0 +1,25 @@
+import { MySQLController } from '../../controllers/database/mysqlController';
+
+declare interface ITopic {
+    id: string;
+    name: string;
+    description: string;
+    slug: string;
+}
+
+export class TopicModel {
+    public static getAllTopic(): Promise<Array<ITopic>> {
+        return new Promise((resolve, reject) => {
+            let query = `
+            SELECT
+                id,
+                name,
+                description,
+                slug
+            FROM topic;
+            `;
+
+            MySQLController.executeQuery(query, [], resolve, reject)
+        });
+    }
+}

@@ -2,6 +2,7 @@ import { BaseController } from '../baseController';
 import { Utils } from './../../utils/utils';
 
 import { PostModel } from '../../models/mysql/posts';
+import { TopicModel } from '../../models/mysql/topic';
 
 export class PostController extends BaseController {
     public static getListOfPosts() {
@@ -13,7 +14,7 @@ export class PostController extends BaseController {
                 .catch((error) => {
                     reject(error);
                 });
-        })
+        });
     }
 
     public static getSinglePost(id: number): Promise<any[]> {
@@ -25,14 +26,17 @@ export class PostController extends BaseController {
                 .catch((error) => {
                     reject(error);
                 });
-        })
+        });
     }
 
     public static getSinglePostBySlug(slug: string): Promise<any[]> {
         return new Promise((resolve, reject) => {
-            PostModel.getPostBySlug(slug)
-                .then((posts) => {
-                    resolve(posts);
+            let blogData = PostModel.getPostBySlug(slug)
+            let topicData = TopicModel.getAllTopic()
+
+            Promise.all([blogData, topicData])
+                .then((data) => {
+                    resolve(data);
                 })
                 .catch((error) => {
                     reject(error);

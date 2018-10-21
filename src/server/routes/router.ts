@@ -50,14 +50,16 @@ export default () => {
 
             PostController.getSinglePostBySlug(slug)
             .then((postData) => {
-                if(postData.length < 1) {
+                let posts = postData[0];
+                if(posts.length < 1) {
                     // handle no blog post found (404)
                     res.redirect('/404');
                 } else {
-                    let post = postData[0];
+                    let post = posts[0];
                     res.render(`templates/${post.template}`, {
                         layout: `${post.layout}`,
-                        post: post
+                        post: post,
+                        topics: postData[1]
                     });
                 }
             })
