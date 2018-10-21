@@ -9,5 +9,11 @@ namespace Website {
             if (!results[2]) return '';
             return decodeURIComponent(results[2].replace(/\+/g, ' '));
         }
+
+        public static removeParameterFromURL(param: string) {
+            let oldURL = window.location.search;
+            let newURL = oldURL.replace(param, '');
+            window.history.replaceState({}, window.location.origin + window.location.pathname, newURL);
+        }
     }
 }

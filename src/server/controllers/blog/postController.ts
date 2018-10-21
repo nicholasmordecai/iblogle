@@ -40,9 +40,8 @@ export class PostController extends BaseController {
         });
     }
 
-    public static createNewPost(content: string, title: string, description: string, userID: string, published: number, slug: string, template: string, layout: string): Promise<any[]> {
+    public static createNewPost(postID: string, content: string, title: string, description: string, userID: string, published: number, slug: string, template: string, layout: string): Promise<any[]> {
         return new Promise((resolve, reject) => {
-            let postID = Utils.generateUniquestring();
             PostModel.createPost(postID, content, title, description, userID, published, slug, template, layout)
                 .then((result) => {
                     resolve(result);

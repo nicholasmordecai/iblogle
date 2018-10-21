@@ -6,7 +6,7 @@ export class ErrorController extends BaseController {
 
     public static init() {
         if (process.env.NODE_ENV === 'production') {
-            Raven.config('sentry.io config here').install();
+            // Raven.config('sentry.io config here').install();
         }
     }
 

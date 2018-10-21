@@ -15,20 +15,35 @@ export default () => {
         let description: string = req.body.description;
         let userID: string = req.decoded.cid;
         let published: number = (req.body.published) ? 1 : 0;
-        let slug: string = req.body.slug; 
+        let slug: string = req.body.slug;
         let template: string = req.body.template;
         let layout: string = req.body.layout;
+
+        let isNew = req.query.new;
+        console.log(isNew);
 
         /**
          * @TODO - Write a validator for any api requests, such as this
          */
-        PostController.updatePost(id, content, title, description, userID, published, slug, template, layout)
-            .then((result) => {
-                res.status(200).json(result);
-            })
-            .catch((error) => {
-                res.status(500).json(error);
-            });
+
+        if (isNew) {
+            PostController.createNewPost(id, content, title, description, userID, published, slug, template, layout)
+                .then((result) => {
+                    res.status(200).json(result);
+                })
+                .catch((error) => {
+                    res.status(500).json(error);
+                });
+        } else {
+            PostController.updatePost(id, content, title, description, userID, published, slug, template, layout)
+                .then((result) => {
+                    res.status(200).json(result);
+                })
+                .catch((error) => {
+                    res.status(500).json(error);
+                });
+        }
+
     });
 
     return router;
