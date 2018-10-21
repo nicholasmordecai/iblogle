@@ -37,21 +37,21 @@ export default () => {
                 })
             }
         })
-        .catch((error) => { 
+        .catch((error) => {
             // no pages found, maybe display a useful error here?
         });
 
-        router.get('/blog/:blogID', (req, res, next) => {
-            let slug = req.params.blogID;
-            if(!slug) {
-                // hande if no blog id is found
-                return;
-            }
+    router.get('/blog/:blogID', (req, res, next) => {
+        let slug = req.params.blogID;
+        if (!slug) {
+            // hande if no blog id is found
+            return;
+        }
 
-            PostController.getSinglePostBySlug(slug)
+        PostController.getSinglePostBySlug(slug)
             .then((postData) => {
                 let posts = postData[0];
-                if(posts.length < 1) {
+                if (posts.length < 1) {
                     // handle no blog post found (404)
                     res.redirect('/404');
                 } else {
@@ -66,7 +66,61 @@ export default () => {
             .catch((error) => {
                 // handle error here
             });
+    });
+
+    router.get('/topics/:topicSlug', (req, res, next) => {
+        let slug = req.params.topicSlug;
+        if (!slug) {
+            // hande if no topic slug is found
+            return;
+        }
+
+        PostController.getSinglePostBySlug(slug)
+            .then((postData) => {
+                let posts = postData[0];
+                if (posts.length < 1) {
+                    // handle no blog post found (404)
+                    res.redirect('/404');
+                } else {
+                    let post = posts[0];
+                    res.render(`templates/${post.template}`, {
+                        layout: `${post.layout}`,
+                        post: post,
+                        topics: postData[1]
+                    });
+                }
+            })
+            .catch((error) => {
+                // handle error here
+            });
+    });
+
+    router.get('/404/', (req, res, next) => {
+        /**
+         * Build error page template and layout selectors in admin interface
+         */
+        res.render(`templates/errors/404`, {
+            layout: `main`,
         });
+    });
+
+    router.get('/401/', (req, res, next) => {
+        /**
+         * Build error page template and layout selectors in admin interface
+         */
+        res.render(`templates/errors/401`, {
+            layout: `main`,
+        });
+    });
+
+    router.get('/500/', (req, res, next) => {
+        /**
+         * Build error page template and layout selectors in admin interface
+         */
+        res.render(`templates/errors/500`, {
+            layout: `main`,
+        });
+    });
 
     return router;
 }
