@@ -21,11 +21,17 @@ namespace Website {
             $('#btn-delete').click((e) => this.delete(e));
         }
 
+        // content, title, description, published, slug, template, layout
+
         private save(e) {
-            Network.put('/api/post/save', {
+            Network.put(`/api/post/save?post_id=${this._id}`, {
                 title: $('#post-title').val(),
                 description: $('#post-description').val(),
-                content: this._editor.getText()
+                content: this._editor.getText(),
+                published: $('#post-published').is(':checked'),
+                slug: $('#post-slug').val(),
+                template:$('#post-template').val(),
+                layout:$('#post-layout').val(),
             }, (response) => {
 
             }, (error) => {

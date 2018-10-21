@@ -32,7 +32,6 @@ export class PostController extends BaseController {
         return new Promise((resolve, reject) => {
             PostModel.getPostBySlug(slug)
                 .then((posts) => {
-                    console.log(posts)
                     resolve(posts);
                 })
                 .catch((error) => {
@@ -53,5 +52,18 @@ export class PostController extends BaseController {
                 })
         });
     }
-    
+
+    public static updatePost(postID: string, content: string, title: string, description: string, userID: string, published: number, slug: string, template: string, layout: string): Promise<any> {
+        return new Promise((resolve, reject) => {
+            PostModel.updatePost(postID, content, title, description, userID, published, slug, template, layout)
+                .then((results) => {
+                    console.log(results);
+                    resolve(results);
+                })
+                .catch((error) => {
+                    console.log(error);
+                    reject(error);
+                })
+        });
+    }
 }

@@ -27,10 +27,10 @@ export default () => {
 
     router.get('/new', Authentication.isAdmin, (req, res) => {
         let newPostID = Utils.generateUniquestring();
-        res.redirect(`/admin/content/posts/${newPostID}?new=true`);
+        res.redirect(`/admin/content/posts/edit?post_id=${newPostID}&new=true`);
     });
 
-    router.get('/:postID', Authentication.isAdmin, (req, res) => {
+    router.get('/edit/', Authentication.isAdmin, (req, res) => {
         // if the edit post url contains the query 'new' as it's set to true, just render an empty post editor page
         if(req.query.new) {
             AdminRenderer.render({
@@ -43,7 +43,7 @@ export default () => {
         }
 
         // if it's not a new post, run the query to see if it exists in the database
-        PostController.getSinglePost(req.params.postID)
+        PostController.getSinglePost(req.query.post_id)
             .then((post) => {
                 // if there aren't any results, render a no-post page
                 if (post.length < 1) {

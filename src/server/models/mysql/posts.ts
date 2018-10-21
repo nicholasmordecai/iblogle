@@ -62,7 +62,7 @@ export class PostModel {
 
             let params = [slug];
 
-            MySQLController.executeQuery(query, params, resolve, reject)
+            MySQLController.executeQuery(query, params, resolve, reject, 'postbyslug')
         });
     }
 
@@ -87,5 +87,27 @@ export class PostModel {
 
             MySQLController.executeQuery(query, params, resolve, reject)
         });
+    }
+
+    public static updatePost(id: string, content: string, title: string, description: string, userID: string, published: number, slug: string, template: string, layout: string): Promise<Array<any>> {
+        return new Promise((resolve, reject) => {
+            let query = `
+                UPDATE 
+                posts SET
+                    content = ?,
+                    title = ?,
+                    description = ? ,
+                    last_updated = NOW(),
+                    published = ?,
+                    slug = ?,
+                    template = ?,
+                    layout = ?
+                WHERE id = ?
+                `;
+
+            let params = [content, title, description, published, slug, template, layout, id];
+
+            MySQLController.executeQuery(query, params, resolve, reject)
+        })
     }
 }

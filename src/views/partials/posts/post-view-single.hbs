@@ -3,13 +3,12 @@
         {{this.title}}
         <p class="small">{{this.description}}</p>
         <p class="small">Author: {{this.first_name}}</p>
-
     </div>
     <div class="col-sm-12 col-md-5">
         <div class="d-flex justify-content-end">
 
             <!-- Edit Button -->
-            <a href="/admin/content/posts/{{this.id}}">
+            <a href="/admin/content/posts/edit?post_id={{this.id}}">
                 <button class="btn btn-sm mr-2">
                     <i class="far fa-edit"></i> Edit
                 </button>
