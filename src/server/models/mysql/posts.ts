@@ -21,6 +21,7 @@ export class PostModel {
             SELECT p.id, p.content, p.title, p.description, p.date_created, p.last_updated, p.slug, u.first_name
             FROM posts as p
             LEFT JOIN users AS u ON p.user_id = u.id
+            WHERE archived = 0;
             `;
 
             MySQLController.executeQuery(query, [], resolve, reject)
@@ -32,7 +33,8 @@ export class PostModel {
             let query = `
                 SELECT id, content, title, description, user_id, date_created, last_updated, slug, template, layout
                 FROM posts
-                WHERE id = ?`;
+                WHERE id = ?
+                AND archived = 0;`;
 
             let params = [id];
 
@@ -58,7 +60,8 @@ export class PostModel {
                 FROM posts AS p
                 LEFT JOIN users AS u
                     ON p.user_id = u.id
-                WHERE slug = ?`;
+                WHERE slug = ?
+                AND archived = 0;`;
 
             let params = [slug];
 
@@ -106,6 +109,22 @@ export class PostModel {
                 `;
 
             let params = [content, title, description, published, slug, template, layout, id];
+
+            MySQLController.executeQuery(query, params, resolve, reject)
+        })
+    }
+
+    public static archivePost(id: string): Promise<Array<any>> {
+        console.log(id);
+        return new Promise((resolve, reject) => {
+            let query = `
+                UPDATE 
+                posts SET
+                    archived = 1
+                WHERE id = ?
+                `;
+
+            let params = [id];
 
             MySQLController.executeQuery(query, params, resolve, reject)
         })

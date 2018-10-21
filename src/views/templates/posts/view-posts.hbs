@@ -20,3 +20,9 @@
 {{#each data.posts}}
 {{> posts/post-view-single}}
 {{/each}}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function (event) {
+        new window.wbc.PostViewer();
+    });
+</script>

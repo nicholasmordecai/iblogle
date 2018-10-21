@@ -20,7 +20,6 @@ export default () => {
         let layout: string = req.body.layout;
 
         let isNew = req.query.new;
-        console.log(isNew);
 
         /**
          * @TODO - Write a validator for any api requests, such as this
@@ -29,7 +28,7 @@ export default () => {
         if (isNew) {
             PostController.createNewPost(id, content, title, description, userID, published, slug, template, layout)
                 .then((result) => {
-                    res.status(200).json(result);
+                    res.status(200).json('ok');
                 })
                 .catch((error) => {
                     res.status(500).json(error);
@@ -37,7 +36,7 @@ export default () => {
         } else {
             PostController.updatePost(id, content, title, description, userID, published, slug, template, layout)
                 .then((result) => {
-                    res.status(200).json(result);
+                    res.status(200).json('ok');
                 })
                 .catch((error) => {
                     res.status(500).json(error);
@@ -45,6 +44,17 @@ export default () => {
         }
 
     });
+
+    router.delete('/archive', Authentication.isAdmin, (req, res, next) => {
+        let id: string = req.query.post_id;
+        PostController.archivePost(id)
+            .then((result) => {
+                res.status(200).json('ok');
+            })
+            .catch((error) => {
+                res.status(500).json(error);
+            });
+    })
 
     return router;
 }

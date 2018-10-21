@@ -56,11 +56,21 @@ export class PostController extends BaseController {
         return new Promise((resolve, reject) => {
             PostModel.updatePost(postID, content, title, description, userID, published, slug, template, layout)
                 .then((results) => {
-                    console.log(results);
                     resolve(results);
                 })
                 .catch((error) => {
-                    console.log(error);
+                    reject(error);
+                })
+        });
+    }
+
+    public static archivePost(postID: string): Promise<any> {
+        return new Promise((resolve, reject) => {
+            PostModel.archivePost(postID)
+                .then((results) => {
+                    resolve(results);
+                })
+                .catch((error) => {
                     reject(error);
                 })
         });

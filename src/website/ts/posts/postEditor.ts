@@ -26,8 +26,7 @@ namespace Website {
         // content, title, description, published, slug, template, layout
 
         private save(e) {
-
-            Network.put(`/api/post/save?post_id=${this._id}${this._isNew ? '&new=true' : ''}`, {
+            Network.put(`/api/post/save${window.location.search}`, {
                 title: $('#post-title').val(),
                 description: $('#post-description').val(),
                 content: this._editor.getText(),
