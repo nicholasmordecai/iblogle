@@ -13,3 +13,15 @@ Heap Used: {{data.memory.heapUsed}} MB
 External: {{data.memory.external}} MB
 <br>
 
+<hr>
+
+<h4>Request Info</h4>
+Total Get Requests: {{data.totalGetRequests}}
+<br>
+Total Post Requests: {{data.totalPostRequests}}
+
+<script>
+    setTimeout(() => {
+        window.location.reload();
+    }, 3000)
+</script>

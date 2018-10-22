@@ -2,6 +2,8 @@ import { CacheController } from './cacheController';
 
 export class Stats {
     private static _queriesRun: number = 0;
+    private static _getRequests: number = 0;
+    private static _postRequests: number = 0;
 
     public static get cachedQueries() {
         return CacheController.cachedItems;
@@ -22,5 +24,21 @@ export class Stats {
 
     public static get queriesRun(): number {
         return Stats._queriesRun;
+    }
+
+    public static newGetRequest() {
+        Stats._getRequests++;
+    }
+
+    public static newPostRequest() {
+        Stats._postRequests++;
+    }
+
+    public static get totalGetRequests(): number {
+        return Stats._getRequests;
+    }
+
+    public static get totalPostRequests(): number {
+        return Stats._postRequests;
     }
 }

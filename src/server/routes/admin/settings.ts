@@ -32,7 +32,9 @@ export default () => {
             data: {
                 cachedQueries: Stats.cachedQueries,
                 queriesRun: Stats.queriesRun,
-                memory: Stats.memoryStats
+                memory: Stats.memoryStats,
+                totalGetRequests: Stats.totalGetRequests,
+                totalPostRequests: Stats.totalPostRequests
             }
         }, (html) => {
             res.status(200).send(html);

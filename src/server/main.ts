@@ -21,6 +21,7 @@ import { SocketController } from './controllers/core/socketController';
 
 import { FileController } from './controllers/core/fileController';
 import { PreviewController } from './controllers/theme/previewController';
+import { Stats } from './controllers/core/stats';
 
 export class Server {
 
@@ -67,6 +68,15 @@ export class Server {
         Server._app.use(express.static(__dirname + '/../website/public'));
         Server._app.use("/public/css", express.static(global['appRoot'] + "/../../themes/theme-one/css"));
         Server._app.use("/public/js", express.static(global['appRoot'] + "/../../themes/theme-one/js"));
+
+        Server._app.use((req, res, next) => {
+            if(req.method === 'GET') {
+                Stats.newGetRequest();
+            } else if (req.method === "POST") {
+                Stats.newPostRequest();
+            }
+            next();
+        });
 
         Server._app.use('/', MainRouter());
         Server._app.use('/admin', AdminRouter());
