@@ -34,7 +34,9 @@ export default () => {
                 queriesRun: Stats.queriesRun,
                 memory: Stats.memoryStats,
                 totalGetRequests: Stats.totalGetRequests,
-                totalPostRequests: Stats.totalPostRequests
+                totalPostRequests: Stats.totalPostRequests,
+                cacheLookup: Stats.totalCacheLookups,
+                cacheSuccessRate: Stats.cacheSuccessRate
             }
         }, (html) => {
             res.status(200).send(html);

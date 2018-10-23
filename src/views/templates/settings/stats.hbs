@@ -1,24 +1,71 @@
 <h4>Database</h4>
-Cached Queries: {{data.cachedQueries}}
-<br>
-Total Queries Executed: {{data.queriesRun}}
+<div class="row">
+
+    <div class="col-4">
+        Cache Lookups: {{data.cacheLookup}}
+        <br>
+        Cache Success Rate: {{data.cacheSuccessRate}}%
+    </div>
+
+    <div class="col-4">
+        Cached Queries: {{data.cachedQueries}}
+        <br>
+        Total Queries Executed: {{data.queriesRun}}
+    </div>
+</div>
 <hr>
+
 <h4>NodeJS</h4>
-RSS: {{data.memory.rss}} MB
-<br>
-Heap Total: {{data.memory.heapTotal}} MB
-<br>
-Heap Used: {{data.memory.heapUsed}} MB
-<br>
-External: {{data.memory.external}} MB
-<br>
+<div class="row">
+    <div class="col-4">
+        Up Time:
+    </div>
+
+    <div class="col-4">
+        CPU Usage:
+    </div>
+
+    <div class="col-4">
+        RSS: {{data.memory.rss}} MB
+        <br>
+        Heap Total: {{data.memory.heapTotal}} MB
+        <br>
+        Heap Used: {{data.memory.heapUsed}} MB
+        <br>
+        External: {{data.memory.external}} MB
+        <br>
+    </div>
+</div>
+
 
 <hr>
 
 <h4>Request Info</h4>
-Total Get Requests: {{data.totalGetRequests}}
-<br>
-Total Post Requests: {{data.totalPostRequests}}
+<div class="row">
+    <div class="col-4">
+        Total Get Requests: {{data.totalGetRequests}}
+        <br>
+        Total Post Requests: {{data.totalPostRequests}}
+    </div>
+</div>
+
+<hr>
+
+<h4>Erorrs</h4>
+<div class="row">
+    <div class="col-4">
+        Serverside Errors: 0
+    </div>
+
+    <div class="col-4">
+        Error 401: 0
+        <br>
+        Error 404: 0
+        <br>
+        Error 500: 0
+    </div>
+</div>
+
 
 <script>
     setTimeout(() => {

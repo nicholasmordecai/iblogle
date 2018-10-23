@@ -38,8 +38,9 @@ export class MySQLController {
         
         if (queryKey) {
             let results = CacheController.findInCache(queryKey, params);
-
+            Stats.newCacheLookup();
             if (results) {
+                Stats.successfulCache();
                 resolve(results);
                 return;
             }
