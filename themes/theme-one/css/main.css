@@ -477,3 +477,7 @@ body {
 #socialicons .icon:hover{
 	background: #5c646b;
 }
+
+.about-author-avatar {
+	border-radius: 50%;
+}

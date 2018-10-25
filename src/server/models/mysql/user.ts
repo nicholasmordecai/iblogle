@@ -43,7 +43,7 @@ export class UserModel {
             let query = `
                 SELECT 
                     id, name, first_name, surname, email_address, role
-                FROM users;
+                FROM users
                 WHERE
                 id = ?;`;
 

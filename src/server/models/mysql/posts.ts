@@ -55,8 +55,9 @@ export class PostModel {
                     p.slug,
                     p.template,
                     p.layout,
-                    u.id AS user_id,
-                    u.name AS user_name
+                    u.id AS author_id,
+                    u.name AS author_name,
+                    u.profile as author_profile
                 FROM posts AS p
                 LEFT JOIN users AS u
                     ON p.user_id = u.id

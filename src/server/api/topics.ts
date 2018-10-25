@@ -10,7 +10,6 @@ export default () => {
     router.get('/', (req, res, next) => {
         TopicController.getAllTopics()
             .then((topics) => {
-                console.log(topics)
                 res.render(`templates/blank`, {
                     layout: `server`,
                     partials: [req.query.partial],

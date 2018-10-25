@@ -60,10 +60,9 @@ export default () => {
         let topics: string = req.query.topics;
         PostController.getPostsByTopics(topics)
             .then((posts) => {
-                console.log(posts)
                 res.render(`templates/blank`, {
                     layout: `server`,
-                    partials: ['posts/home-list'],
+                    partials: [req.query.partial],
                     data: posts
                 });
             })
