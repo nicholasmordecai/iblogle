@@ -31,7 +31,9 @@ export default () => {
                         }
                     } else {
                         res.render(`templates/${page.template}`, {
-                            layout: `${page.layout}`
+                            layout: `${page.layout}`,
+                            name: 'nick',
+                            posts: PostController
                         });
                     }
                 })

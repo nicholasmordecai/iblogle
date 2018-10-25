@@ -14,6 +14,10 @@ let router;
 export default () => {
     router = Router();
 
+    router.get('/test', (req, res, next) => {
+        res.status(200).json('abcdefg');
+    });
+
     router.use('/post', Post());
     router.use('/theme', Theme());
     router.use('/login', Login());

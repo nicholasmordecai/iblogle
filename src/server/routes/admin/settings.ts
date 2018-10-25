@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { AdminRenderer } from './../../controllers/admin/adminRenderer';
 import { Authentication } from './../../controllers/core/authentication';
+import { Utils } from './../../utils/utils';
 
 // import stats
 import { Stats } from './../../controllers/core/stats';
@@ -36,7 +37,8 @@ export default () => {
                 totalGetRequests: Stats.totalGetRequests,
                 totalPostRequests: Stats.totalPostRequests,
                 cacheLookup: Stats.totalCacheLookups,
-                cacheSuccessRate: Stats.cacheSuccessRate
+                cacheSuccessRate: Stats.cacheSuccessRate,
+                uptime: Utils.secondsToDhms(Stats.getUpTime())
             }
         }, (html) => {
             res.status(200).send(html);

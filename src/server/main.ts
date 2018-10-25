@@ -29,6 +29,11 @@ export class Server {
     public static _socketController: SocketController;
 
     constructor() {
+
+        hbs.registerHelper('json', function(context) {
+            return JSON.stringify(context);
+        });
+
         global['appRoot'] = path.resolve(__dirname);
 
         // create new instance of express

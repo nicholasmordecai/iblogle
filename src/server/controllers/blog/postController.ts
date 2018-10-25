@@ -5,6 +5,10 @@ import { PostModel } from '../../models/mysql/posts';
 import { TopicModel } from '../../models/mysql/topic';
 
 export class PostController extends BaseController {
+    public static get posts() {
+        return PostController.getListOfPosts()
+    }
+
     public static getListOfPosts() {
         return new Promise((resolve, reject) => {
             PostModel.getAllPosts()
@@ -83,6 +87,18 @@ export class PostController extends BaseController {
     public static getPostsByTopic(topic: string): Promise<any[]> {
         return new Promise((resolve, reject) => {
             PostModel.getPostsByTopic(topic)
+                .then((posts) => {
+                    resolve(posts);
+                })
+                .catch((error) => {
+                    reject(error);
+                })
+        })
+    }
+
+    public static getPostsByTopics(topics: string): Promise<any[]> {
+        return new Promise((resolve, reject) => {
+            PostModel.getPostsByTopics(topics.split(','))
                 .then((posts) => {
                     resolve(posts);
                 })

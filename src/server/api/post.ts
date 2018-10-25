@@ -54,7 +54,23 @@ export default () => {
             .catch((error) => {
                 res.status(500).json(error);
             });
-    })
+    });
+
+    router.get('/', (req, res, next) => {
+        let topics: string = req.query.topics;
+        PostController.getPostsByTopics(topics)
+            .then((posts) => {
+                console.log(posts)
+                res.render(`templates/blank`, {
+                    layout: `server`,
+                    partials: ['posts/home-list'],
+                    data: posts
+                });
+            })
+            .catch((error) => {
+                res.status(500).json(error);
+            });
+    });
 
     return router;
 }

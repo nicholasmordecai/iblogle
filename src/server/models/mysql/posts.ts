@@ -142,4 +142,30 @@ export class PostModel {
             MySQLController.executeQuery(query, params, resolve, reject, 'getPostByTopic')
         });
     }
+
+    public static getPostsByTopics(topics: string[], limit: number = 0, iterationCount: number = 5): Promise<IPost[]> {
+        return new Promise((resolve, reject) => {
+            let query = `
+            SELECT 
+                p.title,
+                p.description,
+                DATE_FORMAT(p.date_created, "%W %M %e %Y") as date_created,
+                p.last_updated,
+                p.slug,
+                u.name as publisher_name,
+                u.id as publisher_id
+            FROM posts as p
+            LEFT JOIN users as u ON p.user_id = u.id
+                WHERE p.id IN (
+                SELECT post_id FROM post_topic 
+                LEFT JOIN topic ON topic_id = topic.id
+                WHERE topic.id in (?)
+            ) 
+            
+            AND p.archived = 0;`;
+            let params = [topics];
+
+            MySQLController.executeQuery(query, params, resolve, reject, 'getPostByTopics')
+        });
+    }
 }

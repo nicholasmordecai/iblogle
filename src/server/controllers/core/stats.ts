@@ -20,6 +20,10 @@ export class Stats {
         return humanReadable;
     }
 
+    public static getUpTime() {
+        return process.uptime();
+    }
+
     public static queryRun(incrementer: number) {
         Stats._queriesRun += incrementer;
     }
@@ -36,7 +40,7 @@ export class Stats {
         Stats._postRequests++;
     }
 
-    public static newCacheLookup() { 
+    public static newCacheLookup() {
         Stats._cacheLookups++;
     }
 
@@ -56,7 +60,7 @@ export class Stats {
         return Stats._cacheLookups;
     }
 
-    public static get cacheSuccessRate(): number { 
+    public static get cacheSuccessRate(): number {
         return Math.round((Stats._cacheSuccess / Stats._cacheLookups) * 10000) / 100;
     }
 }
