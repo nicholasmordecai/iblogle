@@ -1,5 +1,4 @@
 $('#login').submit(function(e) {
-    
     $.ajax({
         type: "POST",
         url: '/api/login',

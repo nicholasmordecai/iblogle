@@ -36,7 +36,7 @@ export class PostController extends BaseController {
     public static getSinglePostBySlug(slug: string): Promise<any[]> {
         return new Promise((resolve, reject) => {
             let blogData = PostModel.getPostBySlug(slug)
-            let topicData = TopicModel.getAllTopic()
+            let topicData = TopicModel.getAllTopics()
 
             Promise.all([blogData, topicData])
                 .then((data) => {

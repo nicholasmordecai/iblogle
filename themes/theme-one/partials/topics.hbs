@@ -1,16 +1,7 @@
-<div class="card my-4">
-    <h5 class="card-header">Topics</h5>
-    <div class="card-body">
-        <ul class="list-unstyled mb-0">
-            <div class="row">
-                {{#each this.topics}}
-                <div class="col-6">
-                    <li>
-                        <a href="/topics/{{this.slug}}">{{this.name}}</a>
-                    </li>
-                </div>
-                {{/each}}
-            </div>
-        </ul>
-    </div>
+{{#each this as |topics|}}
+<div class="col-6 text-center">
+    <li>
+        <a href="/topics/{{topics.slug}}">{{topics.name}}</a>
+    </li>
 </div>
+{{/each}}

@@ -8,7 +8,7 @@ declare interface ITopic {
 }
 
 export class TopicModel {
-    public static getAllTopic(): Promise<Array<ITopic>> {
+    public static getAllTopics(): Promise<Array<ITopic>> {
         return new Promise((resolve, reject) => {
             let query = `
             SELECT

@@ -7,6 +7,7 @@ import * as csrf from 'csurf';
 import Post from './post';
 import Theme from './theme';
 import Login from './login';
+import Topics from './topics';
 
 var csrfProtection = csrf({ cookie: true });
 let router;
@@ -21,6 +22,7 @@ export default () => {
     router.use('/post', Post());
     router.use('/theme', Theme());
     router.use('/login', Login());
+    router.use('/topics', Topics());
 
     /**
      * TODO make the secret a database field
