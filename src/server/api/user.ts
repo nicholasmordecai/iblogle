@@ -9,7 +9,7 @@ export default () => {
     router = Express.Router();
 
     router.get('/', (req, res, next) => {
-        let userID = req.query.author_id;
+        let userID = req.query.author;
         return new Promise((resolve, reject) => {
             UserController.userByID(userID)
             .then((user) => {
