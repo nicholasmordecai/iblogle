@@ -56,8 +56,8 @@ export default () => {
                 } else {
                     // otherwise, render the post editor page
                     AdminRenderer.render({
-                        template: 'edit-post',
-                        data: { editorRequired: true, post: post[0] }
+                        template: 'posts/edit-post',
+                        data: { post: post[0] }
                     }, (html) => {
                         res.status(200).send(html);
                     });

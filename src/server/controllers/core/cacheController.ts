@@ -14,8 +14,7 @@ declare interface ICache {
 export class CacheController extends BaseController {
     private static _cache: { [queryKey: string]: ICache };
 
-    constructor() {
-        super();
+    public static init() {
         CacheController._cache = {};
     }
 

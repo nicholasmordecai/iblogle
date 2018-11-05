@@ -1,113 +1,43 @@
 require('dotenv').config();
 
 import * as express from 'express';
-import * as hbs from 'express-hbs';
-import * as bodyParser from 'body-parser';
-import * as compression from 'compression';
-import * as cookieParser from 'cookie-parser';
-import * as helmet from 'helmet';
-import * as morgan from 'morgan';
-import * as path from 'path';
-
-import MainRouter from './routes/router';
-import AdminRouter from './routes/adminRouter';
-import AdminLogin from './routes/admin/login';
-import APIRouter from './api/api';
-import Error404 from './middleware/404';
-import ErrorCSRF from './middleware/csrf';
-import { CacheController } from './controllers/core/cacheController';
-import { ErrorController } from './controllers/core/errorController';
 import { SocketController } from './controllers/core/socketController';
+import { ServerInitaliser } from './controllers/core/serverInitaliser';
 
-import { FileController } from './controllers/core/fileController';
-import { PreviewController } from './controllers/theme/previewController';
-import { Stats } from './controllers/core/stats';
+declare interface ServerConfig {
+    website_name: string;
+    domain_name: string;
+    version: string;
+    mysql_host: string;
+    mysql_database: string;
+    mysql_username: string;
+    mysql_password: string;
+    mysql_port: number;
+    https: boolean;
+    port: number;
+    active_theme: string;
+}
 
 export class Server {
 
     public static _app: express.Express;
     public static _socketController: SocketController;
+    public static _config: ServerConfig;
 
     constructor() {
+        ServerInitaliser.boot();
+    }
 
-        hbs.registerHelper('json', function(context) {
-            return JSON.stringify(context);
-        });
+    public static get config() {
+        return this._config;
+    }
 
-        global['appRoot'] = path.resolve(__dirname);
-
-        // create new instance of express
-        Server._app = express();
-
-        Server._app.use(helmet());
-
-        new CacheController();
-
-        ErrorController.init();
-
-        // setup the json parser middleware
-        Server._app.use(bodyParser.urlencoded({ extended: true }));
-        Server._app.use(bodyParser.json());
-
-        Server._app.set('view engine', 'hbs');
-        Server._app.set('views', path.join(global['appRoot'], '/../../themes/theme-one'));
-
-        // configure views path
-        Server._app.engine('hbs', hbs.express4({
-            defaultLayout: 'themes/theme-one/layouts/main.hbs',
-            partialsDir: 'themes/theme-one/partials',
-            layoutsDir: 'themes/theme-one/layouts',
-            extname: '.hbs'
-        }));
-
-        if (process.env.NODE_ENV === 'production') {
-            // Server._app.enable('view cache');
-        } else {
-            // Server._app.use(morgan('combined'));
-        }
-
-        Server._app.use(compression());
-        Server._app.use(cookieParser());
-
-        // configure static path
-        Server._app.use(express.static(__dirname + '/../website/public'));
-        Server._app.use("/public/css", express.static(global['appRoot'] + "/../../themes/theme-one/css"));
-        Server._app.use("/public/js", express.static(global['appRoot'] + "/../../themes/theme-one/js"));
-
-        Server._app.use((req, res, next) => {
-            if(req.method === 'GET') {
-                Stats.newGetRequest();
-            } else if (req.method === "POST") {
-                Stats.newPostRequest();
-            }
-            next();
-        });
-
-        Server._app.use('/', MainRouter());
-        Server._app.use('/admin', AdminRouter());
-        Server._app.use('/admin-login', AdminLogin());
-        Server._app.use('/api', APIRouter());
-
-        new FileController();
-        new PreviewController();
-
-        // use the 404 custom middleware
-        // Server._app.use(Error404);
-        Server._app.use(ErrorCSRF.handleError(Server._app));
-
-        Server._socketController = new SocketController(Server._app)
-
-        // set the port to listen on
-        Server._app.set('port', 4200);
-
-        // start the actual application
-        Server._app.listen(Server._app.get('port'), () => {
-            console.log('Express Started, listening on port 4200');
-        });
+    public static set config(config: ServerConfig) {
+        this._config = config;
     }
 }
 
-var server = new Server();
+new Server();
 
 // here so supertest can access easily
 module.exports = Server._app;

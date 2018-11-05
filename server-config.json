@@ -1,0 +1,17 @@
+{
+    "website_name": "IBlogle",
+    "domain_name": "iblogle.com",
+    "version": "1.0.0",
+
+    "mysql_host": "localhost",
+    "mysql_database": "test_blog",
+    "mysql_username": "root",
+    "mysql_password": "adminpassword",
+    "mysql_port": 3306,
+
+    "https": false,
+    "port": 4200,
+
+    "active_theme": "theme-one"
+    
+}

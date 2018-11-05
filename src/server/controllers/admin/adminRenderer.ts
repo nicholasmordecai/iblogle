@@ -1,5 +1,4 @@
 import * as hbs from 'express-hbs';
-import adminRouter from '../../routes/adminRouter';
 
 declare interface IRenderOptions {
     template: string;
