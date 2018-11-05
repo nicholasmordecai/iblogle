@@ -19,6 +19,7 @@ import * as cookieParser from 'cookie-parser';
 import * as bodyParser from 'body-parser';
 import { CacheController } from './cacheController';
 import { ErrorController } from './errorController';
+import { Log } from './logs';
 import * as hbs from 'express-hbs';
 import * as path from 'path';
 
@@ -28,28 +29,32 @@ export class ServerInitaliser extends BaseController {
     private static _bootTime: number;
 
     public static boot() {
+        process.on('uncaughtException', (error) => {
+            
+        });
+
         ServerInitaliser._bootTime = Date.now();
         global['appRoot'] = path.resolve(__dirname) + '../../../';
 
-        ServerInitaliser.loadConfig();
         ServerInitaliser.initaliseErrorController();
+        ServerInitaliser.loadConfig();
         ServerInitaliser.createExpressServer();
         ServerInitaliser.setupMiddleware();
         ServerInitaliser.initaliseCache();
-        ServerInitaliser.configureStaticPaths();
         ServerInitaliser.initaliseOtherControllers();
         ServerInitaliser.setupRoutes();
+        ServerInitaliser.configureStaticPaths();
         ServerInitaliser.startServer();
     }
 
     private static loadConfig() {
         Server.config = JSON.parse(fs.readFileSync(global['appRoot'] + '/../../server-config.json', 'utf-8'));
-        console.log('Loaded Config:',timeNow());
+        Log.info('Loaded Config');
     }
 
     private static createExpressServer() {
         Server._app = express();
-        console.log('Express Service Started:', timeNow());
+        Log.info('Express Service Started');
 
     }
 
@@ -70,23 +75,24 @@ export class ServerInitaliser extends BaseController {
             next();
         });
 
-        console.log('Middleware Loaded:', timeNow());
+        Log.info('Middleware Loaded:');
     }
 
     private static initaliseCache() {
         CacheController.init();
-        console.log('Cache Initalised:', timeNow());
+        Log.info('Cache Initalised:');
     }
 
     private static initaliseErrorController() {
         ErrorController.init();
-        console.log('Initalised Error Controller:', timeNow());
+        Log.init();
+        Log.info('Initalised Error Controller');
     }
 
     private static initaliseOtherControllers() {
         new FileController();
         new PreviewController();
-        console.log('Initalised Other Controller:', timeNow());
+        Log.info('Initalised Other Controller:');
     }
 
     private static setupRoutes() {
@@ -105,15 +111,15 @@ export class ServerInitaliser extends BaseController {
         Server._app.use('/admin-login', AdminLogin());
         Server._app.use('/api', APIRouter());
 
-        console.log('Routes Setup & Theme Paths Configured:', timeNow());
+        Log.info('Routes Setup & Theme Paths Configured:');
     }
 
     private static configureStaticPaths() {
         // configure static path
-        Server._app.use(express.static(__dirname + '/../website/public'));
+        Server._app.use(express.static(__dirname + '/../../../website/public'));
         Server._app.use("/public/css", express.static(global['appRoot'] + `/../../themes/${Server.config.active_theme}/css`));
         Server._app.use("/public/js", express.static(global['appRoot'] + `/../../themes/${Server.config.active_theme}/js`));
-        console.log('Static Paths Configured:', timeNow());
+        Log.info('Static Paths Configured:');
     }
 
     private static startServer() {
@@ -122,12 +128,8 @@ export class ServerInitaliser extends BaseController {
 
         // start the actual application
         Server._app.listen(Server._app.get('port'), () => {
-            console.log(`Server listening on port: ${Server.config.port}`);
-            console.log(`Boot Sequence Complete: ${timeNow()} - ${Date.now() - ServerInitaliser._bootTime}ms`);
+            Log.info(`Server listening on port: ${Server.config.port}`);
+            Log.info(`Boot Sequence Complete == ${Date.now() - ServerInitaliser._bootTime}ms`);
         });
     }
-}
-
-function timeNow() {
-    return new Date(Date.now()).toDateString() + ' ' + new Date(Date.now()).toTimeString()
 }

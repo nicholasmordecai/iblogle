@@ -3,3 +3,4 @@ build
 ecosystem.config.js
 .env
 notes.txt
+logs/*
