@@ -31,7 +31,7 @@ export class PostModel {
     public static getPost(id): Promise<Array<IPost>> {
         return new Promise((resolve, reject) => {
             let query = `
-                SELECT id, content, title, description, user_id, date_created, last_updated, slug, template, layout
+                SELECT id, content, title, description, published, user_id, date_created, last_updated, slug, template, layout
                 FROM posts
                 WHERE id = ?
                 AND archived = 0;`;

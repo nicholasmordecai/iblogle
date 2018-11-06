@@ -14,10 +14,14 @@ export default () => {
         let title: string = req.body.title;
         let description: string = req.body.description;
         let userID: string = req.decoded.cid;
-        let published: number = (req.body.published) ? 1 : 0;
+        let published: number = 0;
         let slug: string = req.body.slug;
         let template: string = req.body.template;
         let layout: string = req.body.layout;
+
+        if(req.body.published == 'true') {
+            published = 1;
+        }
 
         let isNew = req.query.new;
 
