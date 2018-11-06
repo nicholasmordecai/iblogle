@@ -18,7 +18,7 @@ export class PostModel {
     public static getAllPosts(): Promise<Array<IPost>> {
         return new Promise((resolve, reject) => {
             let query = `
-            SELECT p.id, p.content, p.title, p.description, p.date_created, p.last_updated, p.slug, u.first_name
+            SELECT p.id, p.content, p.title, p.description, p.date_created, p.last_updated, p.slug, p.published, u.first_name
             FROM posts as p
             LEFT JOIN users AS u ON p.user_id = u.id
             WHERE archived = 0;
@@ -121,6 +121,19 @@ export class PostModel {
                 UPDATE 
                 posts SET
                     archived = 1
+                WHERE id = ?
+                `;
+
+            let params = [id];
+
+            MySQLController.executeQuery(query, params, resolve, reject)
+        });
+    }
+
+    public static deletePost(id: string): Promise<Array<any>> {
+        return new Promise((resolve, reject) => {
+            let query = `
+                DELETE FROM posts 
                 WHERE id = ?
                 `;
 

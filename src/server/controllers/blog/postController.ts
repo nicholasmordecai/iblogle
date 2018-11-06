@@ -9,11 +9,18 @@ export class PostController extends BaseController {
         return PostController.getListOfPosts()
     }
 
-    public static getListOfPosts() {
+    public static getListOfPosts(): Promise<{posts, postCount, postsPublished}> {
         return new Promise((resolve, reject) => {
             PostModel.getAllPosts()
                 .then((posts) => {
-                    resolve(posts);
+                    let postsCount: number = posts.length;
+                    let postsPublished: number = 0;
+                    for(let post of posts) {
+                        if(post.published) {
+                            postsPublished++;
+                        }
+                    }
+                    resolve({posts: posts, postCount: postsCount, postsPublished: postsPublished});
                 })
                 .catch((error) => {
                     reject(error);
@@ -75,6 +82,18 @@ export class PostController extends BaseController {
     public static archivePost(postID: string): Promise<any> {
         return new Promise((resolve, reject) => {
             PostModel.archivePost(postID)
+                .then((results) => {
+                    resolve(results);
+                })
+                .catch((error) => {
+                    reject(error);
+                })
+        });
+    }
+
+    public static deletePost(postID: string): Promise<any> {
+        return new Promise((resolve, reject) => {
+            PostModel.deletePost(postID)
                 .then((results) => {
                     resolve(results);
                 })

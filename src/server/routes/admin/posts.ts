@@ -15,7 +15,11 @@ export default () => {
             .then((posts) => {
                 AdminRenderer.render({
                     template: 'posts/view-posts',
-                    data: { posts: posts }
+                    data: { 
+                        posts: posts.posts,
+                        postsPublished: posts.postsPublished,
+                        postCount: posts.postCount
+                    }
                 }, (html) => {
                     res.status(200).send(html);
                 });

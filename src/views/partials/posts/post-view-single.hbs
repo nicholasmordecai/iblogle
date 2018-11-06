@@ -23,15 +23,20 @@
 
             <!-- Archive Button -->
             <button class="btn btn-sm mr-2 archive" data-id={{this.id}}>
-                <i class="far fa-trash-alt"></i> Archive
+                <i class="fas fa-archive"></i> Archive
             </button>
 
-            <button class="btn btn-sm">
+            {{!-- <button class="btn btn-sm mr-2">
                 <i class="far fa-clone"></i> Clone
+            </button> --}}
+
+            <button class="btn btn-sm delete" data-id={{this.id}}>
+                <i class="far fa-trash-alt"></i> Delete
             </button>
         </div>
         <div class="d-flex justify-content-end">
-            <p class="small">Unpublished</p>
+            <p class="small">{{#if this.published}}Published{{else}} Unpublished{{/if}}
+            </p>
         </div>
     </div>
 </div>

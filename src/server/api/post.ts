@@ -34,14 +34,11 @@ export default () => {
                     res.status(500).json(error);
                 });
         } else {
-            console.log(content)
             PostController.updatePost(id, content, title, description, userID, published, slug, template, layout)
                 .then((result) => {
-                    console.log(result);
                     res.status(200).json('ok');
                 })
                 .catch((error) => {
-                    console.log(error);
                     res.status(500).json(error);
                 });
         }
@@ -51,6 +48,17 @@ export default () => {
     router.delete('/archive', Authentication.isAdmin, (req, res, next) => {
         let id: string = req.query.post_id;
         PostController.archivePost(id)
+            .then((result) => {
+                res.status(200).json('ok');
+            })
+            .catch((error) => {
+                res.status(500).json(error);
+            });
+    });
+
+    router.delete('/delete', Authentication.isAdmin, (req, res, next) => {
+        let id: string = req.query.post_id;
+        PostController.deletePost(id)
             .then((result) => {
                 res.status(200).json('ok');
             })
