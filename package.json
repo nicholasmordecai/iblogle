@@ -30,7 +30,7 @@
     "express": "^4.16.3",
     "express-hbs": "^1.0.4",
     "fs": "0.0.1-security",
-    "gulp": "^4.0.0",
+    "gulp": "3.8.11",
     "gulp-browserify": "^0.5.1",
     "gulp-rename": "^1.2.3",
     "gulp-sass": "^4.0.1",
