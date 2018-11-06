@@ -70,12 +70,11 @@ export class PostModel {
         });
     }
 
-    public static createPost(id: string, content: string, title: string, description: string, userID: string, published: number, slug: string, template: string, layout: string): Promise<Array<any>> {
+    public static createPost(content: string, title: string, description: string, userID: string, published: number, slug: string, template: string, layout: string): Promise<Array<any>> {
         return new Promise((resolve, reject) => {
             let query = `
                 INSERT INTO 
-                posts (
-                    id, 
+                posts ( 
                     content, 
                     title, 
                     description, 
@@ -85,9 +84,9 @@ export class PostModel {
                     slug, 
                     template, 
                     layout)
-                VALUES (?, ?, ?, ?, ?, NOW(), ?, ?, ?, ?);`;
+                VALUES (?, ?, ?, ?, NOW(), ?, ?, ?, ?);`;
 
-            let params = [id, content, title, description, userID, published, slug, template, layout];
+            let params = [content, title, description, userID, published, slug, template, layout];
 
             MySQLController.executeQuery(query, params, resolve, reject)
         });

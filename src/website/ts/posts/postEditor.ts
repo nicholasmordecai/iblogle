@@ -37,6 +37,7 @@ namespace Website {
                 Animations.showAlert('Post saved', 'bg-success');
                 if (this._isNew) {
                     Utils.removeParameterFromURL('&new=true');
+                    Utils.updateURLParameter('post_id', response.id)
                     this._isNew = 'false';
                 }
             }, (error) => {
@@ -55,7 +56,13 @@ namespace Website {
         }
 
         private delete(e) {
-            console.log('delete')
+            Network.delete(`/api/post/delete?post_id=${this._id}`, {
+
+            }, (response) => {
+                console.log(response);
+            }, (error) => {
+                console.log(error);
+            });
         }
     }
 }

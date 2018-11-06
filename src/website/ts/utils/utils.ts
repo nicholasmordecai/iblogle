@@ -15,5 +15,18 @@ namespace Website {
             let newURL = oldURL.replace(param, '');
             window.history.replaceState({}, window.location.origin + window.location.pathname, newURL);
         }
+
+        public static updateURLParameter(param: string, value: string) {
+            let oldURL = window.location.search;
+            let newUrl = Utils.replaceQueryParam(param, value, oldURL);
+            window.location.href = window.location.pathname + newUrl;
+        }
+
+        public static replaceQueryParam(param, newval, search) {
+            var regex = new RegExp("([?;&])" + param + "[^&;]*[;&]?");
+            var query = search.replace(regex, "$1").replace(/&$/, '');
+        
+            return (query.length > 2 ? query + "&" : "?") + (newval ? param + "=" + newval : '');
+        }
     }
 }

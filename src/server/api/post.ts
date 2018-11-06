@@ -26,9 +26,9 @@ export default () => {
          */
 
         if (isNew) {
-            PostController.createNewPost(id, content, title, description, userID, published, slug, template, layout)
+            PostController.createNewPost(content, title, description, userID, published, slug, template, layout)
                 .then((result) => {
-                    res.status(200).json('ok');
+                    res.status(200).json({id: result['insertId']});
                 })
                 .catch((error) => {
                     res.status(500).json(error);

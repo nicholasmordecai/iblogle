@@ -30,15 +30,14 @@ export default () => {
     });
 
     router.get('/new', Authentication.isAdmin, (req, res) => {
-        let newPostID = Utils.generateUniquestring();
-        res.redirect(`/admin/content/posts/edit?post_id=${newPostID}&new=true`);
+        res.redirect(`/admin/content/posts/edit?post_id=null&new=true`);
     });
 
     router.get('/edit/', Authentication.isAdmin, (req, res) => {
         // if the edit post url contains the query 'new' as it's set to true, just render an empty post editor page
         if(req.query.new) {
             AdminRenderer.render({
-                template: 'edit-post',
+                template: 'posts/edit-post',
                 data: { editorRequired: true }
             }, (html) => {
                 res.status(200).send(html);
