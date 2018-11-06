@@ -1,9 +1,9 @@
 namespace Website {
     export class PostEditor {
 
-        private _editor;
         private _id: string;
         private _isNew: string;
+        private _content: string;
 
         constructor() {
             this._id = Utils.getParameterByName('post_id');
@@ -20,29 +20,38 @@ namespace Website {
                 heightMin: 500,
                 toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'inlineClass', 'clearFormatting', '|', 'emoticons', 'fontAwesome', 'specialCharacters', '-', 'paragraphFormat', 'lineHeight', 'paragraphStyle', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '|', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '-', 'insertHR', 'selectAll', 'getPDF', 'print', 'help', 'html', 'fullscreen', '|', 'undo', 'redo']
             });
+
         }
 
         private save(e) {
-            //     Network.put(`/api/post/save${window.location.search}`, {
-            //         title: $('#post-title').val(),
-            //         description: $('#post-description').val(),
-            //         content: this._editor.getText(),
-            //         published: $('#post-published').is(':checked'),
-            //         slug: $('#post-slug').val(),
-            //         template:$('#post-template').val(),
-            //         layout:$('#post-layout').val(),
-            //     }, (response) => {
-            //         if(this._isNew) {
-            //             Utils.removeParameterFromURL('&new=true');
-            //             this._isNew = 'false';
-            //         }
-            //     }, (error) => {
-
-            //     });
+            $('div#froala-editor')['froalaEditor']('events.trigger', 'form.submit');
+            Network.put(`/api/post/save${window.location.search}`, {
+                title: $('#post-title').val(),
+                description: $('#post-description').val(),
+                content: $('div#froala-editor')['froalaEditor']('html.get'),
+                published: $('#post-published').is(':checked'),
+                slug: $('#post-slug').val(),
+                template: $('#post-template').val(),
+                layout: $('#post-layout').val(),
+            }, (response) => {
+                Animations.showAlert('Post saved', 'bg-success');
+                if (this._isNew) {
+                    Utils.removeParameterFromURL('&new=true');
+                    this._isNew = 'false';
+                }
+            }, (error) => {
+                Animations.showAlert('Error when trying to save the post. Please try again', 'bg-danger');
+            });
         }
 
         private archive(e) {
-            console.log('archive')
+            Network.delete(`/api/post/archive?post_id=${this._id}`, {
+
+            }, (response) => {
+                console.log(response);
+            }, (error) => {
+                console.log(error);
+            });
         }
 
         private delete(e) {

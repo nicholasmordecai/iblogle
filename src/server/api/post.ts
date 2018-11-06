@@ -34,11 +34,14 @@ export default () => {
                     res.status(500).json(error);
                 });
         } else {
+            console.log(content)
             PostController.updatePost(id, content, title, description, userID, published, slug, template, layout)
                 .then((result) => {
+                    console.log(result);
                     res.status(200).json('ok');
                 })
                 .catch((error) => {
+                    console.log(error);
                     res.status(500).json(error);
                 });
         }
