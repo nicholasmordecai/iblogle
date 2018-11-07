@@ -467,3 +467,7 @@ input:checked + .slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
+
+span.small {
+    color: #999;
+}

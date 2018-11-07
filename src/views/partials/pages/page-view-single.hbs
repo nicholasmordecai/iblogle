@@ -1,0 +1,40 @@
+<div class="row post-view-single-entry">
+    <div class="col-sm-12 col-md-7">
+        {{this.name}}<span class="small"> - {{this.description}}</p></span>
+        {{!-- <p class="small mb-0">{{this.description}}</p> --}}
+        {{!-- <p class="small">Author: {{this.first_name}}</p> --}}
+        <p class="small mb-0">Created At: {{this.created_at}}</p>
+        <p class="small mb-0">Last Updated: {{this.last_edit}}</p>
+    </div>
+    <div class="col-sm-12 col-md-5">
+        <div class="d-flex justify-content-end">
+
+            <!-- Edit Button -->
+            <a href="/admin/content/pages/edit?page_id={{this.id}}">
+                <button class="btn btn-sm mr-2">
+                    <i class="far fa-edit"></i> Edit
+                </button>
+            </a>
+
+            <!-- View Button -->
+            <a href="/blog/{{this.slug}}" target="_blank">
+                <button class="btn btn-sm mr-2">
+                    <i class="far fa-eye"></i> View
+                </button>
+            </a>
+
+            <!-- Archive Button -->
+            <button class="btn btn-sm mr-2 archive" data-id={{this.id}}>
+                <i class="fas fa-archive"></i> Archive
+            </button>
+
+            <button class="btn btn-sm delete" data-id={{this.id}}>
+                <i class="far fa-trash-alt"></i> Delete
+            </button>
+        </div>
+        <div class="d-flex justify-content-end">
+            <p class="small">{{#if this.published}}Published{{else}} Unpublished{{/if}}
+            </p>
+        </div>
+    </div>
+</div>

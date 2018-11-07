@@ -18,9 +18,9 @@ export class PageModel {
     public static getPages(): Promise <Array<IPage>>{
         return new Promise((resolve, reject) => {
             let query = `
-                SELECT id, name, description, content, url, created_at, last_edited, layout, template
+                SELECT id, name, description, content, url, DATE_FORMAT(created_at, "%W %M %e %Y") as created_at, DATE_FORMAT(last_edited, "%W %M %e %Y") as last_edited, layout, template, published
                 FROM pages
-                WHERE published = 1`;
+                WHERE archived = 0`;
 
                 MySQLController.executeQuery(query, [], resolve, reject)
         });
