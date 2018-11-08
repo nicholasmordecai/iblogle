@@ -6,8 +6,19 @@ export class PageController extends BaseController {
     public static getListOfPages() {
         return new Promise((resolve, reject) => {
             PageModel.getPages()
-                .then((posts) => {
-                    resolve(posts);
+                .then((pages) => {
+                    let count: number = pages.length;
+                    let published: number = 0;
+                    for(let page of pages) {
+                        if(page.published) {
+                            published++;
+                        }
+                    }
+                    resolve({
+                        pages: pages,
+                        pageCount: count,
+                        pagesPublished: published
+                    });
                 })
                 .catch((error) => {
                     reject(error);

@@ -3,17 +3,16 @@
         <h3>Pages</h3>
     </div>
     <div class="col-sm-12 col-md-6 d-flex justify-content-end pr-5">
-        <p class="mr-4">Posts: 0</p>
-        <p class="mr-4">Published: 0</p>
+        <p class="mr-4">Posts: {{data.pages.pageCount}}</p>
+        <p class="mr-4">Published: {{data.pages.pagesPublished}}</p>
         <button class="btn btn-md">
             <i class="far fa-plus-square"></i> New
         </button>
     </div>
-
 </div>
 
 <hr> 
 
-{{#each data.pages}}
+{{#each data.pages.pages}}
     {{> pages/page-view-single}}
 {{/each}}
