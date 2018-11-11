@@ -2,7 +2,7 @@
   "ref": "master",
   "path": "typings",
   "compilerOptions": {
-    "module": "umd",
+    "module": "amd",
     "target": "es6",
     "declaration": true,
     "sourceMap": true,

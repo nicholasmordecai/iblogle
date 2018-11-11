@@ -26,26 +26,26 @@ export class Server {
 
     constructor() {
         ServerInitaliser.boot();
-        Server.loadPlugins();
+        // Server.loadPlugins();
     }
 
     private static loadPlugins() {
-        let p = {};
-        let plugins = [
-            {
-                name: 't',
-                url: 't/main'
-            }
-        ]
+        // let p = {};
+        // let plugins = [
+        //     {
+        //         name: 't',
+        //         url: 't/main'
+        //     }
+        // ]
 
-        for(let plugin of plugins) {
-            import('./../../plugins/' + plugin.url)
-            .then((plugin) => {
-                new plugin();
-                // let test = t.default.External();
-                // console.log(new plugin());
-            })
-        }
+        // for(let plugin of plugins) {
+        //     import('./../../plugins/' + plugin.url)
+        //     .then((plugin) => {
+        //         new plugin();
+        //         // let test = t.default.External();
+        //         // console.log(new plugin());
+        //     })
+        // }
     }
 
     public static get config() {
