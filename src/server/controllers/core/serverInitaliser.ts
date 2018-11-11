@@ -23,14 +23,14 @@ import { Log } from './logs';
 import * as hbs from 'express-hbs';
 import * as path from 'path';
 
-
 export class ServerInitaliser extends BaseController {
 
     private static _bootTime: number;
 
     public static boot() {
         process.on('uncaughtException', (error) => {
-            
+            console.log(error);
+            process.exit(1);
         });
 
         ServerInitaliser._bootTime = Date.now();

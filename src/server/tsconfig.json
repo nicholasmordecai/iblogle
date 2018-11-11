@@ -3,12 +3,11 @@
   "path": "typings",
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es6",
+    "target": "es2016",
     "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "outDir": "./../../build/server",
-    "lib": ["es5", "es6", "dom"]
+    "outDir": "./../../build/server"
   },
   "exclude": [
     "node_modules",

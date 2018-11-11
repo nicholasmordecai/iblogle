@@ -2,8 +2,8 @@
   "ref": "master",
   "path": "typings",
   "compilerOptions": {
-    "module": "amd",
-    "target": "es5",
+    "module": "umd",
+    "target": "es6",
     "declaration": true,
     "sourceMap": true,
     "outFile": "./../../../build/website/public/js/build.js"
