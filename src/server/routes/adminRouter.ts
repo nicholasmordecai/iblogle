@@ -10,11 +10,15 @@ import Themes from './admin/themes';
 import Menus from './admin/menus';
 import Users from './admin/users';
 import Pages from './admin/pages';
+import { Authentication } from '../controllers/core/authentication';
 
 let router;
 
 export default () => {
     router = Router();
+
+    router.use('*', Authentication.loggedIn);
+    router.use('*', Authentication.isAdmin);
 
     router.use('/', Dashboard());
     router.use('/settings', Settings());

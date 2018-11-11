@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import { AdminRenderer } from './../../controllers/admin/adminRenderer';
-import { Authentication } from './../../controllers/core/authentication';
 import { Utils } from './../../utils/utils';
 
 // import stats
@@ -11,7 +10,7 @@ let router;
 export default () => {
     router = Router();
 
-    router.get('/general', Authentication.isAdmin, (req, res, next) => {
+    router.get('/general', (req, res, next) => {
         AdminRenderer.render({
             template: 'settings/general',
         }, (html) => {
@@ -19,7 +18,7 @@ export default () => {
         });
     });
 
-    router.get('/logs', Authentication.isAdmin, (req, res, next) => {
+    router.get('/logs', (req, res, next) => {
         AdminRenderer.render({
             template: 'settings/logs',
         }, (html) => {
@@ -27,7 +26,7 @@ export default () => {
         });
     });
 
-    router.get('/stats', Authentication.isAdmin, (req, res, next) => {
+    router.get('/stats', (req, res, next) => {
         AdminRenderer.render({
             template: 'settings/stats',
             data: {
@@ -45,7 +44,7 @@ export default () => {
         });
     });
 
-    router.get('/redirects', Authentication.isAdmin, (req, res, next) => {
+    router.get('/redirects', (req, res, next) => {
         AdminRenderer.render({
             template: 'settings/redirects',
             data: {}

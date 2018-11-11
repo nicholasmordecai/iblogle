@@ -2,15 +2,13 @@ import { Router } from 'express';
 
 import { AdminRenderer } from './../../controllers/admin/adminRenderer';
 import { PostController } from './../../controllers/blog/postController';
-import { Authentication } from '../../controllers/core/authentication';
-import { Utils } from '../../utils/utils';
 
 let router;
 
 export default () => {
     router = Router();
 
-    router.get('/', Authentication.isAdmin, (req, res) => {
+    router.get('/', (req, res) => {
         PostController.getListOfPosts()
             .then((posts) => {
                 AdminRenderer.render({
@@ -29,11 +27,11 @@ export default () => {
             });
     });
 
-    router.get('/new', Authentication.isAdmin, (req, res) => {
+    router.get('/new', (req, res) => {
         res.redirect(`/admin/content/posts/edit?post_id=null&new=true`);
     });
 
-    router.get('/edit/', Authentication.isAdmin, (req, res) => {
+    router.get('/edit/', (req, res) => {
         // if the edit post url contains the query 'new' as it's set to true, just render an empty post editor page
         if(req.query.new) {
             AdminRenderer.render({

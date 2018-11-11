@@ -169,7 +169,7 @@ export class Authentication {
     public static loggedIn(req, res, next) {
         jwt.verify(req.cookies.authorization, secret, (err, decoded) => {
             if (err) {
-                res.redirect('/login');
+                res.redirect('/admin-login');
             } else {
                 req.decoded = decoded;
                 next();

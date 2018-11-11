@@ -1,7 +1,6 @@
 import { Router } from 'express';
 
 import { AdminRenderer } from './../../controllers/admin/adminRenderer';
-import { Authentication } from '../../controllers/core/authentication';
 import { PageController } from './../../controllers/blog/pageController';
 
 let router;
@@ -9,7 +8,7 @@ let router;
 export default () => {
     router = Router();
 
-    router.get('/', Authentication.isAdmin, (req, res) => {
+    router.get('/', (req, res) => {
         PageController.getListOfPages()
             .then((pages) => {
                 AdminRenderer.render({
@@ -24,7 +23,7 @@ export default () => {
             });
     });
 
-    router.get('/:pageID', Authentication.isAdmin, (req, res) => {
+    router.get('/:pageID', (req, res) => {
         PageController.getSinglePage(req.params.pageID)
             .then((page) => {
                 if (page.length < 1) {
