@@ -33,7 +33,8 @@ export default () => {
                         res.render(`templates/${page.template}`, {
                             layout: `${page.layout}`,
                             name: 'nick',
-                            posts: PostController
+                            // posts: PostController
+                            content: page.content
                         });
                     }
                 })

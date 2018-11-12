@@ -106,6 +106,14 @@ export class ServerInitaliser extends BaseController {
             extname: '.hbs'
         }));
 
+        /**
+         * For Dev Only!!!
+         */
+
+        hbs.registerHelper('json', function (context) {
+            return JSON.stringify(context);
+        });
+
         Server._app.use('/', MainRouter());
         Server._app.use('/admin', AdminRouter());
         Server._app.use('/admin-login', AdminLogin());

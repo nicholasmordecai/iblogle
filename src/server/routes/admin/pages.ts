@@ -26,7 +26,6 @@ export default () => {
     router.get('/edit', (req, res) => {
         PageController.getSinglePage(req.query.page_id)
             .then((page) => {
-                console.log(page);
                 if (page.length < 1) {
                     AdminRenderer.render({
                         template: 'pages/edit-page',

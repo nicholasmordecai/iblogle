@@ -29,7 +29,7 @@ export class PageModel {
     public static getPage(id): Promise <Object[] | Error> {
         return new Promise((resolve, reject) => {
             let query = `
-                SELECT id, name, description, content, url, created_at, last_edited, template, layout, topic_taxonimies, archived
+                SELECT id, name, description, content, url, created_at, last_edited, template, layout, archived
                 FROM pages
                 WHERE id = ?`;
 
