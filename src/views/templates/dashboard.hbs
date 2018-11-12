@@ -1,20 +1,42 @@
 <div class="row">
+    <div class="col-sm-12 col-md-6 pl-4">
+        <h3>Dashboard</h3>
+    </div>
+</div>
+
+<div class="row">
     <div class="col-sm-12 col-md-6 col-lg-4">
         <div class="card">
+            <div class="card-header text-center">
+                Top Trending Posts
+            </div>
             <div class="card-body">
-                <div id="test-chart"></div>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's content.</p>
+                <canvas id="top-posts" style="height:30vh; width:100%"></canvas>
             </div>
         </div>
     </div>
 
     <div class="col-sm-12 col-md-6 col-lg-4">
-        column 2
+        <div class="card">
+            <div class="card-header text-center">
+                Post Overview
+            </div>
+            <div class="card-body">
+                <canvas id="post-overview" class="chartjs-render-monitor" style="height:30vh; width:100%"></canvas>
+            </div>
+        </div>
+
     </div>
 
     <div class="col-sm-12 col-md-6 col-lg-4">
-        column 3
+        <div class="card">
+            <div class="card-header text-center">
+                Traffic Quick Look
+            </div>
+            <div class="card-body">
+                <canvas id="traffic-quick-look" class="chartjs-render-monitor" style="height:30vh; width:100%"></canvas>
+            </div>
+        </div>
     </div>
 </div>
 
