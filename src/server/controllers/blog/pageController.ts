@@ -29,8 +29,8 @@ export class PageController extends BaseController {
     public static getSinglePage(id: number): Promise<any> {
         return new Promise((resolve, reject) => {
             PageModel.getPage(id)
-                .then((posts) => {
-                    resolve(posts);
+                .then((page) => {
+                    resolve(page);
                 })
                 .catch((error) => {
                     reject(error);
@@ -41,8 +41,8 @@ export class PageController extends BaseController {
     public static getSinglePageBySlug(slug: string): Promise<any> {
         return new Promise((resolve, reject) => {
             PageModel.getPageByUrl(slug)
-                .then((posts) => {
-                    resolve(posts);
+                .then((page) => {
+                    resolve(page);
                 })
                 .catch((error) => {
                     reject(error);

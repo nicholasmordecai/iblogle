@@ -23,12 +23,13 @@ export default () => {
             });
     });
 
-    router.get('/:pageID', (req, res) => {
-        PageController.getSinglePage(req.params.pageID)
+    router.get('/edit', (req, res) => {
+        PageController.getSinglePage(req.query.page_id)
             .then((page) => {
+                console.log(page);
                 if (page.length < 1) {
                     AdminRenderer.render({
-                        template: 'pages/edit-pages',
+                        template: 'pages/edit-page',
                         data: { editorRequired: true, noPage: true }
                     }, (html) => {
                         res.status(200).send(html);
