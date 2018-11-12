@@ -44,9 +44,30 @@ export class PageModel {
             let query = `
                 SELECT id, name, description, content, url, created_at, last_edited
                 FROM pages
-                WHERE url = ?`;
+                WHERE url = ?;`;
 
             let params = [url];
+
+            MySQLController.executeQuery(query, params, resolve, reject)
+        });
+    }
+
+    public static updatePage(id: string, name: string, description: string, content: string, url: string, published: string, layout: string, template: string): Promise <Object[] | Error> {
+        return new Promise((resolve, reject) => {
+            let query = `
+            UPDATE 
+            pages SET
+                name = ?,
+                description = ?,
+                content = ?,
+                url = ?,
+                last_edited = NOW(),
+                published = ?,
+                layout = ?,
+                template = ?
+            WHERE id = ?;`;
+
+            let params = [name, description, content, url, published, layout, template, id];
 
             MySQLController.executeQuery(query, params, resolve, reject)
         });

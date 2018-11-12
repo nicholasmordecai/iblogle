@@ -10,6 +10,7 @@ import Login from './login';
 import Topics from './topics';
 import User from './user';
 import Logs from './logs';
+import Page from './page';
 
 var csrfProtection = csrf({ cookie: true });
 let router;
@@ -27,6 +28,7 @@ export default () => {
     router.use('/topics', Topics());
     router.use('/user', User());
     router.use('/logs', Logs())
+    router.use('/page', Page())
 
     /**
      * TODO make the secret a database field

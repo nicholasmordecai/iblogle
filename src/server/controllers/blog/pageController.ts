@@ -1,5 +1,4 @@
 import { BaseController } from '../baseController';
-
 import { PageModel } from '../../models/mysql/pages';
 
 export class PageController extends BaseController {
@@ -47,6 +46,30 @@ export class PageController extends BaseController {
                 .catch((error) => {
                     reject(error);
                 });
+        })
+    }
+
+    public static updatePage(payload, id: string): Promise<any> {
+        return new Promise((resolve, reject) => {
+            /**
+             * TODO do serverside validation here
+             */
+            let name = payload.name;
+            let description = payload.description;
+            let content = payload.content;
+            let url = payload.url;
+            let published = payload.published;
+            let layout = payload.layout;
+            let template = payload.template;
+
+            PageModel.updatePage(name, description, content, url, published, layout, template, id)
+            .then((data) => {
+                resolve(data);
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error);
+            })
         })
     }
     
