@@ -1,11 +1,26 @@
 <!-- Comments Form -->
 <div class="col-12">
     <div class="card my-4">
-        <h5 class="card-header">Leave a Comment:</h5>
+        <h5 class="card-header">Leave a Comment</h5>
         <div class="card-body">
             <form>
-                <div class="form-group">
-                    <textarea class="form-control" rows="3"></textarea>
+                <div class="form-group row">
+                    <label for="commentName" class="col-sm-2 col-form-label">Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="commentName" placeholder="John Smith">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="commentEmail" class="col-sm-2 col-form-label">Email</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="commentEmail" placeholder="john.smith@gmail.com">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="commentText" class="col-sm-2 col-form-label">Comment</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" id="commentText" rows="3"></textarea>
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
