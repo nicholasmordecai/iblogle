@@ -23,7 +23,7 @@ function constructURL(element) {
 }
 
 function getHTML(element, url) {
-    console.log(url);
+    // console.log(url);
     /**
      * Supports IE7+
      */

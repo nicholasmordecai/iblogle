@@ -1,4 +1,4 @@
-(function ($) {
+(function ( $ ) { 
     "use strict"; // Start of use strict
 
     // Floating label headings for the contact form
@@ -37,5 +37,4 @@
                 this.previousTop = currentTop;
             });
     }
-
-})(jQuery); // End of use strict
+}( jQuery ));
