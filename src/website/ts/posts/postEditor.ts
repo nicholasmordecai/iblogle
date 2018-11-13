@@ -9,6 +9,52 @@ namespace Website {
             this._id = Utils.getParameterByName('post_id');
             this._isNew = Utils.getParameterByName('new');
             this.addEventListeners();
+            this.populateTemplates();
+            this.populateLayouts();
+        }
+
+        private populateTemplates() {
+            Network.get('/api/theme/list-templates', (templates) => {
+                let html = '';
+                let list = [];
+                let current = $('#post-template').data('current');
+
+                for (let template of templates) {
+                    if (template === current) {
+                        html += `<option selected="selected">${current}</option>`;
+                    } else {
+                        list.push(template);
+                    }
+                }
+
+                for (let template of list) {
+                    html += `<option>${template}</option>`;
+                }
+
+                $('#post-template').html(html);
+            });
+        }
+
+        private populateLayouts() {
+            Network.get('/api/theme/list-layouts', (layouts) => {
+                let html = '';
+                let list = [];
+                let current = $('#post-template').data('current');
+
+                for (let layout of layouts) {
+                    if (layout === current) {
+                        html += `<option selected="selected">${current}</option>`;
+                    } else {
+                        list.push(layout);
+                    }
+                }
+
+                for (let layout of list) {
+                    html += `<option>${layout}</option>`;
+                }
+
+                $('#post-layout').html(html);
+            });
         }
 
         private addEventListeners() {

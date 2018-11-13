@@ -1,11 +1,14 @@
 <div class="row">
     <div class="col-12 text-right" id="post-actions">
-        <a href="/blog/{{data.post.slug}}" target="_blank"><button type="submit" class="btn btn-success mb-2 pull-left" id="btn-preview">View</button></a>
+        <a href="/admin/content/posts"><button type="submit" class="btn mb-2 pull-left" id="btn-back">Back</button></a>
+        <a href="/blog/{{data.post.slug}}" target="_blank"><button type="submit" class="btn btn-success mb-2" id="btn-preview">View</button></a>
         <button type="submit" class="btn btn-primary mb-2" id="btn-save">Save</button>
         <button type="submit" class="btn btn-warning mb-2" id="btn-archive">Archive</button>
         <button type="submit" class="btn btn-danger mb-2" id="btn-delete">Delete</button>
     </div>
     <div class="col-12 mb-3">
+        <hr>
+        <h4>Post Settings</h4>
         <form>
             <div class="form-row">
                 <!-- Post Title -->
@@ -29,35 +32,65 @@
                 <!-- Post Template -->
                 <div class="form-group col-md-3">
                     <label for="post-title">Template</label>
-                    <input type="text" class="form-control" id="post-template" placeholder="" value="{{data.post.template}}">
+                    <select class="form-control" id="post-template" placeholder="" data-current="{{data.post.template}}">
+                        
+                    </select>
                 </div>
 
                 <!-- Post Layout -->
                 <div class="form-group col-md-3">
                     <label for="post-title">Layout</label>
-                    <input type="text" class="form-control" id="post-layout" placeholder="" value="{{data.post.layout}}">
-                </div>
-
-                <!-- Published -->
-                <div class="form-group col-md-3">
-                    <div class="form-check">
-                        <label class="form-check-label mb-2" for="post-published">
-                            Published
-                        </label>
-                        <br>
-                        <label class="switch">
-                            <input type="checkbox" id="post-published" {{#if data.post.published}}checked{{/if}}>
-                            <span class="slider round"></span>
-                        </label>
-                    </div>
+                    <select class="form-control" id="post-layout" placeholder="" data-current="{{data.post.layout}}">
+                        
+                    </select>
                 </div>
             </div>
         </form>
     </div>
-    <div class="col-12">
+    <div class="col-12 mb-5">
         <div id="froala-editor">{{{data.post.content}}}</div>
     </div>
 
+    <div class="col-12">
+        <hr>
+        <h4>Publish Settings</h4>
+        <div class="form-row">
+            <!-- Published -->
+            <div class="form-group col-md-2">
+                <div class="form-check">
+                    <label class="form-check-label mb-2" for="post-published">
+                        Published
+                    </label>
+                    <br>
+                    <label class="switch">
+                        <input type="checkbox" id="post-published" {{#if data.post.published}} checked{{/if}}> <span
+                            class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Private -->
+            <div class="form-group col-md-2">
+                <div class="form-check">
+                    <label class="form-check-label mb-2" for="post-published">
+                        Private
+                    </label>
+                    <br>
+                    <label class="switch">
+                        <input type="checkbox" id="post-published" {{#if data.post.published}} checked{{/if}}> <span
+                            class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group col-md-3">
+                <label for="post-title">Password</label>
+                <input type="text" class="form-control" id="post-layout" placeholder="" value="********">
+            </div>
+        </div>
+        </form>
+    </div>
 </div>
 
 <script>

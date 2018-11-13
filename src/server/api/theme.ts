@@ -49,5 +49,19 @@ export default () => {
         })
     });
 
+    router.get('/list-templates', (req, res, next) => {
+        ThemeController.getTemplates()
+        .then((templates) => {
+            res.status(200).json(templates);
+        })
+    });
+
+    router.get('/list-layouts', (req, res, next) => {
+        ThemeController.getLayouts()
+        .then((layouts) => {
+            res.status(200).json(layouts);
+        })
+    })
+
     return router;
 }

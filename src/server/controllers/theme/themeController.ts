@@ -5,6 +5,7 @@ import { ThemeModel } from '../../models/mysql/themes';
 import { FileController } from '../core/fileController';
 import { Utils } from '../../utils/utils';
 import { PreviewController } from './previewController';
+import { Server } from './../../main';
 
 export class ThemeController extends BaseController {
 
@@ -36,6 +37,22 @@ export class ThemeController extends BaseController {
                 .catch((error) => {
                     reject(error);
                 });
+        });
+    }
+
+    public static getTemplates() {
+        return new Promise((resolve, reject) => {
+            Utils.listFiles(`./themes/${Server.config.active_theme}/templates`, (templates) => {
+                resolve(templates);
+            });
+        });
+    }
+
+    public static getLayouts() {
+        return new Promise((resolve, reject) => {
+            Utils.listFiles(`./themes/${Server.config.active_theme}/layouts`, (layouts) => {
+                resolve(layouts);
+            });
         });
     }
 

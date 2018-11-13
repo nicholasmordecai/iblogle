@@ -1,8 +1,6 @@
 import { doesNotReject } from "assert";
 
-var dir = require('node-dir');
 const dirTree = require('directory-tree');
-const ext: string = '.hbs';
 const uuidv4 = require('uuid/v4');
 
 import { FileController } from './../controllers/core/fileController';
@@ -28,6 +26,25 @@ export class Utils {
 
     public static walkDirectory(directory: string, callback: Function) {
         this.readFilesInDirectory(directory, callback);
+    }
+
+    public static listFiles(directory: string, callback: Function) {
+        let tree = dirTree(directory);
+        let list = this.flattenList(tree.children, []);
+        callback(list);
+    }
+
+    private static flattenList(tree, list) {
+        for(let file of tree) {
+            if(file.type === 'file') {
+                let fileName: string = file.name;
+                list.push(fileName.slice(0, -4));
+            } else if(file.children.length > 0) {
+                this.flattenList(file.children, list);
+            }
+        }
+
+        return list;
     }
 
     public static readFilesInDirectory(directory: string, callback: Function) {
@@ -85,8 +102,8 @@ export class Utils {
     }
 
     public static findWithAttr(array, attr, value) {
-        for(let i = 0; i < array.length; i += 1) {
-            if(array[i][attr] === value) {
+        for (let i = 0; i < array.length; i += 1) {
+            if (array[i][attr] === value) {
                 return i;
             }
         }

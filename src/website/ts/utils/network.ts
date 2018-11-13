@@ -47,16 +47,16 @@ namespace Website {
         }
 
         public static get(url: string, successCallback?: Function, errorCallback?: Function) {
-            Animations.showLoading();
+            // Animations.showLoading();
             $.ajax({
                 url: url,
                 type: 'GET',
                 success: function (data) {
-                    Animations.hideLoading();
+                    // Animations.hideLoading();
                     if (successCallback) successCallback(data)
                 },
                 error: function (error) {
-                    Animations.hideLoading();
+                    // Animations.hideLoading();
                     if (errorCallback) errorCallback(error);
                 }
             });
