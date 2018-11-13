@@ -15,6 +15,7 @@ export default () => {
         let description: string = req.body.description;
         let userID: string = req.decoded.cid;
         let published: number = 0;
+        let timeToRead: number = req.body.timeToRead;
         let slug: string = req.body.slug;
         let template: string = req.body.template;
         let layout: string = req.body.layout;
@@ -30,7 +31,7 @@ export default () => {
          */
 
         if (isNew) {
-            PostController.createNewPost(content, title, description, userID, published, slug, template, layout)
+            PostController.createNewPost(content, title, description, userID, published, slug, template, layout, timeToRead)
                 .then((result) => {
                     res.status(200).json({id: result['insertId']});
                 })
@@ -38,7 +39,7 @@ export default () => {
                     res.status(500).json(error);
                 });
         } else {
-            PostController.updatePost(id, content, title, description, userID, published, slug, template, layout)
+            PostController.updatePost(id, content, title, description, userID, published, slug, template, layout, timeToRead)
                 .then((result) => {
                     res.status(200).json('ok');
                 })

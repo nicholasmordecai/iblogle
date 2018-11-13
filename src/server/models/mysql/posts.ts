@@ -18,7 +18,7 @@ export class PostModel {
     public static getAllPosts(): Promise<Array<IPost>> {
         return new Promise((resolve, reject) => {
             let query = `
-            SELECT p.id, p.content, p.title, p.description, p.date_created, p.last_updated, p.slug, p.published, u.first_name
+            SELECT p.id, p.content, p.title, p.description, p.date_created, p.last_updated, p.slug, p.published, u.first_name, time_to_read
             FROM posts as p
             LEFT JOIN users AS u ON p.user_id = u.id
             WHERE archived = 0;
@@ -31,7 +31,7 @@ export class PostModel {
     public static getPost(id): Promise<Array<IPost>> {
         return new Promise((resolve, reject) => {
             let query = `
-                SELECT id, content, title, description, published, user_id, date_created, last_updated, slug, template, layout
+                SELECT id, content, title, description, published, user_id, date_created, last_updated, slug, template, layout, time_to_read
                 FROM posts
                 WHERE id = ?
                 AND archived = 0;`;
@@ -55,6 +55,7 @@ export class PostModel {
                     p.slug,
                     p.template,
                     p.layout,
+                    p.time_to_read,
                     u.id AS author_id,
                     u.name AS author_name,
                     u.profile as author_profile
@@ -70,7 +71,7 @@ export class PostModel {
         });
     }
 
-    public static createPost(content: string, title: string, description: string, userID: string, published: number, slug: string, template: string, layout: string): Promise<Array<any>> {
+    public static createPost(content: string, title: string, description: string, userID: string, published: number, slug: string, template: string, layout: string, timeToRead: number): Promise<Array<any>> {
         return new Promise((resolve, reject) => {
             let query = `
                 INSERT INTO 
@@ -83,16 +84,17 @@ export class PostModel {
                     published, 
                     slug, 
                     template, 
-                    layout)
-                VALUES (?, ?, ?, ?, NOW(), ?, ?, ?, ?);`;
+                    layout,
+                    time_to_read)
+                VALUES (?, ?, ?, ?, NOW(), ?, ?, ?, ?, ?);`;
 
-            let params = [content, title, description, userID, published, slug, template, layout];
+            let params = [content, title, description, userID, published, slug, template, layout, timeToRead];
 
             MySQLController.executeQuery(query, params, resolve, reject)
         });
     }
 
-    public static updatePost(id: string, content: string, title: string, description: string, userID: string, published: number, slug: string, template: string, layout: string): Promise<Array<any>> {
+    public static updatePost(id: string, content: string, title: string, description: string, userID: string, published: number, slug: string, template: string, layout: string, timeToRead: number): Promise<Array<any>> {
         return new Promise((resolve, reject) => {
             let query = `
                 UPDATE 
@@ -104,11 +106,12 @@ export class PostModel {
                     published = ?,
                     slug = ?,
                     template = ?,
-                    layout = ?
+                    layout = ?,
+                    time_to_read = ?
                 WHERE id = ?
                 `;
 
-            let params = [content, title, description, published, slug, template, layout, id];
+            let params = [content, title, description, published, slug, template, layout, timeToRead, id];
 
             MySQLController.executeQuery(query, params, resolve, reject)
         });

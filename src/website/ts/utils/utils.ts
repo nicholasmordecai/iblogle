@@ -28,5 +28,9 @@ namespace Website {
         
             return (query.length > 2 ? query + "&" : "?") + (newval ? param + "=" + newval : '');
         }
+
+        public static wordCountToTTR(numberOfWords) {
+            return Math.floor(numberOfWords / 228);
+        }
     }
 }

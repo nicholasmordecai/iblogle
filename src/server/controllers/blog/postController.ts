@@ -47,6 +47,7 @@ export class PostController extends BaseController {
 
             Promise.all([blogData, topicData])
                 .then((data) => {
+                    console.log(data);
                     resolve(data);
                 })
                 .catch((error) => {
@@ -55,9 +56,9 @@ export class PostController extends BaseController {
         });
     }
 
-    public static createNewPost(content: string, title: string, description: string, userID: string, published: number, slug: string, template: string, layout: string): Promise<any[]> {
+    public static createNewPost(content: string, title: string, description: string, userID: string, published: number, slug: string, template: string, layout: string, timeToRead: number): Promise<any[]> {
         return new Promise((resolve, reject) => {
-            PostModel.createPost(content, title, description, userID, published, slug, template, layout)
+            PostModel.createPost(content, title, description, userID, published, slug, template, layout, timeToRead)
                 .then((result) => {
                     resolve(result);
                 })
@@ -67,9 +68,9 @@ export class PostController extends BaseController {
         });
     }
 
-    public static updatePost(postID: string, content: string, title: string, description: string, userID: string, published: number, slug: string, template: string, layout: string): Promise<any> {
+    public static updatePost(postID: string, content: string, title: string, description: string, userID: string, published: number, slug: string, template: string, layout: string, timeToRead: number): Promise<any> {
         return new Promise((resolve, reject) => {
-            PostModel.updatePost(postID, content, title, description, userID, published, slug, template, layout)
+            PostModel.updatePost(postID, content, title, description, userID, published, slug, template, layout, timeToRead)
                 .then((results) => {
                     resolve(results);
                 })

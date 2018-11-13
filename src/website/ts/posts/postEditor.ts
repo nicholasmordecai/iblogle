@@ -21,15 +21,18 @@ namespace Website {
                 heightMin: 500,
                 toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'inlineClass', 'clearFormatting', '|', 'emoticons', 'fontAwesome', 'specialCharacters', '-', 'paragraphFormat', 'lineHeight', 'paragraphStyle', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '|', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '-', 'insertHR', 'selectAll', 'print', 'help', 'html', 'fullscreen', '|', 'undo', 'redo']
             });
-
         }
 
         private save(e) {
             $('div#froala-editor')['froalaEditor']('events.trigger', 'form.submit');
+            let html = $('div#froala-editor')['froalaEditor']('html.get');
+            let words = $("<div>").html(html).text();
+            let wordCount = words.split(' ').length;
             Network.put(`/api/post/save${window.location.search}`, {
                 title: $('#post-title').val(),
                 description: $('#post-description').val(),
-                content: $('div#froala-editor')['froalaEditor']('html.get'),
+                content: html,
+                timeToRead: Utils.wordCountToTTR(wordCount),
                 published: $('#post-published').is(':checked'),
                 slug: $('#post-slug').val(),
                 template: $('#post-template').val(),
