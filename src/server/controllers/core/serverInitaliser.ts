@@ -127,6 +127,9 @@ export class ServerInitaliser extends BaseController {
         Server._app.use(express.static(__dirname + '/../../../website/public'));
         Server._app.use("/public/css", express.static(global['appRoot'] + `/../../themes/${Server.config.active_theme}/css`));
         Server._app.use("/public/js", express.static(global['appRoot'] + `/../../themes/${Server.config.active_theme}/js`));
+
+        // make the uploads folder publically available
+        Server._app.use("/public/uploads", express.static(global['appRoot'] + `/../../uploads/`));
         Log.info('Static Paths Configured:');
     }
 

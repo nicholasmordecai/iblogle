@@ -58,10 +58,20 @@ export class PostModel {
                     p.time_to_read,
                     u.id AS author_id,
                     u.name AS author_name,
-                    u.profile as author_profile
+                    u.profile AS author_profile,
+                    thumbnail.title AS thumbnail_title,
+                    thumbnail.alt AS thumbnail_alt,
+                    thumbnail.src AS thumbnail_src,
+                    header.title AS header_title,
+                    header.alt AS header_alt,
+                    header.src AS header_src
                 FROM posts AS p
                 LEFT JOIN users AS u
                     ON p.user_id = u.id
+                LEFT JOIN media AS thumbnail
+                    ON p.thumbnail_media_id = thumbnail.id
+                LEFT JOIN media AS header
+                    ON p.header_media_id = header.id 
                 WHERE slug = ?
                 AND archived = 0;`;
 
@@ -148,7 +158,35 @@ export class PostModel {
     public static getPostsByTopic(topic: string, limit: number = 0, iterationCount: number = 10): Promise<IPost[]> {
         return new Promise((resolve, reject) => {
             let query = `
-                SELECT * FROM posts WHERE id IN (
+                SELECT  
+                    p.id,
+                    p.content,
+                    p.title,
+                    p.description,
+                    DATE_FORMAT(p.date_created, "%W %M %e %Y") as date_created,
+                    p.last_updated,
+                    p.slug,
+                    p.template,
+                    p.layout,
+                    p.time_to_read,
+                    u.id AS author_id,
+                    u.name AS author_name,
+                    u.profile AS author_profile,
+                    thumbnail.title AS thumbnail_title,
+                    thumbnail.alt AS thumbnail_alt,
+                    thumbnail.src AS thumbnail_src,
+                    header.title AS header_title,
+                    header.alt AS header_alt,
+                    header.src AS header_src
+                FROM posts AS p
+                LEFT JOIN users AS u
+                    ON p.user_id = u.id
+                LEFT JOIN media AS thumbnail
+                    ON p.thumbnail_media_id = thumbnail.id
+                LEFT JOIN media AS header
+                    ON p.header_media_id = header.id                 
+
+                WHERE p.id IN (
                     SELECT post_id FROM post_topic
                     LEFT JOIN topic ON post_topic.topic_id = topic.id
                     WHERE topic.slug=?

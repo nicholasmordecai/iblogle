@@ -82,7 +82,8 @@ export default () => {
             .then((posts) => {
                 res.render(`templates/topic-list`, {
                     layout: `main`,
-                    posts: posts
+                    posts: posts,
+                    slug: slug
                 });
             })
             .catch((error) => {
