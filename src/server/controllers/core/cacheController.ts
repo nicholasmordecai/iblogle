@@ -18,7 +18,7 @@ export class CacheController extends BaseController {
         CacheController._cache = {};
     }
 
-    public static findInCache(queryKey: string, parameters: string[]): Array<any> {
+    public static findInCache(queryKey: string, parameters: Array<number | string | string[]>): Array<any> {
         // check that there is a base instance of a query cache from the query key
         if(CacheController._cache[queryKey]) {
             // store a locally scoped cachedQueries array for faster lookup
@@ -44,7 +44,7 @@ export class CacheController extends BaseController {
         }
     }
 
-    public static createCache (queryKey: string, parameters: string[], results: Array<any>): void {
+    public static createCache (queryKey: string, parameters: Array<number | string | string[]>, results: Array<any>): void {
         // if a array entry of cached queries doesn't exist under the query key, then create it
         if(!CacheController._cache[queryKey]) {
             CacheController._cache[queryKey] = { cachedQueries: [] };
@@ -74,7 +74,7 @@ export class CacheController extends BaseController {
         CacheController._cache = {};
     }
 
-    private static generateHash(queryKey: string, parameters: string[]): string {
+    private static generateHash(queryKey: string, parameters: Array<number | string | string[]>): string {
         return SHA1.createHash('sha1').update(queryKey + ',' + parameters.concat(',')).digest('base64');
     }
 

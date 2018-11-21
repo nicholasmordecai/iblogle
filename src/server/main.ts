@@ -55,6 +55,7 @@ export class Server {
     public static set config(config: ServerConfig) {
         this._config = config;
     }
+
 }
 
 new Server();

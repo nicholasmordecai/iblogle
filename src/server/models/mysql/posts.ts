@@ -217,7 +217,7 @@ export class PostModel {
             ) 
             
             AND p.archived = 0;`;
-            let params = [topics];
+            let params: Array<string | number| string[]> = [topics];
 
             MySQLController.executeQuery(query, params, resolve, reject, 'getPostByTopics')
         });

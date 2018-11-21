@@ -34,7 +34,7 @@ export class MySQLController {
         }
     }
 
-    public static executeQuery(query, params, resolve, reject, queryKey: string = null) {
+    public static executeQuery(query: string, params: Array<number | string | string[]>, resolve: Function, reject: Function, queryKey: string = null) {
         
         if (queryKey) {
             let results = CacheController.findInCache(queryKey, params);
