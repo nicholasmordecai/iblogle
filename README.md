@@ -1,5 +1,7 @@
 # iBlogle
 
+[![CircleCI](https://circleci.com/gh/megmut/iblogle.svg?style=svg)](https://circleci.com/gh/megmut/iblogle)
+
 
 A feature rich, very lightweight and scalable alternative to wordpress, joomla and drupel. This software is **not** really intended for users with zero web-dev experience, but is heading in that direction.
 
