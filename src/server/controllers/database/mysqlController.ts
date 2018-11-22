@@ -18,11 +18,11 @@ export class MySQLController {
             });
         } else {
             pool = mysql.createPool({
-                host: process.env.MYSQL_ADDRESS,
-                port: parseInt(process.env.MYSQL_PORT),
-                database: process.env.MYSQL_NAME,
-                user: process.env.MYSQL_USERNAME,
-                password: process.env.MYSQL_PASSWORD
+                host: process.env.MYSQL_ADDRESS as string,
+                port: parseInt(process.env.MYSQL_PORT as string),
+                database: process.env.MYSQL_NAME as string,
+                user: process.env.MYSQL_USERNAME as string,
+                password: process.env.MYSQL_PASSWORD as string
             });
             pool.getConnection((err, connection) => {
                 if (!err) {
@@ -34,7 +34,7 @@ export class MySQLController {
         }
     }
 
-    public static executeQuery(query: string, params: Array<number | string | string[]>, resolve: Function, reject: Function, queryKey: string = null) {
+    public static executeQuery(query: string, params: Array<number | string | string[]>, resolve: Function, reject: Function, queryKey?: string) {
         
         if (queryKey) {
             let results = CacheController.findInCache(queryKey, params);

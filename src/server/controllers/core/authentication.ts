@@ -188,15 +188,15 @@ export class Authentication {
      * 
      * @todo create a global variable for the iss
      */
-    private static generateToken(payload: Object, remember: boolean): string {
-        let token: string = null;
+    private static generateToken(payload: Object, remember: boolean): string | Error | never {
+        let token: string;
         try {
             token = jwt.sign(payload, secret, {
                 expiresIn: (remember) ? '14d' : '1d'
             });
-        } catch (err) {
-            console.log(err);
+            return token;
+        } catch (error) {
+            return new Error(error);
         }
-        return token;
     }
 }

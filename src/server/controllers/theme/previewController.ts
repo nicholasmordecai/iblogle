@@ -18,7 +18,7 @@ export class PreviewController extends BaseController {
         PreviewController._previewReferences = {};
     }
 
-    public static getInstance(id: string): IPreview {
+    public static getInstance(id: string): IPreview | null | never {
         for(let i in this._previewReferences) {
             if(this._previewReferences[i].id === id) {
                 return this._previewReferences[i];

@@ -18,11 +18,12 @@ export class CacheController extends BaseController {
         CacheController._cache = {};
     }
 
-    public static findInCache(queryKey: string, parameters: Array<number | string | string[]>): Array<any> {
+    public static findInCache(queryKey: string, parameters: Array<number | string | string[]>): Array<any> | false | never {
         // check that there is a base instance of a query cache from the query key
         if(CacheController._cache[queryKey]) {
             // store a locally scoped cachedQueries array for faster lookup
             let cachedQueries = CacheController._cache[queryKey].cachedQueries;
+            
 
             // generate a new hash from the queryKey and the parameters
             let hashLookup = CacheController.generateHash(queryKey, parameters);
@@ -33,14 +34,14 @@ export class CacheController extends BaseController {
                 if(hashLookup === cacheItem.hash) {
                     return cacheItem.results;
                 } else {
-                    return null;
+                    return false;
                 }
             }
 
             // if there are no cachedQueries, but it exists as an empty array, then return null
-            return null;
+            return false;
         } else {
-            return null;
+            return false;
         }
     }
 
@@ -57,15 +58,15 @@ export class CacheController extends BaseController {
         };
 
         // add the new cache item to the array of cached queries
-        CacheController._cache[queryKey].cachedQueries.push(cacheItem);
+            CacheController._cache[queryKey].cachedQueries.push(cacheItem);
     }
 
     public static removeFromCache(queryKey: string | string[]): void {
         if(typeof(queryKey) === 'string') {
-            CacheController._cache[queryKey] = null;
+            delete CacheController._cache[queryKey];
         } else {
             for(let key of queryKey) {
-                CacheController._cache[key] = null; 
+                delete CacheController._cache[key];
             }
         }
     }
